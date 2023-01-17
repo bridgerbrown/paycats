@@ -1,3 +1,5 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -6,6 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      Hind: ['Hind Vadodara', 'sans-serif'],
+    },
+    fontSize: {
+      base: '1.05rem',
+    }
   },
   plugins: [],
 }
