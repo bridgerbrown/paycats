@@ -8,7 +8,7 @@ export default function Navbar() {
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
             <div className='flex'>
                 <Image
-                    src="/paycats-logo.png"
+                    src="/paycats-logo-whiteeyes.png"
                     width={200}
                     height={44.48}
                     alt="PayCats logo"
@@ -27,18 +27,22 @@ export default function Navbar() {
                     <Link href="/wallet" className={navItemStyle}>
                         Wallet
                     </Link>
-                    <Link href="/search" className={navItemStyle}>
-                        Search
-                    </Link>
                     <Link href="/about" className={navItemStyle}>
                         About
                     </Link>
                 </div>
             </div>
             <div className='flex items-center'>
+                <Image
+                    src="/notification-bell.png"
+                    width={139}
+                    height={163}
+                    alt="notifications bell"
+                    className='w-5 h-6 mr-7 cursor-pointer'
+                />
                 <Link 
                     href="/profile/login"
-                    className='font-bold text-white tracking-wider mr-5 text-xs'>
+                    className='font-bold text-white tracking-wider mr-7 text-xs'>
                     LOG IN
                 </Link>
             </div>
