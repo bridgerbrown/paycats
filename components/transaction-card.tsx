@@ -23,7 +23,8 @@ export default function TransactionCard() {
                         <p className='text-sm text-slate-600 font-light mr-1'>3h</p>
                         <div className='w-3 h-3 border border-slate-500 rounded-full'></div>
                     </div>
-                    <p className='mt-2'>
+                    <p className='mt-2 max-w-xl'>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, veniam?
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, veniam?
                     </p>
                     <div className='flex mt-5'>
