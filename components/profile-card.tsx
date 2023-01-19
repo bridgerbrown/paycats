@@ -4,7 +4,7 @@ import Image from 'next/image'
 export default function ProfileCard() {
     return (
         <div className='w-screen'>
-            <div className='flex justify-center mt-20 mb-7 font-Hind'>
+            <div className='rounded-lg border border-slate-300 flex justify-center py-10 mt-0 mb-6 font-Hind bg-white mx-72'>
                 <div className='flex flex-col justify-center items-center'>
                     <Image 
                         src="/cat1.jpg"
@@ -18,6 +18,9 @@ export default function ProfileCard() {
                         <p className='font-thin text-slate-500 tracking-wide'>@Cosmo-Cat</p>
                         <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
                         <p className='font-semibold tracking-wider'>10 friends</p>
+                    </div>
+                    <div className='mt-6 mb-4 flex justify-center items-center'>
+                        <button className='font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1 px-4'>Edit</button>
                     </div>
                 </div>
             </div>

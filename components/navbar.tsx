@@ -7,13 +7,15 @@ export default function Navbar() {
     return (
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
             <div className='flex'>
-                <Image
-                    src="/paycats-logo-whiteeyes.png"
-                    width={200}
-                    height={44.48}
-                    alt="PayCats logo"
-                    className='ml-14'
-                />
+                <Link href="/" className="">
+                    <Image
+                        src="/paycats-logo-whiteeyes.png"
+                        width={200}
+                        height={44.48}
+                        alt="PayCats logo"
+                        className='ml-14'
+                    />
+                </Link>
                 <div className='flex items-center text-white px-6 font-Hind tracking-wide'>
                     <Link href="/pay-request" className='text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                         Pay/Request
