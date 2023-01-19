@@ -10,7 +10,7 @@ export default function TransactionCard() {
                     width={498}
                     height={500}
                     alt="Cat headshot number one"
-                    className='object-cover w-20 h-20 rounded-full border border-slate-500'
+                    className='object-cover w-20 h-20 rounded-full border border-slate-400'
                 />
             </div>
             <div className='ml-4 mt-2'>
