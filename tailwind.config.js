@@ -7,7 +7,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '192': '49.5rem',
+      },
+      spacing: {
+        '1/6': '16%',
+      }
+    },
     fontFamily: {
       Hind: ['Hind Vadodara', 'sans-serif'],
     },
