@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function TransactionCard() {
     return (
-        <div className='flex justify-center mt-5 px-5 w-full'>
+        <div className='bg-white w-192 flex justify-center pt-5 px-5 border-slate-300 border-x '>
             <div className=''>
                 <Image 
                     src="/cat1.jpg"

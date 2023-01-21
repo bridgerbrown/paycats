@@ -13,6 +13,9 @@ module.exports = {
       },
       spacing: {
         '1/6': '16%',
+      },
+      padding: {
+        '42': '10.78rem'
       }
     },
     fontFamily: {

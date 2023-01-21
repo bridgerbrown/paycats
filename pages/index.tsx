@@ -6,18 +6,19 @@ import TransactionCard from '@/components/transaction-card'
 export default function Home() {
   return (
     <>
-      <div className='w-screen relative'>
+      <div className='w-screen relative bg-stone-100'>
         <Navbar />
         <div>
           <SearchBar />
         </div>
-        <div className='mx-40 pb-60 flex-col justify-center items-center content-center'>
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
-          <TransactionCard />
+        <div className=' pb-60 flex flex-col justify-center items-center'>
+            <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
+            <TransactionCard />
+            <TransactionCard />
+            <TransactionCard />
+            <TransactionCard />
+            <TransactionCard />
+            <div className='rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
         </div>
         <Footer />
       </div>
