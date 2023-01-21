@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Hind_Vadodara, Noto_Sans_Display } from '@next/font/google'
+import { AuthContextProvider } from '@/components/context/AuthContext'
 
 const hindVadodara = Hind_Vadodara({
   subsets: ['latin'],
@@ -17,7 +18,9 @@ const notoSansDisplay = Noto_Sans_Display({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${notoSansDisplay.variable} font-serif`}>
-      <Component {...pageProps} />
+      <AuthContextProvider>
+        <Component {...pageProps} />
+      </AuthContextProvider>
     </main>
   )
 }
