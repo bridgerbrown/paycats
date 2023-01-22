@@ -2,35 +2,24 @@ import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndP
 import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
 import { auth } from "../firebase/firebase.config"
 
-interface AuthUser {
-    email: string;
-    uid: string;
-}
-
 type AuthContextType = {
-    user: AuthUser[];
-    signUp: (email: string, password: string) => {},
-    logIn: (email: string, password: string) => {},
-    logOut: () => {},
+    children: ReactNode
 }
 
-const AuthContext = createContext<AuthContextType | null>(null)
+const AuthContext = createContext<any>({} as AuthContextType)
 
 export const useAuth = () => useContext(AuthContext)
 
-export const AuthContextProvider: FC<ReactNode> = ({children}) => {
-    const [user, setUser] = useState({})
+export const AuthContextProvider = ({children}: AuthContextType) => {
+    const [user, setUser] = useState<any>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUser({
-                    email: user.email,
-                    uid: user.uid,
-                })
+                setUser(user.email)
             } else {
-                setUser({ email: null, uid: null })
+                setUser(null)
             }
         })
         setLoading(false)
@@ -47,7 +36,7 @@ export const AuthContextProvider: FC<ReactNode> = ({children}) => {
       };
     
       const logOut = async () => {
-        setUser({ email: null, uid: null });
+        setUser(null);
         await signOut(auth);
       };
 
