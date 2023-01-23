@@ -22,6 +22,7 @@ module.exports = {
       Hind: ['Hind Vadodara', 'sans-serif'],
     },
     fontSize: {
+      xs: '0.75rem',
       sm: '0.9rem',
       base: '1.05rem',
       xl: '1.25rem',

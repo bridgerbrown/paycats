@@ -1,9 +1,92 @@
 import React from 'react'
+import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
+import Link from 'next/link'
+import { FormProvider, useForm, resolver } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { useAuth } from '@/components/context/AuthContext'
 
-export default function Login() {
-    return (
-        <div>
-            <h1>hi</h1>
-        </div>
-    )
+type FormValues = {
+  email: string;
+  password: string;
+  password_confirm: string;
 }
+
+export default function LogIn() {
+    const methods = useForm({ mode: "onBlur"})
+    const { signUp } = useAuth()
+    const router = useRouter()
+  
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<FormValues>({ resolver });
+  
+    const onSubmit = async (data: any) => {
+      try {
+        await signUp(data.email, data.password);
+        router.push("/user");
+      } catch (error) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
+      }
+    };
+
+    return (
+        <div className="w-screen relative bg-stone-100 h-screen">
+        <Navbar />
+        <div className="flex justify-center items-center">
+              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-36 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
+                <h4 className="mb-6 text-2xl font-semibold tracking-wide">Log In</h4>
+                <FormProvider {...methods}>
+                  <form action="" onSubmit={handleSubmit(onSubmit)} className="">
+                    <div className="">
+                      <div className="mb-2">
+                        <label htmlFor="" className="text-sm">
+                          Email
+                        </label>
+                      </div>
+  
+                      <input
+                        type="email"
+                        {...register("email", { required: "Email is required" })}
+                        className="mb-4"
+                      />
+                      {errors.email && <p className="error">{errors.email.message}</p>}
+                    </div>
+                    <div className="">
+                      <div className="mb-2">
+                        <label htmlFor="" className="text-sm">
+                          Password
+                        </label>
+                      </div>
+  
+                      <input
+                        type="password"
+                        {...register("password", { required: "Password is required" })}
+                        className="mb-4"
+                      />
+                      {errors.password && <p className="error">{errors.password.message}</p>}
+                    </div>
+                  <div className="flex justify-center">
+                      <button
+                        type="submit"
+                        className=""
+                      >
+                        <p className="my-4 bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700">Submit</p>
+                      </button>
+                    </div>
+                  </form>
+                </FormProvider>
+                <Link href="/profile/signup">
+                  <p className="text-xs text-slate-500">Don't have an account? Click here to sign up!</p>
+                </Link>
+              </div>
+          </div>
+          <Footer />
+      </div>
+  );
+};
+    

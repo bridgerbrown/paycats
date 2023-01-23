@@ -2,40 +2,49 @@ import React from 'react'
 import Navbar from '@/components/navbar'
 import Footer from '@/components/footer'
 import Link from 'next/link'
-import { FormProvider, useForm } from 'react-hook-form'
+import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import { useAuth } from '@/components/context/AuthContext'
+
+type FormValues = {
+  email: string;
+  password: string;
+  password_confirm: string;
+}
 
 export default function SignUp() {
     const methods = useForm({ mode: "onBlur"})
-    // const { signUp } = useAuthContext()
+    const { signUp } = useAuth()
     const router = useRouter()
   
     const {
       register,
       handleSubmit,
       formState: { errors },
-    } = methods;
+    } = useForm<FormValues>({ resolver });
   
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: any) => {
       try {
         await signUp(data.email, data.password);
         router.push("/user");
       } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
       }
     };
 
     return (
-        <div className="">
+        <div className="w-screen relative bg-stone-100 h-screen">
         <Navbar />
-        <div className="">
-              <div className="">
-                <h4 className="">Sign Up</h4>
+        <div className="flex justify-center items-center">
+              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-36 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
+                <h4 className="mb-6 text-2xl font-semibold tracking-wide">Sign Up</h4>
                 <FormProvider {...methods}>
                   <form action="" onSubmit={handleSubmit(onSubmit)} className="">
                     <div className="">
-                      <div className="">
-                        <label htmlFor="" className="">
+                      <div className="mb-2">
+                        <label htmlFor="" className="text-sm">
                           Email
                         </label>
                       </div>
@@ -43,13 +52,13 @@ export default function SignUp() {
                       <input
                         type="email"
                         {...register("email", { required: "Email is required" })}
-                        className=""
+                        className="mb-4"
                       />
                       {errors.email && <p className="error">{errors.email.message}</p>}
                     </div>
                     <div className="">
-                      <div className="">
-                        <label htmlFor="" className="">
+                      <div className="mb-2">
+                        <label htmlFor="" className="text-sm">
                           Password
                         </label>
                       </div>
@@ -57,13 +66,13 @@ export default function SignUp() {
                       <input
                         type="password"
                         {...register("password", { required: "Password is required" })}
-                        className=""
+                        className="mb-4"
                       />
                       {errors.password && <p className="error">{errors.password.message}</p>}
                     </div>
                     <div className="">
-                    <div className="">
-                      <label htmlFor="" className="">
+                    <div className="mb-2">
+                      <label htmlFor="" className="text-sm">
                         Confirm Password
                       </label>
                     </div>
@@ -73,27 +82,28 @@ export default function SignUp() {
                       {...register("password_confirm", {
                         required: "Verify your password",
                       })}
-                      className=""
+                      className="mb-4"
                     />
                     {errors.password_confirm && (
                       <p className="">{errors.password_confirm.message}</p>
                     )}
                   </div>
-                  <div className="">
+                  <div className="flex justify-center">
                       <button
                         type="submit"
                         className=""
                       >
-                        <p className="">Submit</p>
+                        <p className="my-4 bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700">Submit</p>
                       </button>
                     </div>
                   </form>
                 </FormProvider>
                 <Link href="/profile/login">
-                  <p className="">Already have an account? Click here to log in!</p>
+                  <p className="text-xs text-slate-500">Already have an account? Click here to log in!</p>
                 </Link>
               </div>
           </div>
+          <Footer />
       </div>
   );
 };

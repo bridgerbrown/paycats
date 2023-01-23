@@ -11,7 +11,7 @@ export default function Home() {
         <div>
           <SearchBar />
         </div>
-        <div className=' pb-60 flex flex-col justify-center items-center'>
+        <div className='pb-60 flex flex-col justify-center items-center'>
             <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
             <TransactionCard />
             <TransactionCard />
