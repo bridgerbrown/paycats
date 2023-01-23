@@ -1,7 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import { useAuth } from '@/components/context/AuthContext'
+import Link from 'next/link'
 
 export default function ProfilePageCard() {
+    const { logOut } = useAuth()
+
     return (
         <div className=''>
             <div className='rounded-lg border border-slate-300 flex items-center justify-center py-10 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
@@ -20,12 +24,12 @@ export default function ProfilePageCard() {
                         <p className='font-semibold tracking-wider'>10 friends</p>
                     </div>
                     <div className='mt-6 mb-4 flex justify-center items-center'>
-                        <button className='font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1 px-4'>Edit</button>
-                    </div>
-                    <div>
-                        <h1 className='font-semibold font-Hind text-sky-700 mt-8 mb-4'>
-                            Log out
-                        </h1>
+                        <button className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>Edit</button>
+                        <Link href="/profile/login">
+                            <h1 onClick={logOut} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
+                                Log out
+                            </h1>
+                        </Link>
                     </div>
                 </div>
             </div>

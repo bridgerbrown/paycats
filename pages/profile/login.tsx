@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 import Link from 'next/link'
@@ -14,8 +14,9 @@ type FormValues = {
 
 export default function LogIn() {
     const methods = useForm({ mode: "onBlur"})
-    const { signUp } = useAuth()
+    const { logIn } = useAuth()
     const router = useRouter()
+    const [invalid, setInvalid] = useState("")
   
     const {
       register,
@@ -25,17 +26,19 @@ export default function LogIn() {
   
     const onSubmit = async (data: any) => {
       try {
-        await signUp(data.email, data.password);
-        router.push("/profile");
+        await logIn(data.email, data.password);
+        router.push("/profile");  
+        setInvalid("")
       } catch (error) {
         if (error instanceof Error) {
+          setInvalid("Invalid login")
           console.log(error.message);
         }
       }
     };
 
     return (
-        <div className="w-screen relative bg-stone-100 h-screen">
+        <div className="font-Hind w-screen relative bg-stone-100 h-screen">
         <Navbar />
         <div className="flex justify-center items-center">
               <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-36 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
@@ -54,7 +57,7 @@ export default function LogIn() {
                         {...register("email", { required: "Email is required" })}
                         className="mb-4"
                       />
-                      {errors.email && <p className="error">{errors.email.message}</p>}
+                      {errors.email && <p className="">{errors.email.message}</p>}
                     </div>
                     <div className="">
                       <div className="mb-2">
@@ -68,15 +71,16 @@ export default function LogIn() {
                         {...register("password", { required: "Password is required" })}
                         className="mb-4"
                       />
-                      {errors.password && <p className="error">{errors.password.message}</p>}
+                      {errors.password && <p className="">{errors.password.message}</p>}
                     </div>
-                  <div className="flex justify-center">
+                  <div className="flex flex-col items-center justify-center">
                       <button
                         type="submit"
                         className=""
                       >
                         <p className="my-4 bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700">Submit</p>
                       </button>
+                      <p className="text-sm text-red-600 mb-4">{invalid}</p>
                     </div>
                   </form>
                 </FormProvider>
