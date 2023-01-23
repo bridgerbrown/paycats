@@ -1,7 +1,7 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
+import Footer from '@/components/sections/footer'
+import Navbar from '@/components/sections/navbar'
 import React from 'react'
-import ProfileCard from '@/components/profile-card'
+import ProfileCard from '@/components/sections/profile/profile-card'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -13,9 +13,6 @@ export default function Balance() {
                 <div className=' w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>Balance</h1>
                 </div>
-            </div>
-            <div className='flex justify-center'>
-                <ProfileCard />
             </div>
             <div className='pb-96 flex justify-center mx-20'>
                 <div className='bg-white py-5 px-5 mx-3 w-96 h-56 border border-slate-300 rounded-lg'>

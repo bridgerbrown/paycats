@@ -3,7 +3,8 @@ import Image from 'next/image'
 
 export default function TransactionCard() {
     return (
-        <div className='bg-white w-192 flex justify-center pt-5 px-5 border-slate-300 border-x '>
+        <div className=' w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
+            <div className='w-192 border-b border-slate-300 flex'>
             <div className=''>
                 <Image 
                     src="/cat1.jpg"
@@ -13,8 +14,8 @@ export default function TransactionCard() {
                     className='object-cover w-20 h-20 rounded-full border border-slate-400'
                 />
             </div>
-            <div className='ml-4 mt-2'>
-                <div className='flex-column font-Hind border-b border-slate-300 pb-7'>
+            <div className='ml-4 mt-2 mb-4'>
+                <div className='flex-column font-Hind pb-7'>
                     <p className=''>
                         <span className='font-semibold'>
                             Cosmo Cat</span> paid <span className='font-semibold'>Meesha Gray </span>
@@ -26,12 +27,11 @@ export default function TransactionCard() {
                             height={100}
                             alt="heart icon"
                             src="/icons/globe-icon.png"
-                            className='w-4 h-4 my-1 mx-1 cursor-pointer'
+                            className='w-4 h-4 my-1 mx-1'
                         />
                     </div>
                     <p className='mt-2 max-w-xl'>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, veniam?
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda, veniam?
+                        Lorem ipsum dolor sit amet 
                     </p>
                     <div className='flex mt-4'>
                         <Image
@@ -52,5 +52,6 @@ export default function TransactionCard() {
                 </div>
             </div>
         </div>
+    </div>
     )
 }

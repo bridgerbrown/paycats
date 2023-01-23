@@ -1,6 +1,6 @@
 import React from 'react'
-import Navbar from '@/components/navbar'
-import Footer from '@/components/footer'
+import Navbar from '@/components/sections/navbar'
+import Footer from '@/components/sections/footer'
 import Link from 'next/link'
 import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -26,7 +26,7 @@ export default function LogIn() {
     const onSubmit = async (data: any) => {
       try {
         await signUp(data.email, data.password);
-        router.push("/user");
+        router.push("/profile");
       } catch (error) {
         if (error instanceof Error) {
           console.log(error.message);

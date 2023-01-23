@@ -1,9 +1,8 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
+import Footer from '@/components/sections/footer'
+import Navbar from '@/components/sections/navbar'
 import React from 'react'
-import Image from 'next/image'
-import ProfileCard from '@/components/profile-card'
-import TransactionCard from '@/components/transaction-card'
+import ProfilePageCard from '@/components/sections/profile/profile-page-card'
+import NotificationsCard from '@/components/sections/notifications/notifications-card'
 
 export default function Profile() {
     return (
@@ -15,7 +14,15 @@ export default function Profile() {
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <ProfileCard />
+                    <ProfilePageCard />
+                </div>
+                <div className='flex justify-center'>
+                    <div className=' w-192 mt-4 mb-4'>
+                        <h1 className='text-xl font-normal tracking-wide'>Notifications</h1>
+                    </div>
+                </div>
+                <div className='flex justify-center'>
+                    <NotificationsCard />
                 </div>
                 <div className='pb-96 flex flex-col justify-center items-center'>
                 </div>

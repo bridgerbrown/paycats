@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAuth } from '../context/AuthContext'
 
 export default function Navbar() {
     const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
+    const { user } = useAuth()
 
     return (
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
@@ -45,11 +47,25 @@ export default function Navbar() {
                     alt="notifications bell"
                     className='w-5 h-6 mr-7 cursor-pointer'
                 />
-                <Link 
-                    href="/profile/login"
-                    className='font-bold text-white tracking-wider mr-14 text-xs'>
-                    LOG IN
-                </Link>
+                { !user ? (
+                    <Link 
+                        href="/profile/login"
+                        className='font-bold text-white tracking-wider mr-14 text-xs'>
+                        LOG IN
+                    </Link>
+                ) : (
+                    <Link 
+                        href="/profile"
+                        className=''>
+                            <Image
+                            src="/cat1.jpg"
+                            width={25}
+                            height={25}
+                            alt="user icon"
+                            className='w-10 h-10 rounded-full mr-8 cursor-pointer'
+                            /> 
+                    </Link> 
+                )}
             </div>
         </nav>
     )

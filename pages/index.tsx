@@ -1,7 +1,7 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
-import SearchBar from '@/components/search/search-bar'
-import TransactionCard from '@/components/transaction-card'
+import Footer from '@/components/sections/footer'
+import Navbar from '@/components/sections/navbar'
+import SearchBar from '@/components/sections/search/search-bar'
+import TransactionCard from '@/components/sections/transaction-card'
 
 export default function Home() {
   return (

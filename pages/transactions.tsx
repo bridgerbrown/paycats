@@ -1,9 +1,8 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
+import Footer from '@/components/sections/footer'
+import Navbar from '@/components/sections/navbar'
 import React from 'react'
 import Image from 'next/image'
-import ProfileCard from '@/components/profile-card'
-import TransactionCard from '@/components/transaction-card'
+import TransactionCard from '@/components/sections/transaction-card'
 
 export default function Transactions() {
     return (
@@ -13,9 +12,6 @@ export default function Transactions() {
                     <div className=' w-192 mt-8 mb-4'>
                         <h1 className='text-xl font-normal tracking-wide'>Transactions</h1>
                     </div>
-                </div>
-                <div className='flex justify-center'>
-                    <ProfileCard />
                 </div>
                 <div className=' pb-60 flex flex-col justify-center items-center'>
                     <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
