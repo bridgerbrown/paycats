@@ -32,8 +32,7 @@ export default function Profile({users}: InferGetServerSidePropsType<typeof getS
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { user } = useAuth()
-    const usersRef = collection(db, 'users', `${user}`)
+    const usersRef = collection(db, 'users')
     const snapshot = await getDocs(usersRef)
     const users: { [field: string]: any }[] = []
     snapshot.forEach((doc) => {

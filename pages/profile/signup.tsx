@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
+import { checkUser } from '@/components/firebase/firestore'
 
 type FormValues = {
   email: string;
@@ -26,6 +27,7 @@ export default function SignUp() {
     const onSubmit = async (data: any) => {
       try {
         await signUp(data.email, data.password);
+        checkUser(data.email)
         router.push("/profile");
       } catch (error) {
         if (error instanceof Error) {
