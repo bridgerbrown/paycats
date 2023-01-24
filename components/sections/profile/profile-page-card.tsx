@@ -3,8 +3,12 @@ import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
 
-export default function ProfilePageCard() {
+interface UsernameProps {user: string}
+
+export default function ProfilePageCard({user}:UsernameProps) {
     const { logOut } = useAuth()
+    const username = user.substring(0, user.lastIndexOf("@"))
+    const asperandUsername = (user.substring(0, user.lastIndexOf("@"))).replace(" ", "-")
 
     return (
         <div className=''>
@@ -17,9 +21,10 @@ export default function ProfilePageCard() {
                         alt="Cat headshot number one"
                         className='object-cover w-32 h-32 rounded-full border border-slate-400 mb-4'
                     />
-                    <h1 className='text-2xl flex justify-center mb-2'>Cosmo Cat</h1>
+                    <h1 className='text-2xl flex justify-center mb-2'>{username}</h1>
+                    <h2 className='text-md flex justify-center mb-2'>{user}</h2>
                     <div className='flex'>
-                        <p className='font-thin text-slate-500 tracking-wide'>@Cosmo-Cat</p>
+                        <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
                         <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
                         <p className='font-semibold tracking-wider'>10 friends</p>
                     </div>

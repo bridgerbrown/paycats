@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
+import { getUserData } from '@/components/firebase/firestore'
 
 type FormValues = {
   email: string;
@@ -14,7 +15,7 @@ type FormValues = {
 
 export default function LogIn() {
     const methods = useForm({ mode: "onBlur"})
-    const { logIn } = useAuth()
+    const { logIn, setUserDoc } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   
@@ -23,12 +24,20 @@ export default function LogIn() {
       handleSubmit,
       formState: { errors },
     } = useForm<FormValues>({ resolver });
+
+    function resolveUserData(email: any){
+      getUserData(email)
+        .then((item) => {
+          setUserDoc(item)
+        })
+    }
   
     const onSubmit = async (data: any) => {
       try {
         await logIn(data.email, data.password);
         router.push("/profile");  
         setInvalid("")
+        resolveUserData(data.email)
       } catch (error) {
         if (error instanceof Error) {
           setInvalid("Invalid login")

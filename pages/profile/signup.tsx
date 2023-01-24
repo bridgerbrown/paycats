@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 import Link from 'next/link'
@@ -6,6 +6,7 @@ import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
 import { checkUser } from '@/components/firebase/firestore'
+import { getUserData } from '@/components/firebase/firestore'
 
 type FormValues = {
   email: string;
@@ -15,8 +16,9 @@ type FormValues = {
 
 export default function SignUp() {
     const methods = useForm({ mode: "onBlur"})
-    const { signUp } = useAuth()
+    const { signUp, setUserDoc } = useAuth()
     const router = useRouter()
+    const [invalid, setInvalid] = useState("")
   
     const {
       register,
@@ -28,9 +30,12 @@ export default function SignUp() {
       try {
         await signUp(data.email, data.password);
         checkUser(data.email)
+        setUserDoc(getUserData(data.email))
         router.push("/profile");
+        setInvalid("")
       } catch (error) {
         if (error instanceof Error) {
+          setInvalid("Email already in use")
           console.log(error.message);
         }
       }
@@ -90,13 +95,14 @@ export default function SignUp() {
                       <p className="">{errors.password_confirm.message}</p>
                     )}
                   </div>
-                  <div className="flex justify-center">
+                  <div className="flex flex-col items-center justify-center">
                       <button
                         type="submit"
                         className=""
                       >
                         <p className="my-4 bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700">Submit</p>
                       </button>
+                      <p className="text-sm text-red-600 mb-4">{invalid}</p>
                     </div>
                   </form>
                 </FormProvider>

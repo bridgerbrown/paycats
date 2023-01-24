@@ -2,15 +2,14 @@ import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import React from 'react'
 import ProfilePageCard from '@/components/sections/profile/profile-page-card'
-import NotificationsCard from '@/components/sections/notifications/notifications-card'
-import { getAuth } from 'firebase/auth'
 import { collection, doc, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-
 export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const { user } = useAuth()
+    
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
             <Navbar />
@@ -20,7 +19,7 @@ export default function Profile({users}: InferGetServerSidePropsType<typeof getS
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <ProfilePageCard />
+                    <ProfilePageCard user={user} />
                 </div>
                 <div className='pb-72 flex flex-col justify-center items-center'>
                 </div>
