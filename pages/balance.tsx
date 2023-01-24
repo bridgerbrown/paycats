@@ -64,6 +64,8 @@ export default function Balance() {
                     </div>
                 </div>
             </div>
+            <div className='pb-96 flex flex-col justify-center items-center'>
+                </div>
         <Footer />
         </div>
     )

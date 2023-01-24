@@ -40,13 +40,15 @@ export default function Navbar() {
                 </div>
             </div>
             <div className='flex items-center'>
-                <Image
-                    src="/notification-bell.png"
-                    width={139}
-                    height={163}
-                    alt="notifications bell"
-                    className='w-5 h-6 mr-7 cursor-pointer'
-                />
+                <Link href="/notifications">
+                    <Image
+                        src="/notification-bell.png"
+                        width={139}
+                        height={163}
+                        alt="notifications bell"
+                        className='w-5 h-6 mr-7 cursor-pointer'
+                    />
+                </Link>
                 { !user ? (
                     <Link 
                         href="/profile/login"

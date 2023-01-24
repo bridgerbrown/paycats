@@ -8,7 +8,7 @@ export default function ProfilePageCard() {
 
     return (
         <div className=''>
-            <div className='rounded-lg border border-slate-300 flex items-center justify-center py-10 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
+            <div className='rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
                 <div className='flex flex-col justify-center items-center'>
                     <Image 
                         src="/cat1.jpg"
