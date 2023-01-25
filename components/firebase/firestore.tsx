@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from './firebase.config'
 
 export async function checkUser(name: string) {
@@ -23,4 +23,11 @@ export async function getUserData(user:string | null) {
     const userData = docSnap.data()
     console.log(userData)
     return userData
+}
+
+export async function changeUserImage(user: string, img:number) {
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        img: img
+    })
 }
