@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
+import ImageChanger from './image-changer'
 
 interface UsernameProps {user: string}
 
@@ -36,6 +37,7 @@ export default function ProfilePageCard({user}:UsernameProps) {
                             </h1>
                         </Link>
                     </div>
+                    <ImageChanger />
                 </div>
             </div>
         </div>

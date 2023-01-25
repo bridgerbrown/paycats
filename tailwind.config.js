@@ -34,6 +34,12 @@ module.exports = {
       '3xl': '1.953rem',
       '4xl': '2.441rem',
       '5xl': '3.052rem',
+    },
+    backgroundImage: {
+      'profile1': "url('/cat-profile-1.jpg')",
+      'profile2': "url('/cat-profile-2.jpg')",
+      'profile3': "url('/cat-profile-3.jpg')",
+      'profile4': "url('/cat-profile-4.jpg')"
     }
   },
   plugins: [
