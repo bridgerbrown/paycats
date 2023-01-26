@@ -1,18 +1,20 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
-import React from 'react'
-import ProfileCard from '@/components/sections/profile/profile-card'
+import React, {MouseEvent} from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { GetServerSideProps } from 'next'
-import { collection, doc, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 
 
 export default function Balance() {
-    const { userDoc } = useAuth()
-    console.log(userDoc)
+    const { user, userDoc, setUserDoc, transferMoneyBtn } = useAuth()
+    const formattedBalance = (userDoc.balance).toLocaleString("en-US")
+
+    const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        transferMoneyBtn(user, userDoc)
+        setUserDoc({...userDoc, balance: userDoc.balance + 10000})
+        alert("Transfered $10,000 to your account!")
+    }
 
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
@@ -25,12 +27,13 @@ export default function Balance() {
             <div className='pb-96 flex justify-center mx-20'>
                 <div className='bg-white py-5 px-5 mx-3 w-96 h-56 border border-slate-300 rounded-lg'>
                     <h2 className='text-slate-900 text-xl font-semibold'>PayCats balance</h2>
-                    <h1 className='text-5xl tracking-wide'>{userDoc.balance}</h1>
+                    <h1 className='text-5xl tracking-wide'>${formattedBalance}.00</h1>
                     <p className='text-slate-900 text-sm mb-6'>Available</p>
-                    <Link href="/transfer"
-                    className='bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700'>
-                        Transfer Money
-                    </Link>
+                    <button 
+                        onClick={handleTransferSubmit}
+                        className='bg-blue-900 text-white px-4 py-1.5 rounded-full text-sm hover:bg-blue-700'>
+                            Transfer Money
+                    </button>
                 </div>
                 <div className='bg-white py-5 px-5 mx-3 w-96 h-76 border border-slate-300 rounded-lg'>
                     <h2 className='text-slate-900 text-xl font-semibold mb-2'>Bank and cards</h2>
@@ -77,20 +80,4 @@ export default function Balance() {
         <Footer />
         </div>
     )
-}
-
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const usersRef = collection(db, 'users')
-    const snapshot = await getDocs(usersRef)
-    const users: { [field: string]: any }[] = []
-    snapshot.forEach((doc) => {
-        users.push({ ...doc.data()})
-    })
-    console.log(users)
-    return {
-        props: {
-            users: users
-        }
-    }
 }

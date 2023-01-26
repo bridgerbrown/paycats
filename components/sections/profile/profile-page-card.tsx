@@ -19,8 +19,6 @@ export default function ProfilePageCard({user}:UsernameProps) {
         setRadioState(e.currentTarget.value)
     }
 
-    console.log("profile: " + radioState)
-
     const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setImageChange(!imageChange)
@@ -38,7 +36,6 @@ export default function ProfilePageCard({user}:UsernameProps) {
 
     async function handleImgSubmit(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
-        console.log(userDoc)
         setUserDoc({...userDoc, img: radioState})
         setImageChange(!imageChange)
         await sendUserImg()

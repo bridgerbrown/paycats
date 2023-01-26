@@ -31,3 +31,10 @@ export async function changeUserImage(user: string, img: string) {
         img: img
     })
 }
+
+export async function transferMoney(user: string, balance: number){
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        balance: balance + 10000
+    })
+}

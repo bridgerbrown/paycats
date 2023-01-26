@@ -4,7 +4,15 @@ import { useAuth } from '../context/AuthContext'
 
 export default function Navbar() {
     const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
-    const { user } = useAuth()
+    const { user, userDoc } = useAuth()
+
+    const dynamicUserImg = () => {
+        if(userDoc) {
+            return `/cat-profile-${userDoc.img.replace('"', '')}.jpg`
+        } else {
+            return `/cat-profile-1.jpg`
+        }
+    }
 
     return (
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
@@ -60,7 +68,7 @@ export default function Navbar() {
                         href="/profile"
                         className=''>
                             <Image
-                            src="/cat1.jpg"
+                            src={dynamicUserImg()}
                             width={25}
                             height={25}
                             alt="user icon"
