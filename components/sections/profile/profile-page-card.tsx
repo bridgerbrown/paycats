@@ -2,13 +2,12 @@ import React, {useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
-import ImageChanger from './image-changer'
 import { changeUserImage } from '@/components/firebase/firestore'
 
 interface UsernameProps {user: string}
 
 export default function ProfilePageCard({user}:UsernameProps) {
-    const { logOut, userDoc } = useAuth()
+    const { logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
     const username = user.substring(0, user.lastIndexOf("@"))
     const asperandUsername = (user.substring(0, user.lastIndexOf("@"))).replace(" ", "-")
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
@@ -18,15 +17,41 @@ export default function ProfilePageCard({user}:UsernameProps) {
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
-        console.log(radioState)
     }
+
+    console.log("profile: " + radioState)
 
     const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setImageChange(!imageChange)
     }
 
+    const sendUserImg = () => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(
+                    updateUserImage(user, radioState)
+                    )
+            }, 2000)
+        })
+    }
 
+    async function handleImgSubmit(e: MouseEvent<HTMLButtonElement>) {
+        e.preventDefault()
+        console.log(userDoc)
+        setUserDoc({...userDoc, img: radioState})
+        setImageChange(!imageChange)
+        await sendUserImg()
+
+    }
+
+    const dynamicUserImg = () => {
+        if(userDoc) {
+            return `/cat-profile-${userDoc.img.replace('"', '')}.jpg`
+        } else {
+            return `/cat-profile-1.jpg`
+        }
+    }
 
     return (
         <div className=''>
@@ -54,15 +79,11 @@ export default function ProfilePageCard({user}:UsernameProps) {
                                         className={`bg-profile4 checked:bg-profile4 ${inputCss}`} 
                                     />
                                     <div className='mt-12 flex justify-center'>
-                                        <input
-                                            type="submit"
-                                            value="Submit"
-                                            className='mr-2 cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
-                                        />
                                         <button 
-                                            onClick={handleMouseEvent}
-                                            className='ml-2 mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
-                                                Cancel
+                                            onClick={handleImgSubmit}
+                                            className='mr-2 cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
+                                            >
+                                                Confirm
                                         </button>
                                     </div>
                                 </form>
@@ -72,7 +93,7 @@ export default function ProfilePageCard({user}:UsernameProps) {
                         :
                     <div className='flex flex-col justify-center items-center'>
                     <Image 
-                        src="/cat-profile-1.jpg"
+                        src={dynamicUserImg()}
                         width={498}
                         height={500}
                         alt="Cat headshot number one"

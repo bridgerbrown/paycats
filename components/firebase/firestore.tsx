@@ -11,7 +11,7 @@ export async function checkUser(name: string) {
         await setDoc(doc(db, "users", `"${name}"`), {
             username: name.substring(0, name.lastIndexOf("@")),
             balance: 10000,
-            img: 1,
+            img: "1",
             email: name
         })
     }
@@ -25,7 +25,7 @@ export async function getUserData(user:string | null) {
     return userData
 }
 
-export async function changeUserImage(user: string, img:number) {
+export async function changeUserImage(user: string, img: string) {
     const userRef = doc(db, "users", `"${user}"`)
     await updateDoc(userRef, {
         img: img

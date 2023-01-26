@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
 import { auth } from "../firebase/firebase.config"
-import { getUserData } from "../firebase/firestore";
+import { changeUserImage, getUserData } from "../firebase/firestore";
 
 type AuthContextType = {
     children: ReactNode
@@ -41,8 +41,13 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         await signOut(auth);
       };
 
+    const updateUserImage = (user: string, radioState: string) => {
+        changeUserImage(user, radioState)
+        console.log("Context: " + userDoc.img)
+    }
+
     return (
-        <AuthContext.Provider value={{ user, userDoc, setUserDoc, signUp, logIn, logOut }}>
+        <AuthContext.Provider value={{ user, userDoc, updateUserImage, setUserDoc, signUp, logIn, logOut }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )
