@@ -25,14 +25,21 @@ export default function SignUp() {
       handleSubmit,
       formState: { errors },
     } = useForm<FormValues>({ resolver });
+
+    function createUserData(email: any){
+      checkUser(email)
+        .then((item) => {
+          setUserDoc(item)
+          console.log(item)
+        })
+    }
   
     const onSubmit = async (data: any) => {
       try {
         await signUp(data.email, data.password);
-        checkUser(data.email)
-        setUserDoc(getUserData(data.email))
         router.push("/profile");
         setInvalid("")
+        createUserData(data.email)
       } catch (error) {
         if (error instanceof Error) {
           setInvalid("Email already in use")

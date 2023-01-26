@@ -3,8 +3,12 @@ import Navbar from '@/components/sections/navbar'
 import React from 'react'
 import Image from 'next/image'
 import TransactionCard from '@/components/sections/transaction-card'
+import { useAuth } from '@/components/context/AuthContext'
 
 export default function Transactions() {
+    const { userDoc, setUserDoc } = useAuth()
+    const transactionsData = userDoc.transactions
+
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
             <Navbar />
@@ -15,11 +19,7 @@ export default function Transactions() {
                 </div>
                 <div className=' pb-60 flex flex-col justify-center items-center'>
                     <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
-                    <TransactionCard />
-                    <TransactionCard />
-                    <TransactionCard />
-                    <TransactionCard />
-                    <TransactionCard />
+                        { transactionsData.map((transaction: any) => <TransactionCard key={transaction} transaction={transaction} /> )}
                     <div className='rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
                 </div>
             <Footer />
