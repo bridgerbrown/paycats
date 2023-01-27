@@ -15,7 +15,7 @@ type FormValues = {
 
 export default function LogIn() {
     const methods = useForm({ mode: "onBlur"})
-    const { logIn, setUserDoc, setUserImg } = useAuth()
+    const { logIn, setUserDoc, userDoc, setUserImg, setTransactionHistory } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   

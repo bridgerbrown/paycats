@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { catUsers } from '../data/catUsers'
 
 export default function TransactionCard({transaction}: any) {
-    const paidOrRequest: string = transaction.payRequest === "pay" ? "paid" : "requested"
     
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
@@ -18,7 +17,7 @@ export default function TransactionCard({transaction}: any) {
             <div className='w-192 border-b border-slate-300 flex'>
             <div className=''>
                 <Image 
-                    src={findUserImg(transaction[0].from)}
+                    src="/cat1.jpg"
                     width={498}
                     height={500}
                     alt="Cat headshot number one"
@@ -29,7 +28,7 @@ export default function TransactionCard({transaction}: any) {
                 <div className='flex-column font-Hind pb-7'>
                     <p className=''>
                         <span className='font-semibold'>
-                            {transaction[0].from}</span> {paidOrRequest} <span className='font-semibold'>{transaction[0].to} </span>
+                            {transaction.from}</span> {} <span className='font-semibold'>{transaction.to} </span>
                     </p>
                     <div className='flex items-center'>
                         <p className='text-sm text-slate-600 font-light mr-1'>3h</p>
@@ -42,7 +41,7 @@ export default function TransactionCard({transaction}: any) {
                         />
                     </div>
                     <p className='mt-2 max-w-xl'>
-                        {transaction[0].description}
+                        {transaction.description}
                     </p>
                     <div className='flex mt-4'>
                         <div className='mr-7'>
@@ -53,7 +52,7 @@ export default function TransactionCard({transaction}: any) {
                                 src="/icons/heart-icon-gray.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer'
                             />
-                            <p>{transaction[1].likes}</p>
+                            <p>{transaction.likes}</p>
                         </div>
                         <div className='mr-7'>
                             <Image
@@ -63,7 +62,7 @@ export default function TransactionCard({transaction}: any) {
                                 src="/icons/comment-icon.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer' 
                             />
-                            <p>{transaction[1].comments.length()}</p>
+                            <p>{transaction.comments.length}</p>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndP
 import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
 import { auth } from "../firebase/firebase.config"
 import { changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
+import { transactions } from "../data/defaultTransactions";
 
 type AuthContextType = {
     children: ReactNode
@@ -14,6 +15,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [user, setUser] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [userDoc, setUserDoc] = useState<any | null>(null)
+    const [transactionHistory, setTransactionHistory] = useState<any>(transactions)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -50,7 +52,17 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, transferMoneyBtn, userDoc, updateUserImage, setUserDoc, signUp, logIn, logOut }}>
+        <AuthContext.Provider value={{ 
+            user, 
+            transferMoneyBtn,   
+            userDoc, 
+            transactionHistory, 
+            setTransactionHistory, 
+            updateUserImage, 
+            setUserDoc, 
+            signUp, 
+            logIn, 
+            logOut }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )
