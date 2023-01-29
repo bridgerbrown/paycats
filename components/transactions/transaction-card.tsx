@@ -31,7 +31,7 @@ export default function TransactionCard({transaction}: any) {
                 <div className='flex-column font-Hind pb-7'>
                     <p className=''>
                         <span className='font-semibold'>
-                            {transaction.from}</span> {} <span className='font-semibold'>{transaction.to} </span>
+                            {transaction.from}</span> paid <span className='font-semibold'>{transaction.to} </span>
                     </p>
                     <div className='flex items-center'>
                         <p className='text-sm text-slate-600 font-light mr-1'>3h</p>

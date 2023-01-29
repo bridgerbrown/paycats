@@ -14,6 +14,10 @@ export default function Navbar() {
         }
     }
 
+    function redirectIfNoUser(route: string) {
+        return user ? route : "/profile/signup"
+    }
+
     return (
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
             <div className='flex'>
@@ -33,13 +37,12 @@ export default function Navbar() {
                     <Link href="/" className={navItemStyle}>
                         Home
                     </Link>
-                    <Link href="/transactions" className={navItemStyle}>
+                    <Link href={redirectIfNoUser("/transactions")} className={navItemStyle}>
                         Transactions
                     </Link>
-                    <Link href="/balance" className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
+                    <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
                         <div className='flex items-center'>
                             <h2 className='tracking-wide text-white'>Balance</h2>
-                            {/* <h2 className='font-thin tracking-wider text-lime-400'>$1,000,000.00</h2> */}
                         </div>
                     </Link>
                     <Link href="/about" className={navItemStyle}>

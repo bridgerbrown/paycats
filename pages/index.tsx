@@ -1,7 +1,8 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import SearchBar from '@/components/sections/search/search-bar'
-import TransactionCard from '@/components/sections/transaction-card'
+import TransactionCard from '@/components/transactions/transaction-card'
+import TransactionsSection from '@/components/transactions/transactions'
 
 export default function Home() {
   return (
@@ -11,15 +12,7 @@ export default function Home() {
         <div>
           <SearchBar />
         </div>
-        <div className='pb-60 flex flex-col justify-center items-center'>
-            <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <TransactionCard />
-            <div className='rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
-        </div>
+        <TransactionsSection />
         <Footer />
       </div>
     </>
