@@ -7,17 +7,20 @@ export default function TransactionCard({transaction}: any) {
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
             if(catUsers[i][0].name === fromUser) {
-                return catUsers[i][0].img
+                console.log(catUsers[i][0].img)
+                return (catUsers[i][0].img)
             }
         }
     }
+
+    const fromImg: string | undefined = findUserImg(transaction.from)
 
     return (
         <div className=' w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
             <div className='w-192 border-b border-slate-300 flex'>
             <div className=''>
                 <Image 
-                    src="/cat1.jpg"
+                    src={`/${fromImg}`}
                     width={498}
                     height={500}
                     alt="Cat headshot number one"

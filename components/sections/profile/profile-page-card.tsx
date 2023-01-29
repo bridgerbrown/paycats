@@ -8,8 +8,8 @@ interface UsernameProps {user: string}
 
 export default function ProfilePageCard({user}:UsernameProps) {
     const { logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
-    const username = user.substring(0, user.lastIndexOf("@"))
-    const asperandUsername = (user.substring(0, user.lastIndexOf("@"))).replace(" ", "-")
+    const username = user ? user.substring(0, user.lastIndexOf("@")) : ""
+    const asperandUsername = user ? (user.substring(0, user.lastIndexOf("@"))).replace(" ", "-") : ""
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
 
     const [imageChange, setImageChange] = useState<boolean>(false)

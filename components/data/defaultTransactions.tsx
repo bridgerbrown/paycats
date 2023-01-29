@@ -1,6 +1,6 @@
 export const transactions = [
         {
-            id: 1,
+            id: 0,
             from: "Cilantro",
             to: "Blossom",
             payRequest: "pay",
@@ -14,7 +14,7 @@ export const transactions = [
                 }
         },
         {
-            id: 2,
+            id: 1,
             from: "Sherlock",
             to: "Mr. Bitters",
             payRequest: "request",
@@ -28,7 +28,7 @@ export const transactions = [
                 }
         },
         {
-            id: 3,
+            id: 2,
             from: "Blossom",
             to: "Sherlock",
             payRequest: "pay",
@@ -38,7 +38,7 @@ export const transactions = [
             comments: {},
         },
         {
-            id: 4,
+            id: 3,
             from: "Cilantro",
             to: "Sherlock",
             payRequest: "pay",
@@ -52,7 +52,7 @@ export const transactions = [
                     },
         },
         {
-            id: 5,
+            id: 4,
             from: "Mr. Bitters",
             to: "Blossom",
             payRequest: "request",
