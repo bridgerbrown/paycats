@@ -7,7 +7,7 @@ import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
-export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Profile() {
     const { user, transactionHistory } = useAuth()
     
     console.log(transactionHistory)
@@ -29,19 +29,4 @@ export default function Profile({users}: InferGetServerSidePropsType<typeof getS
             <Footer />
         </div>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const usersRef = collection(db, 'users')
-    const snapshot = await getDocs(usersRef)
-    const users: { [field: string]: any }[] = []
-    snapshot.forEach((doc) => {
-        users.push({ ...doc.data()})
-    })
-    console.log(users)
-    return {
-        props: {
-            users: users
-        }
-    }
 }
