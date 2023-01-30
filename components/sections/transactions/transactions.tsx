@@ -2,7 +2,7 @@ import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import React from 'react'
 import Image from 'next/image'
-import TransactionCard from '@/components/transactions/transaction-card'
+import TransactionCard from '@/components/sections/transactions/transaction-card'
 import { useAuth } from '@/components/context/AuthContext'
 
 export default function TransactionsSection() {

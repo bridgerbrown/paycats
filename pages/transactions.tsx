@@ -1,5 +1,5 @@
 import React from 'react'
-import TransactionsSection from '@/components/transactions/transactions'
+import TransactionsSection from '@/components/sections/transactions/transactions'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 

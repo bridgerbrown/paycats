@@ -1,14 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
-import { catUsers } from '../data/catUsers'
+import { catUsers } from '../../data/catUsers'
 
 export default function TransactionCard({transaction}: any) {
     
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
-            if(catUsers[i][0].name === fromUser) {
-                console.log(catUsers[i][0].img)
-                return (catUsers[i][0].img)
+            if(catUsers[i].name === fromUser) {
+                console.log(catUsers[i].img)
+                return (catUsers[i].img)
             }
         }
     }

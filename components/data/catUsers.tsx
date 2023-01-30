@@ -1,6 +1,6 @@
 export const catUsers = [
-    [
         {
+            id: 0,
             name: "Mr. Bitters",
             img: "cat1.jpg",
             willPay: false,
@@ -10,10 +10,9 @@ export const catUsers = [
             requestedComments: {
                 0: null
             }
-        }
-    ],
-    [
+        },
         {
+            id: 1,
             name: "Cilantro",
             img: "cat2.jpg",
             willPay: true,
@@ -25,10 +24,9 @@ export const catUsers = [
                 0: "I MEAN SURE!",
                 1: "WHAT'S MONEY??? LOL."
             }
-        }
-    ],
-    [
+        },
         {
+            id: 2,
             name: "Blossom",
             img: "cat3.jpg",
             willPay: true,
@@ -40,10 +38,9 @@ export const catUsers = [
                 0: "You probably need this more than me. ❤️",
                 1: "Of course, anything for a friend. ❤️"
             }
-        }
-    ],
-    [
+        },
         {
+            id: 3,
             name: "Sherlock",
             img: "cat4.jpg",
             willPay: true,
@@ -53,6 +50,5 @@ export const catUsers = [
             requestedComments: {
                 0: "If you're really a cat.. then tell me, does one sit in a human bought bed or a box of cardboard?",
             }
-        }
-    ],
+        },
 ]
