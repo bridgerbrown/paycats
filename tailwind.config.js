@@ -19,8 +19,11 @@ module.exports = {
         '1/6': '16%',
       },
       padding: {
-        '42': '10.78rem'
-      }
+        '42': '10.78rem',
+      },
+      margin: {
+        '1.25': '0.29rem',
+      },
     },
     fontFamily: {
       Hind: ['Hind Vadodara', 'sans-serif'],

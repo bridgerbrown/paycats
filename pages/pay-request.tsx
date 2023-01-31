@@ -7,6 +7,8 @@ import Image from 'next/image'
 export default function PayRequest() {
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
+    const [payOrRequest, setPayOrRequest] = useState<string | null>(null)
+    const [description, setDescription] = useState<string | null>(null)
 
     function openRecipients() {
         setToDropdown(!toDropdown)
@@ -20,6 +22,14 @@ export default function PayRequest() {
     function cancelSelection() {
         setToDropdown(false)
         setToImage(null)
+    }
+
+    function setToCurrency(event: any){
+        let USDollar = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        })
+        return USDollar.format(event.value)
     }
 
     return (
@@ -65,9 +75,9 @@ export default function PayRequest() {
                             </div>
                             }
                         </div>
-                        <div className="relative before:absolute before:content-['$']">
-                            <input className='flex justify-end items-end active:outline-none focus:outline-none border-none text-slate-500 text-xl' 
-                            type="number" placeholder='$0' min="0.00" max="10000.00" step="0.01" 
+                        <div className="before:text-xl before:ml-3 before:mt-1.25 relative before:absolute before:content-['$']">
+                            <input className=' pl-7 flex justify-end items-end active:outline-none focus:outline-none border-none text-black text-xl' 
+                            type="number" placeholder='0.00' min="0.00" max="10000.00" step="0.01" 
                             required />
                         </div>
                     </div>
@@ -81,7 +91,8 @@ export default function PayRequest() {
                     }
                     <div className='mx-5 my-3'>
                         <textarea placeholder="What's it for?" 
-                            className='w-full h-60 text-slate-500 border-none focus:border-none active:border-none'
+                            className='resize-none w-full h-60 text-black border-none focus:border-none active:border-none'
+                            id='description-text'
                         />
                     </div>
                     <div className='flex'>
