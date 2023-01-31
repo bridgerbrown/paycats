@@ -17,7 +17,7 @@ export default function UserSelectCard({user, userSelect, selectUser, recipientI
                 width={498}
                 height={500}
                 alt="Cat headshot number one"
-                className='object-cover w-16 h-16 rounded-full border border-slate-400 mr-4'
+                className='object-cover w-12 h-12 rounded-full border border-slate-400 mr-4'
             />
             <h2>{user.name}</h2>
         </div>

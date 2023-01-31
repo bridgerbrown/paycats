@@ -3,7 +3,7 @@ import React, {useState} from "react";
 import UserSelectCard from "./user-select-card";
 
 export default function UserSelectDropdown({recipientImagePreview}: any) {
-    const [userSelect, setUserSelect] = useState<number>(0)
+    const [userSelect, setUserSelect] = useState<number | null>(null)
 
     function selectUser(selected: number) {
         setUserSelect(selected)

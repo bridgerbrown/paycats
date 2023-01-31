@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function PayRequest() {
     const [toDropdown, setToDropdown] = useState<boolean>(false)
-    const [toImage, setToImage] = useState<string>("cat1.jpg")
+    const [toImage, setToImage] = useState<string | null>(null)
 
     function openRecipients() {
         setToDropdown(!toDropdown)
@@ -19,7 +19,7 @@ export default function PayRequest() {
 
     function cancelSelection() {
         setToDropdown(false)
-        setToImage("cat1.jpg")
+        setToImage(null)
     }
 
     return (
@@ -44,23 +44,38 @@ export default function PayRequest() {
                             </button>
                             : 
                             <div className='flex'>
-                                <Image 
+                                { toImage ? 
+                                <div className='flex'>
+                                    <Image 
                                     src={`/${toImage}`}
                                     width={498}
                                     height={500}
                                     alt="Cat headshot number one"
                                     className='object-cover w-12 h-12 rounded-full border border-slate-400 ml-4'
-                                />
-                                <p className='text-slate-600 cursor-pointer ml-1.5 py-0 leading-none font-hind text-sm'
-                                onClick={cancelSelection}
-                                >x</p>
+                                    />
+                                    <p className='text-slate-600 cursor-pointer ml-1.5 py-0 leading-none font-hind text-sm'
+                                    onClick={cancelSelection}
+                                    >x</p>
+                                </div>
+                                :
+                                <div className='border-slate-400 border w-12 h-12 rounded-full ml-4'>
+
+                                </div>
+                                }
                             </div>
                             }
                         </div>
-                        <input className='flex justify-end items-end active:outline-none focus:outline-none border-none text-slate-500 text-xl' type="text" placeholder='$0'/>
+                        <div className="relative before:absolute before:content-['$']">
+                            <input className='flex justify-end items-end active:outline-none focus:outline-none border-none text-slate-500 text-xl' 
+                            type="number" placeholder='$0' min="0.00" max="10000.00" step="0.01" 
+                            required />
+                        </div>
                     </div>
                     { toDropdown ? 
-                    <UserSelectDropdown recipientImagePreview={recipientImagePreview} />
+                        !toImage ?
+                        <UserSelectDropdown recipientImagePreview={recipientImagePreview} />
+                        :
+                        <div></div>
                     :
                     <div></div>
                     }
