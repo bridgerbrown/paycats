@@ -9,7 +9,7 @@ export default function UserSelectCard({user, userSelect, selectUser, recipientI
         <div className={userSelect === user.id ? selectedStyle : unselectedStyle}
             onClick={() => {
                 selectUser(user.id)
-                recipientImagePreview(user.img)
+                recipientImagePreview(user.img, user.name)
             }}
         >
             <Image 

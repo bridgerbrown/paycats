@@ -39,7 +39,6 @@ export default function ProfilePageCard({user}:UsernameProps) {
         setUserDoc({...userDoc, img: radioState})
         setImageChange(!imageChange)
         await sendUserImg()
-
     }
 
     const dynamicUserImg = () => {
