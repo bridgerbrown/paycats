@@ -17,6 +17,8 @@ module.exports = {
       },
       spacing: {
         '1/6': '16%',
+        'paybtn': '11.75rem',
+        'requestbtn': '10.75rem'
       },
       padding: {
         '42': '10.78rem',

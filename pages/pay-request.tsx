@@ -3,6 +3,7 @@ import Navbar from '@/components/sections/navbar'
 import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-dropdown'
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
+import { useAuth } from '@/components/context/AuthContext'
 
 interface Form {
     to: string,
@@ -12,17 +13,16 @@ interface Form {
 }
 
 export default function PayRequest() {
+    const { user, setUserDoc } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
+    const [radioState, setRadioState] = useState<string>("pay")
     const [formContents, setFormContents] = useState<Form>({
         to: "",
         payRequest: "",
         amount: "",
         description: "",
     })
-
-    const amountValue = (document.getElementById("amount") as HTMLInputElement).value
-    const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
 
     function recipientImagePreview(image: string, name: string) {
         setToImage(image)
@@ -34,27 +34,31 @@ export default function PayRequest() {
         setToImage(null)
     }
 
+    const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setRadioState(e.currentTarget.value)
+    }
+
+    // const sendTransaction = () => {
+    //     return new Promise(resolve => {
+    //         resolve(
+
+    //             )
+    //     })
+    // }
+
     async function payForm(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
+        const amountValue = (document.getElementById("amount") as HTMLInputElement).value
+        const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
         let promise = new Promise(() => {
             setFormContents({
                 ...formContents,
                 amount: amountValue,
                 description: descriptionValue,
-                payRequest: "pay"
+                payRequest: radioState,
         })})
         await promise
             .then()
-    }
-
-    async function requestForm(e: MouseEvent<HTMLButtonElement>) {
-        e.preventDefault()
-        setFormContents({
-            ...formContents,
-            amount: amountValue,
-            description: descriptionValue,
-            payRequest: "request"
-        })
     }
 
     console.log(formContents)
@@ -124,16 +128,23 @@ export default function PayRequest() {
                             id='description'
                         />
                     </div>
-                    <div className='flex'>
-                        <button className='hover:bg-blue-700 text-xl bg-blue-900 px-46 w-1/2 text-white'
-                            onClick={payForm}>
-                            Pay
-                        </button>
-                        <button className='hover:bg-blue-700 border-l border-slate-300 text-xl bg-blue-900 w-1/2 py-4 text-white'
-                            onClick={requestForm}
-                        >
-                            Request
-                        </button>
+                    <div className=''>
+                        <form action="" className='flex w-192'>
+                            <label htmlFor="payBtn"
+                                className='text-white relative z-10 top-4 left-paybtn w-0'
+                            >Pay</label>
+                            <input className='checked:bg-blue-700 active:bg-blue-700 text-white cursor-pointer active:bg-blue-700 after:bg-blue-700 hover:bg-blue-700 text-xl bg-blue-900 px-46 rounded-none h-16 w-1/2 text-white'
+                                type="radio" name="payBtn" id="payRequestForm" value="pay"
+                                onChange={(e) => onRadioChange(e)}
+                                />
+                            <label htmlFor="payBtn"
+                                className='text-white w-0 relative z-10 top-4 left-requestbtn mx-0'
+                            >Request</label>
+                            <input className='text-white cursor-pointer mx-0 checked:bg-blue-700 hover:bg-blue-700 border-l border-slate-300 h-16 rounded-none text-xl bg-blue-900 w-1/2 py-4 text-white'
+                                type="radio" name="requestBtn" id="payRequestForm" value="request"
+                                onChange={(e) => onRadioChange(e)}
+                                />
+                        </form>
                     </div>
                 </div>
             </div>
