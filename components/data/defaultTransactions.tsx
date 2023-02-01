@@ -4,7 +4,7 @@ export const transactions = [
             from: "Cilantro",
             to: "Blossom",
             payRequest: "pay",
-            amount: null,
+            amount: 0,
             description: "SORRY THIS IS 4 MONTHS LATE",
             likes: 3,
             comments:
@@ -18,7 +18,7 @@ export const transactions = [
             from: "Sherlock",
             to: "Mr. Bitters",
             payRequest: "request",
-            amount: null,
+            amount: 0,
             description: "I believe you owe me..",
             likes: 0,
             comments:
@@ -32,7 +32,7 @@ export const transactions = [
             from: "Blossom",
             to: "Sherlock",
             payRequest: "pay",
-            amount: null,
+            amount: 0,
             description: "Thank you for your hospitality.",
             likes: 1,
             comments: {},
@@ -42,7 +42,7 @@ export const transactions = [
             from: "Cilantro",
             to: "Sherlock",
             payRequest: "pay",
-            amount: null,
+            amount: 0,
             description: "UUHHHH FORGOT WHAT THIS WAS FOR",
             likes: 1,
             comments: 
@@ -56,7 +56,7 @@ export const transactions = [
             from: "Mr. Bitters",
             to: "Blossom",
             payRequest: "request",
-            amount: null,
+            amount: 0,
             description: "You're lucky I dont ask for more..",
             likes: 0,
             comments: 

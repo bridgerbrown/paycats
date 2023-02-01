@@ -4,24 +4,33 @@ import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
+import { transactions } from '@/components/data/defaultTransactions'
 
-interface Form {
+interface TransactionType {
+    from: any,
     to: string,
     payRequest: string,
-    amount: string | null,
+    amount: number,
     description: string,
+    id: number,
+    likes: number,
+    comments: any,
 }
 
 export default function PayRequest() {
-    const { user, setUserDoc } = useAuth()
+    const { user, setUserDoc, userDoc } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
-    const [formContents, setFormContents] = useState<Form>({
+    const [formContents, setFormContents] = useState<TransactionType>({
+        from: user,
         to: "",
         payRequest: "",
-        amount: "",
+        amount: 0,
         description: "",
+        id: userDoc.transactions.length,
+        likes: 0,
+        comments: {}
     })
 
     function recipientImagePreview(image: string, name: string) {
@@ -38,30 +47,27 @@ export default function PayRequest() {
         setRadioState(e.currentTarget.value)
     }
 
-    // const sendTransaction = () => {
-    //     return new Promise(resolve => {
-    //         resolve(
-
-    //             )
-    //     })
-    // }
-
-    async function payForm(e: MouseEvent<HTMLButtonElement>) {
-        e.preventDefault()
+    async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = (document.getElementById("amount") as HTMLInputElement).value
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
         let promise = new Promise(() => {
             setFormContents({
                 ...formContents,
-                amount: amountValue,
+                amount: Number(amountValue),
                 description: descriptionValue,
                 payRequest: radioState,
-        })})
+            })
+            setUserDoc(() => (
+                {   ...userDoc,
+                    transactions: transactions.concat(formContents)
+                }
+            ))
+        })
         await promise
             .then()
     }
 
-    console.log(formContents)
+    console.log(userDoc.transactions)
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
 
@@ -142,6 +148,7 @@ export default function PayRequest() {
                     </div>
                     <div className=''>
                         <button
+                            onClick={submitForm}
                             className='w-192 h-16 bg-slate-300 rounded-none hover:bg-green-400'
                         >
                             Submit

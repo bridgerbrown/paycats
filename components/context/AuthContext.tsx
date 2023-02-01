@@ -51,10 +51,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         transferMoney(user, userDoc.balance)
     }
 
-    const addUserTransaction = () => {
-
-    }
-
     return (
         <AuthContext.Provider value={{ 
             user, 
