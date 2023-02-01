@@ -63,6 +63,8 @@ export default function PayRequest() {
 
     console.log(formContents)
 
+    const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
+
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
         <Navbar />
@@ -122,29 +124,28 @@ export default function PayRequest() {
                     :
                     <div></div>
                     }
-                    <div className='mx-5 my-3'>
-                        <textarea placeholder="What's it for?" 
-                            className='resize-none w-full h-60 text-black border-none focus:border-none active:border-none'
-                            id='description'
-                        />
+                    <textarea placeholder="What's it for?" 
+                        className='w-full resize-none h-60 text-black border-none focus:border-none active:border-none'
+                        id='description'
+                    />
+                    <div className='w-192'>
+                        <ul className="w-192 flex">
+                            <li className="w-1/2">
+                                <input className="sr-only peer" type="radio" checked value="yes" name="answer" id="answer_yes"/>
+                                <label className={payRequestButtonStyling} htmlFor="answer_yes">Pay</label>
+                            </li>
+                            <li className="w-1/2">
+                                <input className="sr-only peer" type="radio" value="no" name="answer" id="answer_no"/>
+                                <label className={payRequestButtonStyling} htmlFor="answer_no">Request</label>
+                            </li>
+                        </ul>
                     </div>
                     <div className=''>
-                        <form action="" className='flex w-192'>
-                            <label htmlFor="payBtn"
-                                className='text-white relative z-10 top-4 left-paybtn w-0'
-                            >Pay</label>
-                            <input className='checked:bg-blue-700 active:bg-blue-700 text-white cursor-pointer active:bg-blue-700 after:bg-blue-700 hover:bg-blue-700 text-xl bg-blue-900 px-46 rounded-none h-16 w-1/2 text-white'
-                                type="radio" name="payBtn" id="payRequestForm" value="pay"
-                                onChange={(e) => onRadioChange(e)}
-                                />
-                            <label htmlFor="payBtn"
-                                className='text-white w-0 relative z-10 top-4 left-requestbtn mx-0'
-                            >Request</label>
-                            <input className='text-white cursor-pointer mx-0 checked:bg-blue-700 hover:bg-blue-700 border-l border-slate-300 h-16 rounded-none text-xl bg-blue-900 w-1/2 py-4 text-white'
-                                type="radio" name="requestBtn" id="payRequestForm" value="request"
-                                onChange={(e) => onRadioChange(e)}
-                                />
-                        </form>
+                        <button
+                            className='w-192 h-16 bg-slate-300 rounded-none hover:bg-green-400'
+                        >
+                            Submit
+                        </button>
                     </div>
                 </div>
             </div>
