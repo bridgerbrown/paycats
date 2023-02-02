@@ -8,9 +8,9 @@ import { useAuth } from '@/components/context/AuthContext'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 
 export default function Profile() {
-    const { user, transactionHistory } = useAuth()
+    const { user, userDoc } = useAuth()
     
-    console.log(transactionHistory)
+    console.log(userDoc)
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
             <Navbar />

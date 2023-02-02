@@ -5,24 +5,16 @@ import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import { transactions } from '@/components/data/defaultTransactions'
+import { addTransaction } from '@/components/firebase/firestore'
 
-interface TransactionType {
-    from: any,
-    to: string,
-    payRequest: string,
-    amount: number,
-    description: string,
-    id: number,
-    likes: number,
-    comments: any,
-}
+
 
 export default function PayRequest() {
     const { user, setUserDoc, userDoc } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
-    const [formContents, setFormContents] = useState<TransactionType>({
+    const [formContents, setFormContents] = useState<any>({        
         from: user,
         to: "",
         payRequest: "",
@@ -30,7 +22,10 @@ export default function PayRequest() {
         description: "",
         id: userDoc.transactions.length,
         likes: 0,
-        comments: {}
+        comments: {
+            from: "",
+            comment: ""
+        },
     })
 
     function recipientImagePreview(image: string, name: string) {
@@ -57,14 +52,15 @@ export default function PayRequest() {
                 description: descriptionValue,
                 payRequest: radioState,
             })
-            setUserDoc(() => (
-                {   ...userDoc,
-                    transactions: transactions.concat(formContents)
-                }
-            ))
         })
         await promise
-            .then()
+            .then(
+                setUserDoc(() => (
+                {   ...userDoc,
+                    transactions: transactions.concat(formContents)
+                }))
+            )
+            
     }
 
     console.log(userDoc.transactions)

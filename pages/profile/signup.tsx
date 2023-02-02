@@ -30,7 +30,7 @@ export default function SignUp() {
       checkUser(email)
         .then((item) => {
           setUserDoc(item)
-          console.log(item)
+          console.log("signup " + item)
         })
     }
   
