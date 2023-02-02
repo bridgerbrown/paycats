@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
 import { auth } from "../firebase/firebase.config"
-import { changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
+import { changeTransactions, changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
 import { transactions } from "../data/defaultTransactions";
 
 type AuthContextType = {
@@ -15,7 +15,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [user, setUser] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [userDoc, setUserDoc] = useState<any | null>(null)
-    const [transactionHistory, setTransactionHistory] = useState<any>(transactions)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -58,13 +57,12 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             user, 
             transferMoneyBtn,   
             userDoc, 
-            transactionHistory, 
-            setTransactionHistory, 
             updateUserImage, 
             setUserDoc, 
             signUp, 
             logIn, 
-            logOut }}>
+            logOut,
+            }}>
             {loading ? null : children}
         </AuthContext.Provider>
     )

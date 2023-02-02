@@ -43,9 +43,9 @@ export async function transferMoney(user: string, balance: number) {
     })
 }
 
-// export async function addTransaction(user: string, contextTransactions: any) {    
-//     const userRef = doc(db, "users", `"${user}"`)
-//     await updateDoc(userRef, {
-//         transactions: contextTransactions,
-//     })
-// }
+export async function changeTransactions(user: string, userDoc: any) {    
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        transactions: userDoc.transactions,
+    })
+}

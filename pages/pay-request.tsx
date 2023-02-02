@@ -5,12 +5,12 @@ import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import { transactions } from '@/components/data/defaultTransactions'
-import { addTransaction } from '@/components/firebase/firestore'
+import { addTransaction, changeTransactions, getUserData } from '@/components/firebase/firestore'
 
 
 
 export default function PayRequest() {
-    const { user, setUserDoc, userDoc, setTransactionHistory } = useAuth()
+    const { user, setUserDoc, userDoc, updateUserTransactions } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
@@ -48,30 +48,35 @@ export default function PayRequest() {
         return newTransactions
     }
 
+
+    const sendUserTransaction = () => {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve(
+                    changeTransactions(user, userDoc)
+                    )
+            }, 2000)
+        })
+    }
+
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = (document.getElementById("amount") as HTMLInputElement).value
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
-        let promise = new Promise(() => {
-            setFormContents({
-                ...formContents,
-                id: userDoc.transactions.length,
-                amount: Number(amountValue),
-                description: descriptionValue,
-                payRequest: radioState,
-            })
+        setFormContents({
+            ...formContents,
+            id: userDoc.transactions.length,
+            amount: Number(amountValue),
+            description: descriptionValue,
+            payRequest: radioState,
         })
-        const arr = [...userDoc.transactions, formContents]
-        await promise
-            .then(
-                setUserDoc(
-                {   ...userDoc,
-                    transactions: arr
-                })
-            )
-            
+        setUserDoc(
+            {   ...userDoc,
+                transactions:  [...userDoc.transactions, formContents]
+            })
+        await sendUserTransaction()
+        console.log(userDoc.transactions)
     }
 
-    console.log(userDoc.transactions)
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
 
