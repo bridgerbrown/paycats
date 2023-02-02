@@ -10,7 +10,6 @@ import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 export default function Profile() {
     const { user, userDoc } = useAuth()
     
-    console.log(userDoc)
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
             <Navbar />

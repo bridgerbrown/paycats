@@ -10,7 +10,7 @@ import { addTransaction } from '@/components/firebase/firestore'
 
 
 export default function PayRequest() {
-    const { user, setUserDoc, userDoc } = useAuth()
+    const { user, setUserDoc, userDoc, setTransactionHistory } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
@@ -20,7 +20,6 @@ export default function PayRequest() {
         payRequest: "",
         amount: 0,
         description: "",
-        id: userDoc.transactions.length,
         likes: 0,
         comments: {
             from: "",
@@ -42,23 +41,32 @@ export default function PayRequest() {
         setRadioState(e.currentTarget.value)
     }
 
+    const newTransactions = () => {
+        const arr = []
+        arr.push(userDoc.transactions)
+        arr.push(formContents)
+        return newTransactions
+    }
+
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = (document.getElementById("amount") as HTMLInputElement).value
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
         let promise = new Promise(() => {
             setFormContents({
                 ...formContents,
+                id: userDoc.transactions.length,
                 amount: Number(amountValue),
                 description: descriptionValue,
                 payRequest: radioState,
             })
         })
+        const arr = [...userDoc.transactions, formContents]
         await promise
             .then(
-                setUserDoc(() => (
+                setUserDoc(
                 {   ...userDoc,
-                    transactions: transactions.concat(formContents)
-                }))
+                    transactions: arr
+                })
             )
             
     }
@@ -133,7 +141,7 @@ export default function PayRequest() {
                     <div className='w-192'>
                         <ul className="w-192 flex">
                             <li className="w-1/2">
-                                <input className="sr-only peer" type="radio" checked value="yes" name="answer" id="answer_yes"/>
+                                <input className="sr-only peer" type="radio" defaultChecked value="yes" name="answer" id="answer_yes"/>
                                 <label className={payRequestButtonStyling} htmlFor="answer_yes">Pay</label>
                             </li>
                             <li className="w-1/2">

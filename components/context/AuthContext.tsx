@@ -21,8 +21,10 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user.email)
+                console.log("user detected")
             } else {
                 setUser(null)
+                console.log("no user detected")
             }
         })
         setLoading(false)

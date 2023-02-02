@@ -29,7 +29,7 @@ export default function LogIn() {
       getUserData(email)
         .then((item) => {
           setUserDoc(item)
-          console.log(item)
+          console.log("user logged in: " + item)
         })
     }
   
