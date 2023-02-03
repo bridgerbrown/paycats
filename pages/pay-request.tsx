@@ -14,7 +14,8 @@ export default function PayRequest() {
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
-    const [formContents, setFormContents] = useState<any>({        
+    const [formContents, setFormContents] = useState<any>({    
+        id: userDoc.transactions.length,   
         from: user,
         to: "",
         payRequest: "",
