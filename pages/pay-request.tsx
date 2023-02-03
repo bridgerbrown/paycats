@@ -41,24 +41,6 @@ export default function PayRequest() {
         setRadioState(e.currentTarget.value)
     }
 
-    const newTransactions = () => {
-        const arr = []
-        arr.push(userDoc.transactions)
-        arr.push(formContents)
-        return newTransactions
-    }
-
-
-    const sendUserTransaction = () => {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve(
-                    changeTransactions(user, userDoc)
-                    )
-            }, 2000)
-        })
-    }
-
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = (document.getElementById("amount") as HTMLInputElement).value
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
@@ -69,13 +51,15 @@ export default function PayRequest() {
             description: descriptionValue,
             payRequest: radioState,
         })
+        const allTransactions = [...userDoc.transactions, formContents]
         setUserDoc(
             {   ...userDoc,
-                transactions:  [...userDoc.transactions, formContents]
+                transactions: allTransactions
             })
-        await sendUserTransaction()
-        console.log(userDoc.transactions)
+        changeTransactions(user, allTransactions)
     }
+
+    console.log(userDoc.transactions)
 
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
