@@ -1,19 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
 import { catUsers } from '../../data/catUsers'
+import { useAuth } from '@/components/context/AuthContext'
 
 export default function TransactionCard({transaction}: any) {
-    
+    const {user, userDoc} = useAuth()
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
             if(catUsers[i].name === fromUser) {
-                console.log(catUsers[i].img)
                 return (catUsers[i].img)
             }
         }
     }
+    const username = user.substring(0, user.lastIndexOf("@"))
 
-    const fromImg: string | undefined = findUserImg(transaction.from)
+    const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userDoc.img.replace('"', '')}.jpg` : findUserImg(transaction.from)
 
     return (
         <div className=' w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>

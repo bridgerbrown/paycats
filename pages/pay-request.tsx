@@ -16,7 +16,7 @@ export default function PayRequest() {
     const [radioState, setRadioState] = useState<string>("pay")
     const [formContents, setFormContents] = useState<any>({    
         id: userDoc.transactions.length,   
-        from: user,
+        from: user.substring(0, user.lastIndexOf("@")),
         to: "",
         payRequest: "",
         amount: 0,
