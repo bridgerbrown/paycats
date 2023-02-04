@@ -37,8 +37,8 @@ export default function Navbar() {
                     <Link href="/" className={navItemStyle}>
                         Home
                     </Link>
-                    <Link href={redirectIfNoUser("/transactions")} className={navItemStyle}>
-                        Transactions
+                    <Link href={redirectIfNoUser("/my-transactions")} className={navItemStyle}>
+                        My Transactions
                     </Link>
                     <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
                         <div className='flex items-center'>

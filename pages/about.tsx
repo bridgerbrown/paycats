@@ -1,11 +1,16 @@
+import Loading from '@/components/features/loading'
+import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import React from 'react'
 
 export default function About() {
     return (
-        <div>
+        <div className='min-h-screen'>
             <Navbar />
-            <h1>hi</h1>
+            <div className='flex justify-center items-center'>
+                <Loading />
+            </div>
+            <Footer />
         </div>
     )
 }

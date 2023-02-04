@@ -11,7 +11,7 @@ export default function Profile() {
     const { user, userDoc } = useAuth()
     
     return (
-        <div className='w-screen relative font-Hind bg-stone-100'>
+        <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
                 <div className='flex justify-center'>
                     <div className=' w-192 mt-8 mb-4'>
@@ -20,10 +20,6 @@ export default function Profile() {
                 </div>
                 <div className='flex justify-center'>
                     <ProfilePageCard user={user} />
-                </div>
-                <div className='pb-72 flex flex-col justify-center items-center'>
-                </div>
-                <div className='pb-72 flex flex-col justify-center items-center'>
                 </div>
             <Footer />
         </div>

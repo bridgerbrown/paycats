@@ -66,8 +66,8 @@ export default function PayRequest() {
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
 
     return (
-        <div className='w-screen relative font-Hind bg-stone-100'>
-        <Navbar />
+        <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
+            <Navbar />
             <div className='flex justify-center'>
                 <div className=' w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>Pay/Request</h1>
@@ -150,9 +150,7 @@ export default function PayRequest() {
                     </div>
                 </div>
             </div>
-            <div className='pb-60'></div>
-            
-        <Footer />
+            <Footer />
         </div>
     )
 }

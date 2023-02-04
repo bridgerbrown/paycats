@@ -17,7 +17,7 @@ export default function Balance() {
     }
 
     return (
-        <div className='w-screen relative font-Hind bg-stone-100'>
+        <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
         <Navbar />
             <div className='flex justify-center'>
                 <div className=' w-192 mt-8 mb-4'>
@@ -75,8 +75,6 @@ export default function Balance() {
                     </div>
                 </div>
             </div>
-            <div className='pb-96 flex flex-col justify-center items-center'>
-                </div>
         <Footer />
         </div>
     )
