@@ -6,11 +6,13 @@ import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
+import TransactionCard from '@/components/sections/transactions/transaction-card'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {user, userDoc} = useAuth()
     const findUser = users.find((item: any) => item.email === user)
-    const usersUsername = user.substring(0, user.lastIndexOf("@"))
+    console.log(userDoc)
+    const usersUsername = userDoc.email.substring(0, user.lastIndexOf("@"))
 
     const onlyMyTransactions = findUser.transactions.filter(
         function (item: any) {
@@ -18,6 +20,10 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
         }
     )
     console.log(onlyMyTransactions)
+
+    const sortedTransactions = onlyMyTransactions.sort(
+        (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
+    )
 
     return (
         <div className='w-screen min-h-screen relative font-Hind'>
@@ -29,7 +35,17 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
                     </h1>
                 </div>
             </div>
-            {userDoc ? <TransactionsSection {...findUser}/> : <div></div>}
+            {userDoc ? 
+            
+            <div className='w-screen relative font-Hind bg-stone-100'>
+                <div className=' pb-60 flex flex-col justify-center items-center'>
+                    <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
+                        { sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
+                    <div className='rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
+                </div>
+            </div>
+            
+            : <div></div>}
             <Footer />
         </div>
     )

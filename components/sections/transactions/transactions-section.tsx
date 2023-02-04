@@ -3,7 +3,8 @@ import TransactionCard from '@/components/sections/transactions/transaction-card
 
 
 export default function TransactionsSection(props: any) {
-    const transactionsData = props.transactions
+    const transactionsData = props.transactions 
+    console.log(props)
     const sortedTransactions = transactionsData.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
