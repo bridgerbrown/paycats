@@ -10,7 +10,6 @@ import { db } from '@/components/firebase/firebase.config'
 
 export default function TransactionsSection(props: any) {
     const { user, userDoc, setUserDoc, transactionHistory} = useAuth()
-    console.log(props)
     const transactionsData = props.transactions
     const sortedTransactions = transactionsData.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0

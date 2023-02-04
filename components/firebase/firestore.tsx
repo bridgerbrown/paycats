@@ -20,7 +20,7 @@ export async function checkUser(name: string) {
     }
 }
 
-export async function getUserData(user: string) {
+export async function getUserData(user: string | null) {
     const userRef = doc(db, "users", `"${user}"`)
     const docSnap = await getDoc(userRef)
     const userData = docSnap.data()

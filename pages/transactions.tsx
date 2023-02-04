@@ -8,13 +8,13 @@ import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 
 export default function Transactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const {user} = useAuth()
+    const {user, userDoc} = useAuth()
     const findUser = users.find((item: any) => item.email === user)
-    console.log(findUser)
+    console.log(userDoc)
     return (
         <div className='w-screen relative'>
             <Navbar />
-            <TransactionsSection {...findUser}/>
+            {userDoc ? <TransactionsSection {...findUser}/> : <div></div>}
             <Footer />
         </div>
     )
