@@ -4,21 +4,31 @@ import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
-import { transactions } from '@/components/data/defaultTransactions'
-import { addTransaction, changeTransactions, getUserData } from '@/components/firebase/firestore'
+import { changeTransactions } from '@/components/firebase/firestore'
+import { useRouter } from 'next/router'
 
-
+interface FormType {
+    id: number | null,
+    from: string,
+    to: string,
+    payRequest: string,
+    amount: number,
+    description: string,
+    likes: number,
+    comments: any
+}
 
 export default function PayRequest() {
-    const { user, setUserDoc, userDoc, updateUserTransactions } = useAuth()
+    const router = useRouter()
+    const { user, setUserDoc, userDoc } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
-    const [formContents, setFormContents] = useState<any>({    
+    const [formContents, setFormContents] = useState<FormType>({    
         id: userDoc.transactions.length,   
         from: user.substring(0, user.lastIndexOf("@")),
         to: "",
-        payRequest: "",
+        payRequest: radioState,
         amount: 0,
         description: "",
         likes: 0,
@@ -42,13 +52,13 @@ export default function PayRequest() {
         setRadioState(e.currentTarget.value)
     }
 
-    async function submitForm(e: MouseEvent<HTMLButtonElement>) {
-        const amountValue = (document.getElementById("amount") as HTMLInputElement).value
+    function sendUserTransaction() {
+        const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
         setFormContents({
             ...formContents,
             id: userDoc.transactions.length,
-            amount: Number(amountValue),
+            amount: amountValue,
             description: descriptionValue,
             payRequest: radioState,
         })
@@ -58,6 +68,28 @@ export default function PayRequest() {
                 transactions: allTransactions
             })
         changeTransactions(user, allTransactions)
+    }
+
+    async function submitForm(e: MouseEvent<HTMLButtonElement>) {
+        const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
+        const balanceDeducted = parseInt(userDoc.balance) - amountValue
+        console.log(amountValue)
+        console.log(balanceDeducted)
+        if(formContents.payRequest == "pay") {
+            if (balanceDeducted <= 0) {
+                alert("Not enough money in your balance.")
+            } else {
+                sendUserTransaction()
+                setUserDoc({
+                    ...userDoc,
+                    balance: balanceDeducted
+                })
+                router.push("/my-transactions");  
+            }
+        } else(
+            sendUserTransaction(),
+            router.push("/my-transactions")
+        )
     }
 
     console.log(userDoc.transactions)

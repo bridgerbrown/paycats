@@ -7,6 +7,7 @@ import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
+import Loading from '@/components/features/loading'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {user, userDoc} = useAuth()
@@ -18,7 +19,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userDoc ? <TransactionsSection {...findUser}/> : <div></div>}
+          {userDoc ? <TransactionsSection {...findUser}/> : <div><Loading/></div>}
           <Footer />
       </div>
   )

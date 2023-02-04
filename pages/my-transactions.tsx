@@ -7,6 +7,7 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import TransactionCard from '@/components/sections/transactions/transaction-card'
+import Loading from '@/components/features/loading'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {user, userDoc} = useAuth()
@@ -26,7 +27,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
     )
 
     return (
-        <div className='w-screen min-h-screen relative font-Hind'>
+        <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
             <div className='flex justify-center bg-stone-100'>
                 <div className='w-192 mt-8 mb-4'>
@@ -37,7 +38,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
             </div>
             {userDoc ? 
             
-            <div className='w-screen relative font-Hind bg-stone-100'>
+            <div className='w-screen relative'>
                 <div className=' pb-60 flex flex-col justify-center items-center'>
                     <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
                         { sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
@@ -45,7 +46,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
                 </div>
             </div>
             
-            : <div></div>}
+            : <div><Loading/></div>}
             <Footer />
         </div>
     )
