@@ -13,7 +13,6 @@ export async function checkUser(name: string) {
         transactions
     }
     if (docSnap.exists()){
-        console.log("Document data:", docSnap.data())
         return true
     } else {
         await setDoc(doc(db, "users", `"${name}"`), defaultData)
@@ -25,7 +24,6 @@ export async function getUserData(user: string) {
     const userRef = doc(db, "users", `"${user}"`)
     const docSnap = await getDoc(userRef)
     const userData = docSnap.data()
-    console.log(userData)
     return userData
 }
 
@@ -48,5 +46,4 @@ export async function changeTransactions(user: string, allTransactions: any) {
     await updateDoc(userRef, {
         transactions: allTransactions,
     })
-    console.log(allTransactions)
 }

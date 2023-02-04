@@ -4,14 +4,19 @@ import React from 'react'
 import Image from 'next/image'
 import TransactionCard from '@/components/sections/transactions/transaction-card'
 import { useAuth } from '@/components/context/AuthContext'
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import { collection, getDocs} from "firebase/firestore";
+import { db } from '@/components/firebase/firebase.config'
 
-export default function TransactionsSection() {
+export default function TransactionsSection(props: any) {
     const { user, userDoc, setUserDoc, transactionHistory} = useAuth()
-    const transactionsData = userDoc ? userDoc.transactions : transactionHistory
+    console.log(props)
+    const transactionsData = props.transactions
     const sortedTransactions = transactionsData.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
 
+    console.log("sorted: " + sortedTransactions)
     return (
         <div className='w-screen relative font-Hind bg-stone-100'>
                 <div className='flex justify-center'>
@@ -27,3 +32,4 @@ export default function TransactionsSection() {
         </div>
     )
 }
+
