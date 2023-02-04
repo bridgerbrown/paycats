@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TransactionsSection from '@/components/sections/transactions/transactions-section'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
@@ -11,20 +11,19 @@ import Loading from '@/components/features/loading'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {user, userDoc} = useAuth()
-    const findUser = users.find((item: any) => item.email === user)
-    console.log(userDoc)
-    const usersUsername = userDoc.email.substring(0, user.lastIndexOf("@"))
+    // const user: any = localStorage.getItem("user")!
 
+    const findUser = users.find((item: any) => item.email === user)
+    const usersUsername = user.substring(0, user.lastIndexOf("@"))
     const onlyMyTransactions = findUser.transactions.filter(
         function (item: any) {
             return item.from == usersUsername || item.to == usersUsername
         }
     )
-    console.log(onlyMyTransactions)
-
     const sortedTransactions = onlyMyTransactions.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
+
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>

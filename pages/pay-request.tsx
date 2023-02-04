@@ -4,7 +4,7 @@ import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
-import { changeTransactions } from '@/components/firebase/firestore'
+import { changeTransactions, updateBalance } from '@/components/firebase/firestore'
 import { useRouter } from 'next/router'
 
 interface FormType {
@@ -84,6 +84,7 @@ export default function PayRequest() {
                     ...userDoc,
                     balance: balanceDeducted
                 })
+                updateBalance(user, balanceDeducted)
                 router.push("/my-transactions");  
             }
         } else(

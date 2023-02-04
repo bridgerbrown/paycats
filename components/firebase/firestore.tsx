@@ -41,6 +41,13 @@ export async function transferMoney(user: string, balance: number) {
     })
 }
 
+export async function updateBalance(user: string, newBalance: number) {
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        balance: newBalance
+    })
+}
+
 export async function changeTransactions(user: string, allTransactions: any) {    
     const userRef = doc(db, "users", `"${user}"`)
     await updateDoc(userRef, {

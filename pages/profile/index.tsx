@@ -6,9 +6,11 @@ import { collection, doc, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import { useLocalStorage } from '@/components/data/localStorage';
 
 export default function Profile() {
     const { user, userDoc } = useAuth()
+    useLocalStorage("user", user)
     
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
