@@ -10,9 +10,16 @@ import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {user, userDoc} = useAuth()
-  const findUser = users.find((item: any) => item.email === user)
+  const {userFound, userDoc, loading} = useAuth()
+  const findUser = users.find((item: any) => item.email === userFound)
   console.log(userDoc)
+
+  if(loading) return (
+    <div>
+        <Loading/>
+    </div>
+)
+
   return (
       <div className='w-screen min-h-screen relative bg-stone-100'>
           <Navbar />

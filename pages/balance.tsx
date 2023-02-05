@@ -3,18 +3,25 @@ import Navbar from '@/components/sections/navbar'
 import React, {MouseEvent} from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
+import Loading from '@/components/features/loading'
 
 
 export default function Balance() {
-    const { user, userDoc, setUserDoc, transferMoneyBtn } = useAuth()
+    const { userFound, userDoc, setUserDoc, transferMoneyBtn, loading } = useAuth()
     const formattedBalance = (userDoc.balance).toLocaleString("en-US")
 
     const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        transferMoneyBtn(user, userDoc)
+        transferMoneyBtn(userFound, userDoc)
         setUserDoc({...userDoc, balance: userDoc.balance + 10000})
         alert("Transfered $10,000 to your account!")
     }
+
+    if(loading) return (
+        <div>
+            <Loading/>
+        </div>
+    )
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>

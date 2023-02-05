@@ -4,7 +4,7 @@ import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
 
 export default function TransactionCard({transaction}: any) {
-    const {user, userDoc} = useAuth()
+    const {userFound, userDoc} = useAuth()
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
             if(catUsers[i].name === fromUser) {
@@ -12,7 +12,7 @@ export default function TransactionCard({transaction}: any) {
             }
         }
     }
-    const username = user.substring(0, user.lastIndexOf("@"))
+    const username = userFound.substring(0, userFound.lastIndexOf("@"))
 
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userDoc.img.replace('"', '')}.jpg` : findUserImg(transaction.from)
 

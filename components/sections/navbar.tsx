@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 
 export default function Navbar() {
     const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
-    const { user, userDoc } = useAuth()
+    const { userFound, userDoc } = useAuth()
 
     const dynamicUserImg = () => {
         if(userDoc) {
@@ -15,7 +15,7 @@ export default function Navbar() {
     }
 
     function redirectIfNoUser(route: string) {
-        return user ? route : "/profile/signup"
+        return userFound ? route : "/profile/signup"
     }
 
     return (

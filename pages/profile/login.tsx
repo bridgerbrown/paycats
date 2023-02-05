@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 import Link from 'next/link'
@@ -15,7 +15,7 @@ type FormValues = {
 
 export default function LogIn() {
     const methods = useForm({ mode: "onBlur"})
-    const { logIn, setUserDoc, userDoc, setUserImg, setTransactionHistory } = useAuth()
+    const { logIn, setUserDoc } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   

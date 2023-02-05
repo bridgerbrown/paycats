@@ -6,10 +6,10 @@ import { changeUserImage } from '@/components/firebase/firestore'
 
 interface UsernameProps {user: string}
 
-export default function ProfilePageCard({user}:UsernameProps) {
+export default function ProfilePageCard({userFound}:UsernameProps) {
     const { logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
-    const username = user ? user.substring(0, user.lastIndexOf("@")) : ""
-    const asperandUsername = user ? (user.substring(0, user.lastIndexOf("@"))).replace(" ", "-") : ""
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
+    const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
 
     const [imageChange, setImageChange] = useState<boolean>(false)
@@ -28,7 +28,7 @@ export default function ProfilePageCard({user}:UsernameProps) {
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve(
-                    updateUserImage(user, radioState)
+                    updateUserImage(userFound, radioState)
                     )
             }, 2000)
         })
@@ -96,7 +96,7 @@ export default function ProfilePageCard({user}:UsernameProps) {
                         className='object-cover w-32 h-32 rounded-full border border-slate-400 mb-4'
                     />
                     <h1 className='text-2xl flex justify-center mb-2'>{username}</h1>
-                    <h2 className='text-md flex justify-center mb-2'>{user}</h2>
+                    <h2 className='text-md flex justify-center mb-2'>{userFound}</h2>
                     <div className='flex'>
                         <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
                         <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>

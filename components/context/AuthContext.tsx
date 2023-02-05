@@ -12,40 +12,45 @@ const AuthContext = createContext<any>({} as AuthContextType)
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthContextProvider = ({children}: AuthContextType) => {
-    const [user, setUser] = useState<string | null>(null)
+    const [userFound, setUserFound] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [userDoc, setUserDoc] = useState<any | null>(null)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUser(user.email)
+                setUserFound(user.email)
                 getUserData(user.email)
                     .then((data) => {
                         setUserDoc(data)
                     })
                 console.log("user detected")
             } else {
-                setUser(null)
+                setUserFound(null)
                 console.log("no user detected")
             }
+            setLoading(false)
         })
-        setLoading(false)
-
         return () => unsubscribe()
     }, [])
 
     const signUp = (email: string, password: string) => {
-        return createUserWithEmailAndPassword(auth, email, password);
+        setLoading(true)
+        createUserWithEmailAndPassword(auth, email, password);
+        setLoading(false)
       };
     
       const logIn = (email: string, password: string) => {
-        return signInWithEmailAndPassword(auth, email, password);
+        setLoading(true)
+        signInWithEmailAndPassword(auth, email, password);
+        setLoading(false)
       };
     
       const logOut = async () => {
-        setUser("");
+        setUserFound("");
+        setLoading(true)
         await signOut(auth);
+        setLoading(false)
       };
 
     const updateUserImage = (user: string, radioState: string) => {
@@ -58,7 +63,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
 
     return (
         <AuthContext.Provider value={{ 
-            user, 
+            userFound, 
             transferMoneyBtn,   
             userDoc, 
             updateUserImage, 
@@ -66,6 +71,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             signUp, 
             logIn, 
             logOut,
+            loading
             }}>
             {loading ? null : children}
         </AuthContext.Provider>

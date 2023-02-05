@@ -10,11 +10,10 @@ import TransactionCard from '@/components/sections/transactions/transaction-card
 import Loading from '@/components/features/loading'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const {user, userDoc} = useAuth()
-    // const user: any = localStorage.getItem("user")!
+    const {userFound, userDoc, loading} = useAuth()
 
-    const findUser = users.find((item: any) => item.email === user)
-    const usersUsername = user.substring(0, user.lastIndexOf("@"))
+    const findUser = users.find((item: any) => item.email === userFound)
+    const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
     const onlyMyTransactions = findUser.transactions.filter(
         function (item: any) {
             return item.from == usersUsername || item.to == usersUsername
@@ -23,7 +22,12 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
     const sortedTransactions = onlyMyTransactions.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
-
+    
+    if(loading) return (
+        <div>
+            <Loading/>
+        </div>
+    )
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
