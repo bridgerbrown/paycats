@@ -60,7 +60,7 @@ export default function Navbar() {
                         className='w-5 h-6 mr-7 cursor-pointer'
                     />
                 </Link>
-                { !user ? (
+                { !userFound ? (
                     <Link 
                         href="/profile/login"
                         className='font-bold text-white tracking-wider mr-14 text-xs'>

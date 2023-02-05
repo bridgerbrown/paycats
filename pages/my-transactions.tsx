@@ -29,6 +29,8 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
         </div>
     )
 
+    console.log(sortedTransactions)
+    
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />

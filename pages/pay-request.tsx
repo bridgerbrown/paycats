@@ -32,10 +32,11 @@ export default function PayRequest() {
         amount: 0,
         description: "",
         likes: 0,
-        comments: {
-            from: "",
+        comments: [
+            { from: "",
             comment: ""
-        },
+            },
+        ]
     })
 
     function recipientImagePreview(image: string, name: string) {

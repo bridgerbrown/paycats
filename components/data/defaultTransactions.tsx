@@ -7,11 +7,12 @@ export const transactions = [
             amount: 0,
             description: "SORRY THIS IS 4 MONTHS LATE",
             likes: 3,
-            comments:
+            comments: [
                 {
-                from: "Blossom",
-                message: "I understand."
-                }
+                    from: "Blossom",
+                    message: "I understand."
+                },
+            ]
         },
         {
             id: 1,
@@ -21,11 +22,12 @@ export const transactions = [
             amount: 0,
             description: "I believe you owe me..",
             likes: 0,
-            comments:
+            comments: [
                 {
-                from: "Mr. Bitters",
-                message: "ugh"
-                }
+                    from: "Mr. Bitters",
+                    message: "ugh"
+                },
+            ]
         },
         {
             id: 2,
@@ -35,7 +37,7 @@ export const transactions = [
             amount: 0,
             description: "Thank you for your hospitality.",
             likes: 1,
-            comments: {},
+            comments: [],
         },
         {
             id: 3,
@@ -45,11 +47,12 @@ export const transactions = [
             amount: 0,
             description: "UUHHHH FORGOT WHAT THIS WAS FOR",
             likes: 1,
-            comments: 
+            comments: [
                 {
                     from: "Sherlock",
                     message: "You didn't owe me anything!"
-                    },
+                },
+            ]
         },
         {
             id: 4,
@@ -59,10 +62,11 @@ export const transactions = [
             amount: 0,
             description: "You're lucky I dont ask for more..",
             likes: 0,
-            comments: 
+            comments: [
                 {
                     from: "Blossom",
                     message: "Anything for a friend."
-                    }
+                },
+            ]
         },
 ]

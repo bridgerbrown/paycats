@@ -17,7 +17,7 @@ export default function TransactionCard({transaction}: any) {
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userDoc.img.replace('"', '')}.jpg` : findUserImg(transaction.from)
 
     return (
-        <div className=' w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
+        <div className='font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
             <div className='w-192 border-b border-slate-300 flex'>
             <div className=''>
                 <Image 
@@ -48,7 +48,7 @@ export default function TransactionCard({transaction}: any) {
                         {transaction.description}
                     </p>
                     <div className='flex mt-4'>
-                        <div className='mr-7'>
+                        <div className='mr-4 flex justify-center items-center'>
                             <Image
                                 width={100}
                                 height={88}
@@ -56,9 +56,9 @@ export default function TransactionCard({transaction}: any) {
                                 src="/icons/heart-icon-gray.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer'
                             />
-                            <p>{transaction.likes}</p>
+                            <p className='ml-1 text-sm'>{transaction.likes}</p>
                         </div>
-                        <div className='mr-7'>
+                        <div className='mr-7 flex justify-center items-center'>
                             <Image
                                 width={100}
                                 height={104}
@@ -66,7 +66,7 @@ export default function TransactionCard({transaction}: any) {
                                 src="/icons/comment-icon.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer' 
                             />
-                            <p>{transaction.comments.length}</p>
+                            <p className='ml-1 text-sm'>{transaction.comments.length}</p>
                         </div>
                     </div>
                 </div>

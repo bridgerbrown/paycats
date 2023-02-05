@@ -3,11 +3,12 @@ import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
 import { changeUserImage } from '@/components/firebase/firestore'
+import Loading from '@/components/features/loading'
 
 interface UsernameProps {userFound: string}
 
 export default function ProfilePageCard({userFound}:UsernameProps) {
-    const { logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
+    const { loading, logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
@@ -59,6 +60,12 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
         console.log(onlyMyTransactions.length)
         return onlyMyTransactions.length
     }
+
+    if(loading) return (
+        <div>
+            <Loading/>
+        </div>
+    )
 
     return (
         <div className=''>
@@ -114,7 +121,7 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
                         <p className='font-semibold tracking-wider'>4 friends</p>
                     </div>
                     <div className='my-2'>
-                        <p className='font-normal text-sm tracking-wider'>{numberOfUsersTransactions()} transactions</p>
+                        <p className='font-normal text-sm tracking-wider'>1 transactions</p>
                     </div>
                     <div className='mt-6 mb-4 flex justify-center items-center'>
                         <button
