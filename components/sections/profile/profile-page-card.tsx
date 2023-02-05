@@ -4,7 +4,7 @@ import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
 import { changeUserImage } from '@/components/firebase/firestore'
 
-interface UsernameProps {user: string}
+interface UsernameProps {userFound: string}
 
 export default function ProfilePageCard({userFound}:UsernameProps) {
     const { logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
@@ -47,6 +47,17 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
         } else {
             return `/cat-profile-1.jpg`
         }
+    }
+
+    const numberOfUsersTransactions = () => {
+        const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
+        const onlyMyTransactions = userDoc.transactions.filter(
+            function (item: any) {
+                return item.from == usersUsername || item.to == usersUsername
+            }
+        )
+        console.log(onlyMyTransactions.length)
+        return onlyMyTransactions.length
     }
 
     return (
@@ -100,7 +111,10 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
                     <div className='flex'>
                         <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
                         <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
-                        <p className='font-semibold tracking-wider'>10 friends</p>
+                        <p className='font-semibold tracking-wider'>4 friends</p>
+                    </div>
+                    <div className='my-2'>
+                        <p className='font-normal text-sm tracking-wider'>{numberOfUsersTransactions()} transactions</p>
                     </div>
                     <div className='mt-6 mb-4 flex justify-center items-center'>
                         <button
