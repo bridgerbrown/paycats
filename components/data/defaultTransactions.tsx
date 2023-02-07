@@ -1,4 +1,4 @@
-export const transactions = [
+export const defaultTransactions = [
         {
             id: 0,
             from: "Cilantro",
@@ -7,6 +7,7 @@ export const transactions = [
             amount: 0,
             description: "SORRY THIS IS 4 MONTHS LATE",
             likes: 3,
+            likedByUser: false,
             comments: [
                 {
                     from: "Blossom",
@@ -22,6 +23,7 @@ export const transactions = [
             amount: 0,
             description: "I believe you owe me..",
             likes: 0,
+            likedByUser: false,
             comments: [
                 {
                     from: "Mr. Bitters",
@@ -37,6 +39,7 @@ export const transactions = [
             amount: 0,
             description: "Thank you for your hospitality.",
             likes: 1,
+            likedByUser: false,
             comments: [],
         },
         {
@@ -47,6 +50,7 @@ export const transactions = [
             amount: 0,
             description: "UUHHHH FORGOT WHAT THIS WAS FOR",
             likes: 1,
+            likedByUser: false,
             comments: [
                 {
                     from: "Sherlock",
@@ -62,6 +66,7 @@ export const transactions = [
             amount: 0,
             description: "You're lucky I dont ask for more..",
             likes: 0,
+            likedByUser: false,
             comments: [
                 {
                     from: "Blossom",

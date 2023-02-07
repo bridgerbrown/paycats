@@ -1,10 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
 
-export default function TransactionCard({transaction}: any) {
+export default function TransactionCard(props: any) {
     const {userFound, userDoc} = useAuth()
+    const transaction = props.transaction
+    const [likes, setLikes] = useState<number>(transaction.likes)
+    const [liked, setLiked] = useState<boolean>(transaction.likedByUser)
+    const [comments, setComments] = useState<any>(transaction.comments.length)
+
+    useEffect(() => {
+
+    }, [likes])
+
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
             if(catUsers[i].name === fromUser) {
@@ -13,8 +22,22 @@ export default function TransactionCard({transaction}: any) {
         }
     }
     const username = userFound.substring(0, userFound.lastIndexOf("@"))
-
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userDoc.img.replace('"', '')}.jpg` : findUserImg(transaction.from)
+
+    const updateLikes = () => {
+        const addedLike = transaction.likes + 1
+        const removedLike = transaction.likes - 1
+        console.log(likes)
+        if(liked) {
+            props.updateTransactionSocials(transaction.id, removedLike, false, transaction.comments)
+            setLikes(prev => prev - 1)
+            setLiked(!liked)
+        } else if(!liked) {
+            props.updateTransactionSocials(transaction.id, addedLike, true, transaction.comments)
+            setLikes(prev => prev + 1)
+            setLiked(!liked)
+        }
+    }
 
     return (
         <div className='font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
@@ -55,8 +78,9 @@ export default function TransactionCard({transaction}: any) {
                                 alt="heart icon"
                                 src="/icons/heart-icon-gray.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer'
+                                onClick={() => updateLikes() }
                             />
-                            <p className='ml-1 text-sm'>{transaction.likes}</p>
+                            <p className='ml-1 text-sm'>{likes}</p>
                         </div>
                         <div className='mr-7 flex justify-center items-center'>
                             <Image
@@ -66,7 +90,7 @@ export default function TransactionCard({transaction}: any) {
                                 src="/icons/comment-icon.png"
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer' 
                             />
-                            <p className='ml-1 text-sm'>{transaction.comments.length}</p>
+                            <p className='ml-1 text-sm'>{comments}</p>
                         </div>
                     </div>
                 </div>

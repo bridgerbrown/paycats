@@ -1,6 +1,6 @@
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from './firebase.config'
-import {transactions} from '../data/defaultTransactions'
+import {defaultTransactions} from '../data/defaultTransactions'
 
 export async function checkUser(name: string) {
     const usersRef = doc(db, "users", `${name}`)
@@ -10,7 +10,7 @@ export async function checkUser(name: string) {
         balance: 10000,
         img: "1",
         email: name,
-        transactions
+        transactions: defaultTransactions
     }
     if (docSnap.exists()){
         return true
@@ -48,9 +48,11 @@ export async function updateBalance(user: string, newBalance: number) {
     })
 }
 
-export async function changeTransactions(user: string, allTransactions: any) {    
+export async function updateTransactions(user: string, allTransactions: any) {    
     const userRef = doc(db, "users", `"${user}"`)
     await updateDoc(userRef, {
         transactions: allTransactions,
     })
 }
+
+

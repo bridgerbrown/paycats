@@ -8,17 +8,34 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
+import { updateTransactions } from '@/components/firebase/firestore'
+import { useEffect, useState } from 'react'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {userFound, userDoc, loading} = useAuth()
   const findUser = users.find((item: any) => item.email === userFound)
-  console.log(userDoc)
+
+  async function updateTransactionSocials(id: number, likes: number, likedByUser: boolean, comments: any) {
+    const findTransaction = findUser.transactions.find((transaction: any) => transaction.id === id)
+    const updatedSocials = {...findTransaction, likes: likes, likedByUser: likedByUser, comments: comments}
+    const allUserTransactions = findUser.transactions
+    const updatedAllUserTransactions = allUserTransactions.map((transaction: any) => {
+      if(transaction.id == findTransaction.id){
+        return updatedSocials
+      }
+      return transaction
+    })
+    console.log(updatedAllUserTransactions)
+    updateTransactions(userFound, updatedAllUserTransactions)
+      
+    
+  }
 
   if(loading) return (
     <div>
         <Loading/>
     </div>
-)
+  )
 
   return (
       <div className='w-screen min-h-screen relative bg-stone-100'>
@@ -26,7 +43,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userDoc ? <TransactionsSection {...findUser}/> : <div><Loading/></div>}
+          {userDoc ? <TransactionsSection {...findUser} updateTransactionSocials={updateTransactionSocials}/> : <div><Loading/></div>}
           <Footer />
       </div>
   )

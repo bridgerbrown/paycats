@@ -4,7 +4,7 @@ import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
-import { changeTransactions, updateBalance } from '@/components/firebase/firestore'
+import { updateTransactions, updateBalance } from '@/components/firebase/firestore'
 import { useRouter } from 'next/router'
 
 interface FormType {
@@ -68,7 +68,7 @@ export default function PayRequest() {
             {   ...userDoc,
                 transactions: allTransactions
             })
-        changeTransactions(user, allTransactions)
+        updateTransactions(user, allTransactions)
     }
 
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
