@@ -13,6 +13,7 @@ export const useAuth = () => useContext(AuthContext)
 
 export const AuthContextProvider = ({children}: AuthContextType) => {
     const [userFound, setUserFound] = useState<string | null>(null)
+    const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
     const [userDoc, setUserDoc] = useState<any | null>(null)
 
@@ -63,16 +64,17 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
 
     const updateUserImage = (user: string, radioState: string) => {
         changeUserImage(user, radioState)
+        setUserImage(radioState)
     }
 
-    const transferMoneyBtn = (user: string, userDoc: any) => {
-        transferMoney(user, userDoc.balance)
+    const transferMoneyBtn = (user: string, findUser: any) => {
+        transferMoney(user, findUser.balance)
     }
 
-    function updateTransactionSocials(userData: any, id: number, likes: number, likedByUser: boolean, comments: any) {
-        const findTransaction = userData.transactions.find((transaction: any) => transaction.id === id)
+    function updateTransactionSocials(userDoc: any, id: number, likes: number, likedByUser: boolean, comments: any) {
+        const findTransaction = userDoc.transactions.find((transaction: any) => transaction.id === id)
         const updatedSocials = {...findTransaction, likes: likes, likedByUser: likedByUser, comments: comments}
-        const allTransactions = userData.transactions
+        const allTransactions = userDoc.transactions
 
         const updatedAllUserTransactions = allTransactions.map((transaction: any) => {
           if(transaction.id == findTransaction.id){
@@ -81,7 +83,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
           return transaction
         })
         console.log(updatedAllUserTransactions)
-        updateTransactions(userData.email, updatedAllUserTransactions)
+        updateTransactions(userDoc.email, updatedAllUserTransactions)
       }
 
     return (
@@ -95,7 +97,9 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             logIn, 
             logOut,
             loading,
-            updateTransactionSocials
+            updateTransactionSocials,
+            userImage,
+            setUserImage
             }}>
             {loading ? null : children}
         </AuthContext.Provider>

@@ -4,16 +4,18 @@ import React, {MouseEvent} from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import { collection, getDocs} from "firebase/firestore";
+import { db } from '@/components/firebase/firebase.config'
 
-
-export default function Balance() {
-    const { userFound, userDoc, setUserDoc, transferMoneyBtn, loading } = useAuth()
-    const formattedBalance = (userDoc.balance).toLocaleString("en-US")
+export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const { userFound, transferMoneyBtn, loading } = useAuth()
+    const findUser = users.find((item: any) => item.email === userFound)
+    const formattedBalance = (findUser.balance).toLocaleString("en-US")
 
     const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        transferMoneyBtn(userFound, userDoc)
-        setUserDoc({...userDoc, balance: userDoc.balance + 10000})
+        transferMoneyBtn(userFound, findUser)
         alert("Transfered $10,000 to your account!")
     }
 
@@ -85,4 +87,18 @@ export default function Balance() {
         <Footer />
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const usersRef = collection(db, 'users')
+    const users: any = []
+    const snapshot = await getDocs(usersRef)
+    snapshot.forEach((doc) => {
+        users.push({ ...doc.data() })
+        })
+    return {
+        props: {
+            users: users
+        }
+    }
 }

@@ -6,6 +6,9 @@ import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import { updateTransactions, updateBalance } from '@/components/firebase/firestore'
 import { useRouter } from 'next/router'
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import { collection, getDocs} from "firebase/firestore";
+import { db } from '@/components/firebase/firebase.config'
 
 interface FormType {
     id: number | null,
@@ -19,14 +22,15 @@ interface FormType {
     comments: any
 }
 
-export default function PayRequest() {
+export default function PayRequest({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter()
-    const { userFound, setUserDoc, userDoc } = useAuth()
+    const { userFound } = useAuth()
+    const findUser = users.find((item: any) => item.email === userFound)
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
     const [formContents, setFormContents] = useState<FormType>({    
-        id: userDoc.transactions.length,   
+        id: findUser.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
         to: "",
         payRequest: radioState,
@@ -34,7 +38,10 @@ export default function PayRequest() {
         description: "",
         likes: 0,
         likedByUser: false,
-        comments: []
+        comments: {
+            from: "",
+            to: ""
+        }
     })
 
     function recipientImagePreview(image: string, name: string) {
@@ -56,42 +63,30 @@ export default function PayRequest() {
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
         setFormContents({
             ...formContents,
-            id: userDoc.transactions.length,
+            id: findUser.transactions.length,
             amount: amountValue,
             description: descriptionValue,
             payRequest: radioState,
         })
-        const allTransactions = [...userDoc.transactions, formContents]
-        setUserDoc(
-            {   ...userDoc,
-                transactions: allTransactions
-            })
+        const allTransactions = [...findUser.transactions, formContents]
         updateTransactions(userFound, allTransactions)
+        console.log(allTransactions)
     }
 
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
-        const balanceDeducted = parseInt(userDoc.balance) - amountValue
+        const balanceDeducted = parseInt(findUser.balance) - amountValue
         if(formContents.payRequest == "pay") {
             if (balanceDeducted <= 0) {
                 alert("Not enough money in your balance.")
             } else {
                 sendUserTransaction()
-                setUserDoc({
-                    ...userDoc,
-                    balance: balanceDeducted
-                })
                 updateBalance(userFound, balanceDeducted)
             }
-            router.push("/my-transactions")
         } else(
-            sendUserTransaction(),
-            router.push("/my-transactions")
+            sendUserTransaction()
         )
     }
-
-    console.log(userDoc)
-
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
 
@@ -105,7 +100,8 @@ export default function PayRequest() {
             </div>
             <div className='flex justify-center pb-96'>
                 <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-192'>
-                    <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
+                    <div className='border-b border-slate-300 pb-4 flex justify-betwee
+                    cn items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
                             <h2>To:</h2>
                             {!toDropdown ? 
@@ -183,4 +179,18 @@ export default function PayRequest() {
             <Footer />
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const usersRef = collection(db, 'users')
+    const users: any = []
+    const snapshot = await getDocs(usersRef)
+    snapshot.forEach((doc) => {
+        users.push({ ...doc.data() })
+        })
+    return {
+        props: {
+            users: users
+        }
+    }
 }

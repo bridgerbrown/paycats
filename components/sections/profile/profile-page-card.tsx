@@ -5,14 +5,13 @@ import Link from 'next/link'
 import { changeUserImage } from '@/components/firebase/firestore'
 import Loading from '@/components/features/loading'
 
-interface UsernameProps {userFound: string}
+// Leaving userFound for username display for now
 
-export default function ProfilePageCard({userFound}:UsernameProps) {
-    const { loading, logOut, userDoc, setUserDoc, updateUserImage } = useAuth()
+export default function ProfilePageCard({findUser}: any) {
+    const { userFound, loading, logOut, updateUserImage, userImage } = useAuth()
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
-
     const [imageChange, setImageChange] = useState<boolean>(false)
     const [radioState, setRadioState] = useState<string>("1")
 
@@ -37,14 +36,13 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
 
     async function handleImgSubmit(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
-        setUserDoc({...userDoc, img: radioState})
         setImageChange(!imageChange)
         await sendUserImg()
     }
 
     const dynamicUserImg = () => {
-        if(userDoc) {
-            return `/cat-profile-${userDoc.img.replace('"', '')}.jpg`
+        if(userFound) {
+            return `/cat-profile-${userImage}.jpg`
         } else {
             return `/cat-profile-1.jpg`
         }
@@ -52,7 +50,7 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
 
     const numberOfUsersTransactions = () => {
         const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
-        const onlyMyTransactions = userDoc.transactions.filter(
+        const onlyMyTransactions = findUser.transactions.filter(
             function (item: any) {
                 return item.from == usersUsername || item.to == usersUsername
             }
@@ -121,7 +119,7 @@ export default function ProfilePageCard({userFound}:UsernameProps) {
                         <p className='font-semibold tracking-wider'>4 friends</p>
                     </div>
                     <div className='my-2'>
-                        <p className='font-normal text-sm tracking-wider'>1 transactions</p>
+                        <p className='font-normal text-sm tracking-wider'>{numberOfUsersTransactions()} transactions</p>
                     </div>
                     <div className='mt-6 mb-4 flex justify-center items-center'>
                         <button

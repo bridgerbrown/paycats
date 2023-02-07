@@ -4,10 +4,15 @@ import React from 'react'
 import ProfilePageCard from '@/components/sections/profile/profile-page-card'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import { collection, getDocs} from "firebase/firestore";
+import { db } from '@/components/firebase/firebase.config'
 
-export default function Profile() {
-    const { userFound, userDoc, loading } = useAuth()
-    console.log(userDoc)
+export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+    const { userFound, loading } = useAuth()
+    const findUser = users.find((item: any) => item.email === userFound)
+    const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
+    console.log(findUser)
     
     if(loading) return (
         <div>
@@ -24,9 +29,23 @@ export default function Profile() {
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <ProfilePageCard userFound={userFound} />
+                    <ProfilePageCard findUser={findUser} />
                 </div>
             <Footer />
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const usersRef = collection(db, 'users')
+    const users: any = []
+    const snapshot = await getDocs(usersRef)
+    snapshot.forEach((doc) => {
+        users.push({ ...doc.data() })
+        })
+    return {
+        props: {
+            users: users
+        }
+    }
 }

@@ -16,7 +16,7 @@ type FormValues = {
 
 export default function SignUp() {
     const methods = useForm({ mode: "onBlur"})
-    const { signUp, setUserDoc } = useAuth()
+    const { signUp } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   
@@ -29,7 +29,6 @@ export default function SignUp() {
     function createUserData(email: any){
       checkUser(email)
         .then((item) => {
-          setUserDoc(item)
           console.log("signup " + item)
         })
     }

@@ -78,7 +78,7 @@ export default function TransactionCard(props: any) {
                                 alt="heart icon"
                                 src={liked ? "/icons/heart-icon-red.png" : "/icons/heart-icon-gray.png"}
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer'
-                                onClick={() => updateLikes() }
+                                onClick={() => updateLikes()}
                             />
                             <p className='ml-1 text-sm'>{likes}</p>
                         </div>

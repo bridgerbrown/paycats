@@ -15,7 +15,7 @@ type FormValues = {
 
 export default function LogIn() {
     const methods = useForm({ mode: "onBlur"})
-    const { logIn, setUserDoc } = useAuth()
+    const { logIn } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   
@@ -28,7 +28,6 @@ export default function LogIn() {
     function resolveUserData(email: any){
       getUserData(email)
         .then((item) => {
-          setUserDoc(item)
           console.log("user logged in: " + item)
         })
     }
