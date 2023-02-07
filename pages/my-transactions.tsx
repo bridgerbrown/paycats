@@ -8,10 +8,10 @@ import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import TransactionCard from '@/components/sections/transactions/transaction-card'
 import Loading from '@/components/features/loading'
+import { updateTransactions } from '@/components/firebase/firestore'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {userFound, userDoc, loading} = useAuth()
-
     const findUser = users.find((item: any) => item.email === userFound)
     const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
     const onlyMyTransactions = findUser.transactions.filter(
@@ -28,8 +28,6 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
             <Loading/>
         </div>
     )
-
-    console.log(sortedTransactions)
     
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>

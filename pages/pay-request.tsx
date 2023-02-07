@@ -15,28 +15,26 @@ interface FormType {
     amount: number,
     description: string,
     likes: number,
+    likedByUser: boolean,
     comments: any
 }
 
 export default function PayRequest() {
     const router = useRouter()
-    const { user, setUserDoc, userDoc } = useAuth()
+    const { userFound, setUserDoc, userDoc } = useAuth()
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
     const [formContents, setFormContents] = useState<FormType>({    
         id: userDoc.transactions.length,   
-        from: user.substring(0, user.lastIndexOf("@")),
+        from: userFound.substring(0, userFound.lastIndexOf("@")),
         to: "",
         payRequest: radioState,
         amount: 0,
         description: "",
         likes: 0,
-        comments: [
-            { from: "",
-            comment: ""
-            },
-        ]
+        likedByUser: false,
+        comments: []
     })
 
     function recipientImagePreview(image: string, name: string) {
@@ -68,14 +66,12 @@ export default function PayRequest() {
             {   ...userDoc,
                 transactions: allTransactions
             })
-        updateTransactions(user, allTransactions)
+        updateTransactions(userFound, allTransactions)
     }
 
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const balanceDeducted = parseInt(userDoc.balance) - amountValue
-        console.log(amountValue)
-        console.log(balanceDeducted)
         if(formContents.payRequest == "pay") {
             if (balanceDeducted <= 0) {
                 alert("Not enough money in your balance.")
@@ -85,16 +81,16 @@ export default function PayRequest() {
                     ...userDoc,
                     balance: balanceDeducted
                 })
-                updateBalance(user, balanceDeducted)
-                router.push("/my-transactions");  
+                updateBalance(userFound, balanceDeducted)
             }
+            router.push("/my-transactions")
         } else(
             sendUserTransaction(),
             router.push("/my-transactions")
         )
     }
 
-    console.log(userDoc.transactions)
+    console.log(userDoc)
 
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`

@@ -4,7 +4,7 @@ import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
 
 export default function TransactionCard(props: any) {
-    const {userFound, userDoc} = useAuth()
+    const {userFound, userDoc, updateTransactionSocials} = useAuth()
     const transaction = props.transaction
     const [likes, setLikes] = useState<number>(transaction.likes)
     const [liked, setLiked] = useState<boolean>(transaction.likedByUser)
@@ -29,11 +29,11 @@ export default function TransactionCard(props: any) {
         const removedLike = transaction.likes - 1
         console.log(likes)
         if(liked) {
-            props.updateTransactionSocials(transaction.id, removedLike, false, transaction.comments)
+            updateTransactionSocials(userDoc, transaction.id, removedLike, false, transaction.comments)
             setLikes(prev => prev - 1)
             setLiked(!liked)
         } else if(!liked) {
-            props.updateTransactionSocials(transaction.id, addedLike, true, transaction.comments)
+            updateTransactionSocials(userDoc, transaction.id, addedLike, true, transaction.comments)
             setLikes(prev => prev + 1)
             setLiked(!liked)
         }
@@ -76,7 +76,7 @@ export default function TransactionCard(props: any) {
                                 width={100}
                                 height={88}
                                 alt="heart icon"
-                                src="/icons/heart-icon-gray.png"
+                                src={liked ? "/icons/heart-icon-red.png" : "/icons/heart-icon-gray.png"}
                                 className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                 onClick={() => updateLikes() }
                             />

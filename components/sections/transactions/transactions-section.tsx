@@ -14,7 +14,7 @@ export default function TransactionsSection(props: any) {
         <div className='w-screen relative font-Hind bg-stone-100'>
                 <div className=' pb-60 flex flex-col justify-center items-center'>
                     <div className='rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
-                        { sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} updateTransactionSocials={props.updateTransactionSocials} /> )}
+                        { sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
                     <div className='rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
                 </div>
         </div>

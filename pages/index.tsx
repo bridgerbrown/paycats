@@ -15,22 +15,6 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
   const {userFound, userDoc, loading} = useAuth()
   const findUser = users.find((item: any) => item.email === userFound)
 
-  async function updateTransactionSocials(id: number, likes: number, likedByUser: boolean, comments: any) {
-    const findTransaction = findUser.transactions.find((transaction: any) => transaction.id === id)
-    const updatedSocials = {...findTransaction, likes: likes, likedByUser: likedByUser, comments: comments}
-    const allUserTransactions = findUser.transactions
-    const updatedAllUserTransactions = allUserTransactions.map((transaction: any) => {
-      if(transaction.id == findTransaction.id){
-        return updatedSocials
-      }
-      return transaction
-    })
-    console.log(updatedAllUserTransactions)
-    updateTransactions(userFound, updatedAllUserTransactions)
-      
-    
-  }
-
   if(loading) return (
     <div>
         <Loading/>
@@ -43,7 +27,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userDoc ? <TransactionsSection {...findUser} updateTransactionSocials={updateTransactionSocials}/> : <div><Loading/></div>}
+          {userDoc ? <TransactionsSection {...findUser} /> : <div><Loading/></div>}
           <Footer />
       </div>
   )

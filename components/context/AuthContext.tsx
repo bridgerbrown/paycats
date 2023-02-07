@@ -1,7 +1,7 @@
 import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
 import { auth } from "../firebase/firebase.config"
-import { changeTransactions, changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
+import { updateTransactions, changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
 import { transactions } from "../data/defaultTransactions";
 
 type AuthContextType = {
@@ -37,12 +37,20 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const signUp = (email: string, password: string) => {
         setLoading(true)
         createUserWithEmailAndPassword(auth, email, password);
+        getUserData(email)
+            .then((data) => {
+                setUserDoc(data)
+            })
         setLoading(false)
       };
     
       const logIn = (email: string, password: string) => {
         setLoading(true)
         signInWithEmailAndPassword(auth, email, password);
+        getUserData(email)
+            .then((data) => {
+                setUserDoc(data)
+            })
         setLoading(false)
       };
     
@@ -61,6 +69,21 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         transferMoney(user, userDoc.balance)
     }
 
+    function updateTransactionSocials(userData: any, id: number, likes: number, likedByUser: boolean, comments: any) {
+        const findTransaction = userData.transactions.find((transaction: any) => transaction.id === id)
+        const updatedSocials = {...findTransaction, likes: likes, likedByUser: likedByUser, comments: comments}
+        const allTransactions = userData.transactions
+
+        const updatedAllUserTransactions = allTransactions.map((transaction: any) => {
+          if(transaction.id == findTransaction.id){
+            return updatedSocials
+          }
+          return transaction
+        })
+        console.log(updatedAllUserTransactions)
+        updateTransactions(userData.email, updatedAllUserTransactions)
+      }
+
     return (
         <AuthContext.Provider value={{ 
             userFound, 
@@ -71,7 +94,8 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             signUp, 
             logIn, 
             logOut,
-            loading
+            loading,
+            updateTransactionSocials
             }}>
             {loading ? null : children}
         </AuthContext.Provider>

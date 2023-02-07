@@ -1,4 +1,4 @@
-export const defaultTransactions = [
+export const transactions = [
         {
             id: 0,
             from: "Cilantro",

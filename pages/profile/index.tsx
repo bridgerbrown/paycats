@@ -7,6 +7,7 @@ import Loading from '@/components/features/loading'
 
 export default function Profile() {
     const { userFound, userDoc, loading } = useAuth()
+    console.log(userDoc)
     
     if(loading) return (
         <div>
