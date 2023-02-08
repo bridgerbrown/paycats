@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
 import { getUserData } from '@/components/firebase/firestore'
+import Comment from './comment'
 
 export default function TransactionCard(props: any) {
     const {userFound, userImage, updateTransactionSocials} = useAuth()
@@ -112,10 +113,14 @@ export default function TransactionCard(props: any) {
                     commentsDropdown
                     ?
                     <div className='w-3/4'>
-                        {}
+                        { transaction.comments ?
+                            transaction.comments.map((transactionComment: any) => <Comment key={transactionComment} transactionComment={transactionComment} />)
+                            :
+                            <div></div>
+                        }
                         <div className=''>
                             <textarea placeholder="Write something..." 
-                                className='w-full ml-26 resize-none h-12 mb-4 text-black'
+                                className='border-slate-400 w-full ml-26 rounded resize-none mb-6 text-black'
                                 id='description'
                             />
                         </div>
