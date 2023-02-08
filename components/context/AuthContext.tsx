@@ -71,7 +71,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
           }
           return transaction
         })
-        console.log(updatedAllUserTransactions)
         updateTransactions(data.email, updatedAllUserTransactions)
       }
 

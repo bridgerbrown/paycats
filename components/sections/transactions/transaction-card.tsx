@@ -16,23 +16,25 @@ export default function TransactionCard(props: any) {
     }, [likes])
 
     const updateLikes = () => {
-        const addedLike = transaction.likes + 1
-        const removedLike = transaction.likes - 1
+        const addedLike = likes + 1
+        const removedLike = likes <= 0 ? 0 : likes - 1
         console.log(likes)
         if(liked) {
             getUserData(userFound)
-            .then((data) => {
-                updateTransactionSocials(data, transaction.id, removedLike, false, transaction.comments)
-            })
-            setLikes(prev => prev - 1)
+                .then((data) => {
+                    updateTransactionSocials(data, transaction.id, removedLike, false, transaction.comments)
+                })
+            setLikes(prev => prev <= 0 ? 0 : prev - 1)
             setLiked(!liked)
+            console.log("disliked " + (likes -1))
         } else if(!liked) {
             getUserData(userFound)
-            .then((data) => {
-                updateTransactionSocials(data, transaction.id, addedLike, true, transaction.comments)
-            })
+                .then((data) => {
+                    updateTransactionSocials(data, transaction.id, addedLike, true, transaction.comments)
+                })
             setLikes(prev => prev + 1)
             setLiked(!liked)
+            console.log("liked " + (likes + 1))
         }
     }
 
