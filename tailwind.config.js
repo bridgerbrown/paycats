@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       width: {
         '192': '49.5rem',
-        '4.5': '1.1rem'
+        '4.5': '1.1rem',
       },
       height: {
         '4.5': '1.1rem'
@@ -25,6 +25,7 @@ module.exports = {
       },
       margin: {
         '1.25': '0.29rem',
+        '26': '6.5rem',
       },
     },
     fontFamily: {

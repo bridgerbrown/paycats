@@ -38,10 +38,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         description: "",
         likes: 0,
         likedByUser: false,
-        comments: {
-            from: "",
-            to: ""
-        }
+        comments: []
     })
 
     function recipientImagePreview(image: string, name: string) {
@@ -100,8 +97,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             </div>
             <div className='flex justify-center pb-96'>
                 <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-192'>
-                    <div className='border-b border-slate-300 pb-4 flex justify-betwee
-                    cn items-center'>
+                    <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
                             <h2>To:</h2>
                             {!toDropdown ? 
