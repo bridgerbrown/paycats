@@ -12,7 +12,7 @@ import { updateTransactions } from '@/components/firebase/firestore'
 import { useEffect, useState } from 'react'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {userFound, userDoc, loading} = useAuth()
+  const {userFound, loading} = useAuth()
   const findUser = users.find((item: any) => item.email === userFound)
 
   if(loading) return (
@@ -27,7 +27,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userDoc ? <TransactionsSection {...findUser} /> : <div><Loading/></div>}
+          {userFound ? <TransactionsSection {...findUser} /> : <div><Loading/></div>}
           <Footer />
       </div>
   )

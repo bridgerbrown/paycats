@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
+import { getUserData } from '@/components/firebase/firestore'
 
 export default function TransactionCard(props: any) {
-    const {userFound, userDoc, updateTransactionSocials} = useAuth()
+    const {userFound, userImage, updateTransactionSocials} = useAuth()
     const transaction = props.transaction
     const [likes, setLikes] = useState<number>(transaction.likes)
     const [liked, setLiked] = useState<boolean>(transaction.likedByUser)
@@ -14,6 +15,27 @@ export default function TransactionCard(props: any) {
 
     }, [likes])
 
+    const updateLikes = () => {
+        const addedLike = transaction.likes + 1
+        const removedLike = transaction.likes - 1
+        console.log(likes)
+        if(liked) {
+            getUserData(userFound)
+            .then((data) => {
+                updateTransactionSocials(data, transaction.id, removedLike, false, transaction.comments)
+            })
+            setLikes(prev => prev - 1)
+            setLiked(!liked)
+        } else if(!liked) {
+            getUserData(userFound)
+            .then((data) => {
+                updateTransactionSocials(data, transaction.id, addedLike, true, transaction.comments)
+            })
+            setLikes(prev => prev + 1)
+            setLiked(!liked)
+        }
+    }
+
     function findUserImg(fromUser: string) {
         for(let i = 0; i < catUsers.length; i++){
             if(catUsers[i].name === fromUser) {
@@ -22,22 +44,9 @@ export default function TransactionCard(props: any) {
         }
     }
     const username = userFound.substring(0, userFound.lastIndexOf("@"))
-    const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userDoc.img.replace('"', '')}.jpg` : findUserImg(transaction.from)
+    const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
 
-    const updateLikes = () => {
-        const addedLike = transaction.likes + 1
-        const removedLike = transaction.likes - 1
-        console.log(likes)
-        if(liked) {
-            updateTransactionSocials(userDoc, transaction.id, removedLike, false, transaction.comments)
-            setLikes(prev => prev - 1)
-            setLiked(!liked)
-        } else if(!liked) {
-            updateTransactionSocials(userDoc, transaction.id, addedLike, true, transaction.comments)
-            setLikes(prev => prev + 1)
-            setLiked(!liked)
-        }
-    }
+    
 
     return (
         <div className='font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>

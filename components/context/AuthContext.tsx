@@ -15,16 +15,13 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [userFound, setUserFound] = useState<string | null>(null)
     const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
-    const [userDoc, setUserDoc] = useState<any | null>(null)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUserFound(user.email)
                 getUserData(user.email)
-                    .then((data) => {
-                        setUserDoc(data)
-                    })
+                    
                 console.log("user detected")
             } else {
                 setUserFound(null)
@@ -38,20 +35,12 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const signUp = (email: string, password: string) => {
         setLoading(true)
         createUserWithEmailAndPassword(auth, email, password);
-        getUserData(email)
-            .then((data) => {
-                setUserDoc(data)
-            })
         setLoading(false)
       };
     
       const logIn = (email: string, password: string) => {
         setLoading(true)
         signInWithEmailAndPassword(auth, email, password);
-        getUserData(email)
-            .then((data) => {
-                setUserDoc(data)
-            })
         setLoading(false)
       };
     
@@ -62,7 +51,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         setLoading(false)
       };
 
-    const updateUserImage = (user: string, radioState: string) => {
+    const updateUserImage = (user: string, radioState: any) => {
         changeUserImage(user, radioState)
         setUserImage(radioState)
     }
@@ -71,10 +60,10 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         transferMoney(user, findUser.balance)
     }
 
-    function updateTransactionSocials(userDoc: any, id: number, likes: number, likedByUser: boolean, comments: any) {
-        const findTransaction = userDoc.transactions.find((transaction: any) => transaction.id === id)
+    function updateTransactionSocials(data: any, id: number, likes: number, likedByUser: boolean, comments: any) {
+        const findTransaction = data.transactions.find((transaction: any) => transaction.id === id)
         const updatedSocials = {...findTransaction, likes: likes, likedByUser: likedByUser, comments: comments}
-        const allTransactions = userDoc.transactions
+        const allTransactions = data.transactions
 
         const updatedAllUserTransactions = allTransactions.map((transaction: any) => {
           if(transaction.id == findTransaction.id){
@@ -83,16 +72,14 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
           return transaction
         })
         console.log(updatedAllUserTransactions)
-        updateTransactions(userDoc.email, updatedAllUserTransactions)
+        updateTransactions(data.email, updatedAllUserTransactions)
       }
 
     return (
         <AuthContext.Provider value={{ 
             userFound, 
             transferMoneyBtn,   
-            userDoc, 
             updateUserImage, 
-            setUserDoc, 
             signUp, 
             logIn, 
             logOut,
