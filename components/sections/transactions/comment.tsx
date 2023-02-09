@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useAuth } from "@/components/context/AuthContext";
 import { catUsers } from "@/components/data/catUsers";
@@ -17,7 +17,7 @@ export default function Comment(props: any){
     }
 
     return (
-        <div className='flex items-center w-full ml-26 mb-8 text-black border-t pt-6'>
+        <div className='flex items-center w-full ml-26 mb-6 text-black border-t pt-4'>
             <Image 
                 src={`/${getCommentImage(comment.from)}`}
                 width={498}

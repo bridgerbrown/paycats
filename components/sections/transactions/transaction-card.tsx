@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
@@ -10,12 +10,13 @@ export default function TransactionCard(props: any) {
     const transaction = props.transaction
     const [likes, setLikes] = useState<number>(transaction.likes)
     const [liked, setLiked] = useState<boolean>(transaction.likedByUser)
-    const [comments, setComments] = useState<any>(transaction.comments.length)
+    const [commentsLength, setCommentsLength] = useState<number>(transaction.comments.length)
     const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false)
+    const [comments, setComments] = useState<any>(transaction.comments)
 
     useEffect(() => {
 
-    }, [likes])
+    }, [likes, commentsLength, comments])
 
     const updateLikes = () => {
         const addedLike = likes + 1
@@ -38,6 +39,31 @@ export default function TransactionCard(props: any) {
             setLiked(!liked)
             console.log("liked " + (likes + 1))
         }
+    }
+
+    function eraseText() {
+        (document.getElementById("comment") as HTMLInputElement).value = ""
+    }
+
+    function addComment() {
+        const commentValue = (document.getElementById("comment") as HTMLInputElement).value
+        const addedComment = [...transaction.comments, {
+            from: userFound,
+            message: commentValue}]
+        setComments([...comments, {
+                from: userFound,
+                message: commentValue}])
+        getUserData(userFound)
+            .then((data) => {
+                updateTransactionSocials(data, transaction.id, transaction.likes, transaction.likedByUser, addedComment )
+            })
+        setCommentsLength(prev => prev + 1)
+        eraseText()
+    }
+
+    const commentSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        addComment()
     }
 
     const toSingleTransaction = () => {
@@ -104,7 +130,7 @@ export default function TransactionCard(props: any) {
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => toSingleTransaction()}
                                 />
-                                <p className='ml-1 text-sm'>{comments}</p>
+                                <p className='ml-1 text-sm'>{commentsLength}</p>
                             </div>
                         </div>
                     </div>
@@ -112,17 +138,23 @@ export default function TransactionCard(props: any) {
                 {
                     commentsDropdown
                     ?
-                    <div className='w-3/4'>
-                        { transaction.comments ?
-                            transaction.comments.map((transactionComment: any) => <Comment key={transactionComment} transactionComment={transactionComment} />)
+                    <div className='w-3/4 my-2'>
+                        { comments ?
+                            comments.map((transactionComment: any) => <Comment key={transactionComment} transactionComment={transactionComment} />)
                             :
                             <div></div>
                         }
-                        <div className=''>
+                        <div className='mb-6'>
                             <textarea placeholder="Write something..." 
-                                className='border-slate-400 w-full ml-26 rounded resize-none mb-6 text-black'
-                                id='description'
+                                className='border-slate-400 w-full ml-26 rounded resize-none mb-2 text-black'
+                                id='comment'
                             />
+                            <div className='ml-28 w-full flex justify-end'>
+                                <button
+                                    className='cursor-pointer bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
+                                    onClick={commentSubmit}
+                                >Submit</button>
+                            </div>
                         </div>
                     </div>
                     :
