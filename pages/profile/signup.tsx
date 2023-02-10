@@ -36,9 +36,9 @@ export default function SignUp() {
     const onSubmit = async (data: any) => {
       try {
         await signUp(data.email, data.password);
-        router.push("/profile");
         setInvalid("")
         createUserData(data.email)
+        setTimeout(() => {router.push("/profile");}, 1000)
       } catch (error) {
         if (error instanceof Error) {
           setInvalid("Email already in use")

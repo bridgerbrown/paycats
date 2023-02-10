@@ -54,10 +54,13 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
     }
+    console.log(radioState)
 
     function sendUserTransaction() {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
+        const payRequestValue = (document.getElementById("paySelect") as HTMLInputElement).value
+        console.log(payRequestValue)
         setFormContents({
             ...formContents,
             id: findUser.transactions.length,
@@ -65,7 +68,13 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             description: descriptionValue,
             payRequest: radioState,
         })
-        const allTransactions = [...findUser.transactions, formContents]
+        const allTransactions = [...findUser.transactions, {
+            ...formContents,
+            id: findUser.transactions.length,
+            amount: amountValue,
+            description: descriptionValue,
+            payRequest: radioState,
+        }]
         updateTransactions(userFound, allTransactions)
         console.log(allTransactions)
     }
@@ -73,16 +82,26 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const balanceDeducted = parseInt(findUser.balance) - amountValue
-        if(formContents.payRequest == "pay") {
+        const balanceAdded = parseInt(findUser.balance) + amountValue
+
+        if(radioState == "pay") {
             if (balanceDeducted <= 0) {
                 alert("Not enough money in your balance.")
             } else {
-                sendUserTransaction()
-                updateBalance(userFound, balanceDeducted)
+                sendUserTransaction();
+                updateBalance(userFound, balanceDeducted);
+                router.push("/my-transactions");
             }
-        } else(
-            sendUserTransaction()
-        )
+        } else {
+            if (formContents.to === "Bitters"){
+                console.log("denied")
+                router.push("/my-transactions");
+            } else {
+                sendUserTransaction();
+                updateBalance(userFound, balanceAdded);
+                router.push("/my-transactions");
+            }
+        }
     }
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
@@ -151,16 +170,18 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                         id='description'
                     />
                     <div className='w-192'>
-                        <ul className="w-192 flex">
-                            <li className="w-1/2">
-                                <input className="sr-only peer" type="radio" defaultChecked value="yes" name="answer" id="answer_yes"/>
-                                <label className={payRequestButtonStyling} htmlFor="answer_yes">Pay</label>
-                            </li>
-                            <li className="w-1/2">
-                                <input className="sr-only peer" type="radio" value="no" name="answer" id="answer_no"/>
-                                <label className={payRequestButtonStyling} htmlFor="answer_no">Request</label>
-                            </li>
-                        </ul>
+                        <form action="">
+                            <ul className="w-192 flex">
+                                <li className="w-1/2">
+                                    <input onChange={(e) => onRadioChange(e)} className="sr-only peer" type="radio" defaultChecked value="pay" name="payRequest" id="paySelect"/>
+                                    <label className={payRequestButtonStyling} htmlFor="paySelect">Pay</label>
+                                </li>
+                                <li className="w-1/2">
+                                    <input onChange={(e) => onRadioChange(e)} className="sr-only peer" type="radio" value="request" name="payRequest" id="requestSelect"/>
+                                    <label className={payRequestButtonStyling} htmlFor="requestSelect">Request</label>
+                                </li>
+                            </ul>
+                        </form>
                     </div>
                     <div className=''>
                         <button

@@ -10,7 +10,8 @@ export async function checkUser(name: string) {
         balance: 10000,
         img: "1",
         email: name,
-        transactions: transactions
+        transactions: transactions,
+        notifications: []
     }
     if (docSnap.exists()){
         return true

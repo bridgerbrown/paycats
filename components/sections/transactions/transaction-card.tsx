@@ -79,7 +79,7 @@ export default function TransactionCard(props: any) {
     }
     const username = userFound.substring(0, userFound.lastIndexOf("@"))
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
-
+    
     return (
         <div className='font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
             <div className='w-192 border-b border-slate-300 flex-column'>
@@ -92,10 +92,17 @@ export default function TransactionCard(props: any) {
                         className='mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-400'
                     />
                     <div className='flex-column font-Hind pb-7'>
-                        <p className=''>
-                            <span className='font-semibold'>
-                                {transaction.from}</span> paid <span className='font-semibold'>{transaction.to} </span>
-                        </p>
+                        
+                                {
+                                    transaction.payRequest == "pay" ?
+                                    <p className=''>
+                                        <span className='font-semibold'>{transaction.from}</span> paid <span className='font-semibold'>{transaction.to} </span>
+                                    </p>
+                                    :
+                                    <p className=''>
+                                        <span className='font-semibold'>{transaction.from}</span> charged <span className='font-semibold'>{transaction.to} </span>
+                                    </p>
+                                }
                         <div className='flex items-center'>
                             <p className='text-sm text-slate-600 font-light mr-1'>3h</p>
                             <Image

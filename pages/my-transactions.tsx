@@ -11,7 +11,7 @@ import Loading from '@/components/features/loading'
 import { updateTransactions } from '@/components/firebase/firestore'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const {userFound, userDoc, loading} = useAuth()
+    const {userFound, loading} = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
     const onlyMyTransactions = findUser.transactions.filter(
@@ -39,7 +39,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
                     </h1>
                 </div>
             </div>
-            {userDoc ? 
+            {userFound ? 
             
             <div className='w-screen relative'>
                 <div className=' pb-60 flex flex-col justify-center items-center'>

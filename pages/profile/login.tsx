@@ -35,9 +35,9 @@ export default function LogIn() {
     const onSubmit = async (data: any) => {
       try {
         await logIn(data.email, data.password);
-        router.push("/profile");  
         setInvalid("")
         resolveUserData(data.email)
+        setTimeout(() => {router.push("/profile");}, 1000)
       } catch (error) {
         if (error instanceof Error) {
           setInvalid("Invalid login")
