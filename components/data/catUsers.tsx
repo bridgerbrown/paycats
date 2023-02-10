@@ -5,10 +5,12 @@ export const catUsers = [
             img: "cat1.jpg",
             willPay: false,
             paidComments: {
-                0: "I expected more from you..."
+                0: "I expected more from you...",
+                1: "I expected more from you...",
             },
             requestedComments: {
-                0: null
+                0: null,
+                1: null
             }
         },
         {
@@ -46,9 +48,11 @@ export const catUsers = [
             willPay: true,
             paidComments: {
                 0: "I don't seem to remember your whiskers... I heard a rumor that a human somehow gained access... impossible.",
+                1: "If you're really a cat.. then tell me, does one sit in a human bought bed or a box of cardboard?",
             },
             requestedComments: {
                 0: "If you're really a cat.. then tell me, does one sit in a human bought bed or a box of cardboard?",
+                1: "I don't seem to remember your whiskers... I heard a rumor that a human somehow gained access... impossible.",
             }
         },
 ]

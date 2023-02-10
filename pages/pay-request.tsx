@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
+import { catUsers } from '@/components/data/catUsers'
 
 interface FormType {
     id: number | null,
@@ -56,6 +57,23 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     }
     console.log(radioState)
 
+    const getNewComment = (toUser: string) => {
+        const getRandomInt = (max: number) => {return Math.floor(Math.random() * max)}
+        let findMessage
+        let findCat: any = catUsers.find((item) => item.name === toUser)
+        if(radioState == "pay"){
+            findMessage = findCat.paidComments[getRandomInt(1)]
+            console.log(findMessage)
+        } else{
+            findMessage = findCat.requestedComments[getRandomInt(1)]
+            console.log(findMessage)
+        }
+        return {
+            from: toUser,
+            message: findMessage
+        }
+    }
+
     function sendUserTransaction() {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
@@ -74,6 +92,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             amount: amountValue,
             description: descriptionValue,
             payRequest: radioState,
+            comments: [getNewComment(formContents.to)]
         }]
         updateTransactions(userFound, allTransactions)
         console.log(allTransactions)
@@ -93,7 +112,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 router.push("/my-transactions");
             }
         } else {
-            if (formContents.to === "Bitters"){
+            if (formContents.to === "Mr. Bitters"){
                 console.log("denied")
                 router.push("/my-transactions");
             } else {
