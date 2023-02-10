@@ -4,7 +4,7 @@ import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-
 import React, { useState, MouseEvent } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
-import { updateTransactions, updateBalance } from '@/components/firebase/firestore'
+import { updateTransactions, updateBalance, updateNotifications } from '@/components/firebase/firestore'
 import { useRouter } from 'next/router'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
@@ -70,7 +70,20 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         }
         return {
             from: toUser,
-            message: findMessage
+            message: findMessage,
+        }
+    }
+
+    const getNewNotification = (toUser: string) => {
+        let notificationMessage
+        if(radioState == "pay"){
+            notificationMessage = `You successfully paid ${toUser}!`
+        } else {
+            notificationMessage = `${toUser} accepted your payment request!`
+        }
+        return {
+            message: notificationMessage,
+            type: "commented"
         }
     }
 
@@ -95,7 +108,10 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             comments: [getNewComment(formContents.to)]
         }]
         updateTransactions(userFound, allTransactions)
-        console.log(allTransactions)
+        const allNotifications = [
+                ...findUser.notifications, getNewNotification(formContents.to)
+        ]
+        updateNotifications(userFound, allNotifications)
     }
 
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {

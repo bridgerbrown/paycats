@@ -56,4 +56,12 @@ export async function updateTransactions(user: string, allTransactions: any) {
     })
 }
 
+export async function updateNotifications(user: string, allNotifications: any) {    
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        notifications: allNotifications,
+    })
+}
+
+
 
