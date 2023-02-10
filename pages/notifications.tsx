@@ -24,7 +24,7 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
                 <div className='flex justify-center'>
                 <div className='rounded-lg border border-slate-300 flex py-4 font-Hind bg-white mx-20 w-192'>
                     <div className='flex flex-col'>
-                            <div className='mb-6 flex flex-col'>
+                            <div className='mt-4 mb-6 flex flex-col'>
                             { userNotifications.length > 0 ?
                                 userNotifications.map((userNotification: any) => <Notification key={userNotification.id} userNotification={userNotification} /> )
                                 :
