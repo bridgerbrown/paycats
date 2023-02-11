@@ -1,7 +1,7 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-dropdown'
-import React, { useState, MouseEvent } from 'react'
+import React, { useState, MouseEvent, useEffect } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import { updateTransactions, updateBalance, updateNotifications } from '@/components/firebase/firestore'
@@ -30,6 +30,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
+    const [loadingWheel, setLoadingWheel] = useState<boolean>(false)
     const [formContents, setFormContents] = useState<FormType>({    
         id: findUser.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
@@ -83,7 +84,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         }
         return {
             message: notificationMessage,
-            type: "commented"
+            type: "commented",
+            id: findUser.notifications.length,
         }
     }
 
@@ -125,18 +127,19 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             } else {
                 sendUserTransaction();
                 updateBalance(userFound, balanceDeducted);
-                router.push("/my-transactions");
+                setTimeout(() => {router.push("/my-transactions");}, 1000)
             }
         } else {
             if (formContents.to === "Mr. Bitters"){
                 console.log("denied")
-                router.push("/my-transactions");
+                setTimeout(() => {router.push("/my-transactions");}, 1000)
             } else {
                 sendUserTransaction();
                 updateBalance(userFound, balanceAdded);
-                router.push("/my-transactions");
+                setTimeout(() => {router.push("/my-transactions");}, 1000)
             }
         }
+        setLoadingWheel(true)
     }
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
@@ -149,7 +152,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     <h1 className='text-xl font-normal tracking-wide'>Pay/Request</h1>
                 </div>
             </div>
-            <div className='flex justify-center pb-96'>
+            <div className='flex justify-center'>
                 <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-192'>
                     <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
@@ -227,6 +230,20 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                         </button>
                     </div>
                 </div>
+            </div>
+            <div className='w-screen flex justify-center items-center'>
+                {
+                    loadingWheel ?
+                    <Image 
+                        src="/loading-icon.png"
+                        width={200}
+                        height={200}
+                        alt="loading wheel"
+                        className='animate-spin opacity-50 object-fit w-12 h-12'
+                    />
+                    :
+                    <div></div>
+                }
             </div>
             <Footer />
         </div>

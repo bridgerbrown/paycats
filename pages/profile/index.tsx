@@ -11,7 +11,7 @@ import { db } from '@/components/firebase/firebase.config'
 export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, loading } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
-    const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
+    const usersUsername = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     console.log(findUser)
     
     if(loading) return (

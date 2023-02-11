@@ -12,6 +12,9 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
     const { userFound } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const userNotifications = findUser.notifications
+    const sortedNotifications = userNotifications.sort(
+        (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
+    )
 
     return (
         <div className='min-h-screen relative font-Hind bg-stone-100'>
