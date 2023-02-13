@@ -1,23 +1,39 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
-import React, {MouseEvent} from 'react'
+import React, {MouseEvent, useEffect, useState} from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
+import { updateNotifications } from '@/components/firebase/firestore'
 
 export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, transferMoneyBtn, loading } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
-    const formattedBalance = (findUser.balance).toLocaleString("en-US")
+    const [balance, setBalance] = useState<number>(findUser.balance)
+    const formattedBalance = (balance).toLocaleString("en-US")
 
     const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        setBalance(prev => balance + 10000)
         transferMoneyBtn(userFound, findUser)
         alert("Transfered $10,000 to your account!")
+        const transferNotification: any = {
+            message: `Successfully transferred $10,000 to your balance.` ,
+            type: "transfer",
+            id: findUser.notifications.length,
+        }
+        const allNotifications = [
+                ...findUser.notifications, transferNotification,
+        ]
+        updateNotifications(userFound, allNotifications)
     }
+
+    useEffect(() => {
+
+    }, [balance])
 
     if(loading) return (
         <div>

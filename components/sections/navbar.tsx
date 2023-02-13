@@ -15,7 +15,7 @@ export default function Navbar() {
     }
 
     function redirectIfNoUser(route: string) {
-        return userFound ? route : "/profile/signup"
+        return userFound ? route : "/signup"
     }
 
     return (

@@ -1,6 +1,7 @@
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from './firebase.config'
 import {transactions} from '../data/defaultTransactions'
+import { notifications } from '../data/defaultNotifications'
 
 export async function checkUser(name: string) {
     const usersRef = doc(db, "users", `${name}`)
@@ -11,7 +12,7 @@ export async function checkUser(name: string) {
         img: "1",
         email: name,
         transactions: transactions,
-        notifications: []
+        notifications: notifications,
     }
     if (docSnap.exists()){
         return true

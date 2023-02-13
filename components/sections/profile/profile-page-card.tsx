@@ -4,6 +4,7 @@ import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
 import { changeUserImage } from '@/components/firebase/firestore'
 import Loading from '@/components/features/loading'
+import { useRouter } from 'next/router'
 
 // Leaving userFound for username display for now
 
@@ -14,6 +15,7 @@ export default function ProfilePageCard({findUser}: any) {
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
     const [imageChange, setImageChange] = useState<boolean>(false)
     const [radioState, setRadioState] = useState<string>("1")
+    const router = useRouter()
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
@@ -127,11 +129,9 @@ export default function ProfilePageCard({findUser}: any) {
                             className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
                                 Edit
                         </button>
-                        <Link href="/profile/login">
                             <h1 onClick={logOut} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
                                 Log out
                             </h1>
-                        </Link>
                     </div>
                     </div>
                     }

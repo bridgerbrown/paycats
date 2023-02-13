@@ -77,14 +77,22 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
 
     const getNewNotification = (toUser: string) => {
         let notificationMessage
+        let type
         if(radioState == "pay"){
             notificationMessage = `You successfully paid ${toUser}!`
+            type = 'payment'
         } else {
-            notificationMessage = `${toUser} accepted your payment request!`
+            if(toUser === "Mr. Bitters"){
+                notificationMessage = `Mr. Bitters has denied your payment request! Typical...`
+                type = "requestDenied"
+            } else {
+                notificationMessage = `${toUser} accepted your payment request!`
+                type = "requestApproved"
+            }
         }
         return {
             message: notificationMessage,
-            type: "commented",
+            type: type,
             id: findUser.notifications.length,
         }
     }
@@ -109,9 +117,14 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             payRequest: radioState,
             comments: [getNewComment(formContents.to)]
         }]
+        const commentNotification: any = {
+            message: `${formContents.to} commented on your transaction!` ,
+            type: "commented",
+            id: findUser.notifications.length,
+        }
         updateTransactions(userFound, allTransactions)
         const allNotifications = [
-                ...findUser.notifications, getNewNotification(formContents.to)
+                ...findUser.notifications, commentNotification, getNewNotification(formContents.to)
         ]
         updateNotifications(userFound, allNotifications)
     }
@@ -132,6 +145,10 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         } else {
             if (formContents.to === "Mr. Bitters"){
                 console.log("denied")
+                const allNotifications = [
+                    ...findUser.notifications, getNewNotification(formContents.to)
+                ]
+                updateNotifications(userFound, allNotifications)
                 setTimeout(() => {router.push("/my-transactions");}, 1000)
             } else {
                 sendUserTransaction();
