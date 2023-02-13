@@ -94,6 +94,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             message: notificationMessage,
             type: type,
             id: findUser.notifications.length,
+            read: false,
         }
     }
 
@@ -117,10 +118,11 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             payRequest: radioState,
             comments: [getNewComment(formContents.to)]
         }]
-        const commentNotification: any = {
-            message: `${formContents.to} commented on your transaction!` ,
+        const commentNotification: any= {
+            message: `${formContents.to} commented on your transaction!`,
             type: "commented",
             id: findUser.notifications.length,
+            read: false
         }
         updateTransactions(userFound, allTransactions)
         const allNotifications = [
