@@ -129,9 +129,11 @@ export default function ProfilePageCard({findUser}: any) {
                             className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
                                 Edit
                         </button>
+                        <Link href="/profile/login">
                             <h1 onClick={logOut} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
                                 Log out
                             </h1>
+                        </Link>
                     </div>
                     </div>
                     }

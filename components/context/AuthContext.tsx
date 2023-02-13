@@ -12,25 +12,17 @@ const AuthContext = createContext<any>({} as AuthContextType)
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthContextProvider = ({children}: AuthContextType) => {
-    const [userFound, setUserFound] = useState<string | null>(null)
+    const [userFound, setUserFound] = useState<any>(null)
     const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setUserFound(user.email)
-                getUserData(user.email)
-                    
-                console.log("user detected")
-            } else {
-                setUserFound(null)
-                console.log("no user detected")
-            }
+            setUserFound(user?.email)
             setLoading(false)
         })
         return () => unsubscribe()
-    }, [])
+    }, [userFound])
 
     const signUp = (email: string, password: string) => {
         setLoading(true)
