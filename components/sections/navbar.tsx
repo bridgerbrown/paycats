@@ -59,6 +59,10 @@ export default function Navbar() {
                         alt="notifications bell"
                         className='w-5 h-6 mr-7 cursor-pointer'
                     />
+                    <span className="fixed top-8 right-20 h-2.5 w-2.5 mr-4">
+                        <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
+                        <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
+                    </span>
                 </Link>
                 { !userFound ? (
                     <Link 

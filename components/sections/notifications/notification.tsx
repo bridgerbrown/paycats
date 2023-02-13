@@ -51,7 +51,7 @@ export default function Notification(props: any) {
         <div className='w-192 flex justify-left items-center px-10'>
             {
                read ?
-            //    <Link href="my-transactions" className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex'>
+               <Link href="my-transactions" className='w-full'>
                     <div id="element" className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
                         <div className='flex items-center'>
                             <Image 
@@ -65,11 +65,10 @@ export default function Notification(props: any) {
                                 {userNotification.message}
                             </p>
                         </div>
-                        <p className='text-slate-400 text-sm pr-4'>1d ago</p>
                     </div>
-                // </Link>
+                </Link>
                :
-            //    <Link href="my-transactions" onMouseOver={updateReadNotifications(userNotification.id)} className=''>
+               <Link href="my-transactions" className='w-full'>
                     <div onMouseOver={() => updateReadNotifications(userNotification.id)} className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex cursor-pointer text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
                         <div className='flex items-center'>
                             <Image 
@@ -83,9 +82,12 @@ export default function Notification(props: any) {
                                 {userNotification.message}
                             </p>
                         </div>
-                        <p className='text-slate-400 text-sm pr-4'>1d ago</p>
+                        <span className="flex h-3 w-3 mr-4">
+                            <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-sky-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
+                        </span>
                     </div>
-                /* </Link> */
+                </Link> 
             }
         </div>
     )

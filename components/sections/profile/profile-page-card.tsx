@@ -1,10 +1,11 @@
-import React, {useState, MouseEvent } from 'react'
+import React, {useState, MouseEvent, useEffect } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
 import { changeUserImage } from '@/components/firebase/firestore'
 import Loading from '@/components/features/loading'
 import { useRouter } from 'next/router'
+import { transactions } from '@/components/data/defaultTransactions'
 
 // Leaving userFound for username display for now
 
@@ -16,6 +17,10 @@ export default function ProfilePageCard({findUser}: any) {
     const [imageChange, setImageChange] = useState<boolean>(false)
     const [radioState, setRadioState] = useState<string>("1")
     const router = useRouter()
+
+    useEffect(() => {
+
+    }, [userFound, findUser])
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
@@ -51,12 +56,12 @@ export default function ProfilePageCard({findUser}: any) {
     }
 
     const numberOfUsersTransactions = () => {
-        const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
-        const onlyMyTransactions = findUser.transactions.filter(
+        const usersUsername = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
+        const onlyMyTransactions = findUser ? findUser.transactions.filter(
             function (item: any) {
                 return item.from == usersUsername || item.to == usersUsername
             }
-        )
+        ) : transactions
         console.log(onlyMyTransactions.length)
         return onlyMyTransactions.length
     }
@@ -130,7 +135,7 @@ export default function ProfilePageCard({findUser}: any) {
                                 Edit
                         </button>
                         <Link href="/profile/login">
-                            <h1 onClick={logOut} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
+                            <h1 onClick={() => logOut()} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
                                 Log out
                             </h1>
                         </Link>
