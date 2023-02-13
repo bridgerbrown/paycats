@@ -121,7 +121,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         const commentNotification: any= {
             message: `${formContents.to} commented on your transaction!`,
             type: "commented",
-            id: findUser.notifications.length,
+            id: findUser.notifications.length + 1,
             read: false
         }
         updateTransactions(userFound, allTransactions)

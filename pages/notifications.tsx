@@ -17,13 +17,6 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
 
-    function updateReadNotifications(id: number){
-        const findNotification = findUser.notifications.find((item: any) => item.id === id)
-        const allNotifications = [...findUser.notifications, {...findNotification, read: true}]
-        console.log(allNotifications)
-        updateNotifications(findUser.email, allNotifications)
-    }
-
     return (
         <div className='min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
@@ -37,7 +30,7 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
                     <div className='flex flex-col'>
                             <div className='mt-4 mb-6 flex flex-col'>
                             { userNotifications.length > 0 ?
-                                userNotifications.map((userNotification: any) => <Notification key={userNotification.id} userNotification={userNotification} updateReadNotifications={updateReadNotifications} /> )
+                                userNotifications.map((userNotification: any) => <Notification key={userNotification.id} userNotification={userNotification} findUser={findUser} /> )
                                 :
                                 <div className='w-192 justify-center mt-8 mb-2 flex items-center'>
                                     <h2 className='text-lg text-slate-500'>No notifications...</h2>
