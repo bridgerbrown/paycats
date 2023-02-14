@@ -13,6 +13,7 @@ export async function checkUser(name: string) {
         email: name,
         transactions: transactions,
         notifications: notifications,
+        unreadNotifications: true,
     }
     if (docSnap.exists()){
         return true
@@ -64,6 +65,12 @@ export async function updateNotifications(user: string, allNotifications: any) {
     })
 }
 
+export async function updateUnread(user: string, unread: boolean) {    
+    const userRef = doc(db, "users", `"${user}"`)
+    await updateDoc(userRef, {
+        unreadNotifications: unread,
+    })
+}
 
 
 

@@ -10,6 +10,7 @@ import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { catUsers } from '@/components/data/catUsers'
+import { updateUnread } from '@/components/firebase/firestore'
 
 interface FormType {
     id: number | null,
@@ -25,7 +26,7 @@ interface FormType {
 
 export default function PayRequest({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter()
-    const { userFound } = useAuth()
+    const { userFound, setUnreadBell } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
@@ -90,6 +91,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 type = "requestApproved"
             }
         }
+        updateUnread(findUser.email, true)
+        setUnreadBell(true)
         return {
             message: notificationMessage,
             type: type,

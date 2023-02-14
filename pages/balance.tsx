@@ -8,9 +8,10 @@ import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { updateNotifications } from '@/components/firebase/firestore'
+import { updateUnread } from '@/components/firebase/firestore'
 
 export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { userFound, transferMoneyBtn, loading } = useAuth()
+    const { userFound, transferMoneyBtn, loading, setUnreadBell } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const [balance, setBalance] = useState<number>(findUser.balance)
     const formattedBalance = (balance).toLocaleString("en-US")
@@ -29,6 +30,8 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                 ...findUser.notifications, transferNotification,
         ]
         updateNotifications(userFound, allNotifications)
+        updateUnread(findUser.email, true)
+        setUnreadBell(true)
     }
 
     useEffect(() => {

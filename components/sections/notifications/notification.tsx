@@ -2,23 +2,25 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { updateNotifications } from '@/components/firebase/firestore'
+import { updateNotifications, updateUnread } from '@/components/firebase/firestore'
 
 export default function Notification(props: any) {
     const { userNotification, findUser } = props
     const [read, setRead] = useState<any>(userNotification.read)
     
     useEffect(() => {
-
+        
     }, [read])
 
     function updateReadNotifications(id: number){
         const findNotification = findUser.notifications.find((item: any) => item.id === id)
         const allNotifications = findUser.notifications.map((item: any) => item.id === id ? {...item, read: true}: item)
-        console.log(allNotifications)
         updateNotifications(findUser.email, allNotifications)
         setRead(true)
+        updateUnread(findUser.email, false)
     }
+
+    
 
     const getNotificationLink = (type: string) => {
         if(type == "commented"){

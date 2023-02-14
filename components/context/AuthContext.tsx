@@ -15,6 +15,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [userFound, setUserFound] = useState<any>(null)
     const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
+    const [unreadBell, setUnreadBell] = useState<boolean>(true)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -77,7 +78,9 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             loading,
             updateTransactionSocials,
             userImage,
-            setUserImage
+            setUserImage,
+            unreadBell,
+            setUnreadBell
             }}>
             {loading ? null : children}
         </AuthContext.Provider>

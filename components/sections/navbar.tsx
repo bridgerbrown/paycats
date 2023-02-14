@@ -1,10 +1,16 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useAuth } from '../context/AuthContext'
+import { updateUnread } from '../firebase/firestore'
+import React, {MouseEvent, useEffect} from 'react'
 
 export default function Navbar() {
     const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
-    const { userFound, userImage } = useAuth()
+    const { userFound, userImage, unreadBell, setUnreadBell } = useAuth()
+
+    useEffect(() => {
+
+    }, [unreadBell])
 
     const dynamicUserImg = () => {
         if(userFound) {
@@ -17,6 +23,13 @@ export default function Navbar() {
     function redirectIfNoUser(route: string) {
         return userFound ? route : "/signup"
     }
+
+    const bellToRead = () => {
+        updateUnread(userFound, false)
+        setUnreadBell(false)
+        console.log(unreadBell)
+    }
+
 
     return (
         <nav className="flex justify-between py-7 bg-blue-900 w-screen">
@@ -58,11 +71,18 @@ export default function Navbar() {
                         height={163}
                         alt="notifications bell"
                         className='w-5 h-6 mr-7 cursor-pointer'
+                        onClick={() => bellToRead()}
                     />
-                    <span className="fixed top-8 right-20 h-2.5 w-2.5 mr-4">
-                        <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
-                        <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
-                    </span>
+                    {
+                        unreadBell
+                        ?
+                        <span className="absolute top-8 right-20 h-2.5 w-2.5 mr-4">
+                            <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
+                            <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
+                        </span>
+                        :
+                        <div></div>
+                    }
                 </Link>
                 { !userFound ? (
                     <Link 
