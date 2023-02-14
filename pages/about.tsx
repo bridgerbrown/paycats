@@ -4,6 +4,7 @@ import Navbar from '@/components/sections/navbar'
 import React from 'react'
 import { getUserData } from '@/components/firebase/firestore'
 import { useAuth } from '@/components/context/AuthContext'
+import Welcome from '@/components/sections/welcome'
 
 export default function About() {
     const { userFound, updateTransactionSocials } = useAuth()
@@ -16,13 +17,10 @@ export default function About() {
     test()
     
     return (
-        <div className='min-h-screen'>
+        <div className='w-screen min-h-screen relative bg-stone-100'>
             <Navbar />
-            <div className='flex justify-center items-center'>
-                <Loading />
-
-            </div>
             <Footer />
+            <Welcome />
         </div>
     )
 }
