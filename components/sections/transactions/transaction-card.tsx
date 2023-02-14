@@ -77,7 +77,7 @@ export default function TransactionCard(props: any) {
             }
         }
     }
-    const username = userFound.substring(0, userFound.lastIndexOf("@"))
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
     
     return (

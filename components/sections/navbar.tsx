@@ -21,7 +21,7 @@ export default function Navbar() {
     }
 
     function redirectIfNoUser(route: string) {
-        return userFound ? route : "/signup"
+        return userFound ? route : "/profile/signup"
     }
 
     const bellToRead = () => {
@@ -44,7 +44,7 @@ export default function Navbar() {
                     />
                 </Link>
                 <div className='flex items-center text-white px-6 font-Hind tracking-wide'>
-                    <Link href="/pay-request" className='text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
+                    <Link href={redirectIfNoUser("/pay-request")} className='text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                         Pay/Request
                     </Link>
                     <Link href="/" className={navItemStyle}>
@@ -64,7 +64,7 @@ export default function Navbar() {
                 </div>
             </div>
             <div className='flex items-center'>
-                <Link href="/notifications">
+                <Link href={redirectIfNoUser("/notifications")}>
                     <Image
                         src="/notification-bell.png"
                         width={139}
@@ -73,13 +73,15 @@ export default function Navbar() {
                         className='w-5 h-6 mr-7 cursor-pointer'
                         onClick={() => bellToRead()}
                     />
-                    {
+                    { userFound ?
                         unreadBell
                         ?
                         <span className="absolute top-8 right-20 h-2.5 w-2.5 mr-4">
                             <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
                             <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
                         </span>
+                        :
+                        <div></div>
                         :
                         <div></div>
                     }

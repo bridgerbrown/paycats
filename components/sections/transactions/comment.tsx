@@ -16,6 +16,8 @@ export default function Comment(props: any){
         }
     }
 
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
+
     return (
         <div className='flex items-center w-full ml-26 mb-6 text-black border-t pt-4'>
             <Image 
@@ -26,7 +28,7 @@ export default function Comment(props: any){
                 className='mr-2 object-cover w-12 h-12 rounded-full border border-slate-400'
             />
             <div className="">
-                <p className="font-semibold">{comment.from}</p>
+                <p className="font-semibold">{comment.from === userFound ? username : comment.from}</p>
                 <p className="">{comment.message}</p>
             </div>
         </div>

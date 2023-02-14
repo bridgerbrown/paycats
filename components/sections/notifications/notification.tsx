@@ -8,8 +8,9 @@ export default function Notification(props: any) {
     const { userNotification, findUser } = props
     const [read, setRead] = useState<any>(userNotification.read)
     
+
+
     useEffect(() => {
-        
     }, [read])
 
     function updateReadNotifications(id: number){
@@ -20,14 +21,21 @@ export default function Notification(props: any) {
         updateUnread(findUser.email, false)
     }
 
-    
-
     const getNotificationLink = (type: string) => {
         if(type == "commented"){
             return "/my-transactions"
+        } else if(type == "payment"){
+            return "/my-transactions"
         } else if(type == "requestApproved"){
+            return "/my-transactions"
         } else if(type == "requestDenied"){
+            return "/my-transactions"
         } else if(type == "transactionAchievement"){
+            return "/profile"
+        } else if(type == "signUp"){
+            return "/profile"
+        } else if(type == "transfer"){
+            return "/wallet"
         }
     }
 
@@ -53,7 +61,7 @@ export default function Notification(props: any) {
         <div className='w-192 flex justify-left items-center px-10'>
             {
                read ?
-               <Link href="my-transactions" className='w-full'>
+               <Link href={`${getNotificationLink(userNotification.type)}`} className='w-full'>
                     <div id="element" className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
                         <div className='flex items-center'>
                             <Image 

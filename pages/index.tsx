@@ -10,6 +10,7 @@ import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
 import { updateTransactions } from '@/components/firebase/firestore'
 import { useEffect, useState } from 'react'
+import { transactions } from '@/components/data/defaultTransactions'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {userFound, loading} = useAuth()
@@ -20,6 +21,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
         <Loading/>
     </div>
   )
+  console.log(transactions)
 
   return (
       <div className='w-screen min-h-screen relative bg-stone-100'>
@@ -27,7 +29,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userFound ? <TransactionsSection {...findUser} /> : <div><Loading/></div>}
+          {userFound ? <TransactionsSection {...findUser} /> : <TransactionsSection transactions={transactions} />}
           <Footer />
       </div>
   )
