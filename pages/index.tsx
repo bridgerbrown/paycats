@@ -9,12 +9,21 @@ import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
 import { updateTransactions } from '@/components/firebase/firestore'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 import { transactions } from '@/components/data/defaultTransactions'
+import Welcome from '@/components/sections/welcome'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {userFound, loading} = useAuth()
+  const {userFound, loading, welcome, setWelcome} = useAuth()
   const findUser = users.find((item: any) => item.email === userFound)
+
+  useEffect(() =>{}, [welcome])
+
+  function enter(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault()
+    setWelcome(false)
+    console.log(welcome)
+  }
 
   if(loading) return (
     <div>
@@ -29,8 +38,18 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userFound ? <TransactionsSection {...findUser} /> : <TransactionsSection transactions={transactions} />}
+          {userFound ? 
+            <TransactionsSection {...findUser} /> 
+            :
+            <TransactionsSection transactions={transactions} enter={enter} />
+          }
           <Footer />
+          {
+            welcome ?
+            <Welcome enter={enter}/>
+            :
+            <div></div>
+          }
       </div>
   )
 }  

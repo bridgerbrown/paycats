@@ -9,10 +9,12 @@ module.exports = {
   theme: {
     extend: {
       width: {
+        '144': '40rem',
         '192': '49.5rem',
         '4.5': '1.1rem',
       },
       height: {
+        '144': '40rem',
         '192': '49.5rem',
         '4.5': '1.1rem'
       },

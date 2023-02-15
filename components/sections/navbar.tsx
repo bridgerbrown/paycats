@@ -32,7 +32,7 @@ export default function Navbar() {
 
 
     return (
-        <nav className="absolute flex justify-between py-7 bg-blue-900 w-screen">
+        <nav className="relative flex justify-between py-7 bg-blue-900 w-screen">
             <div className='flex'>
                 <Link href="/" className="">
                     <Image

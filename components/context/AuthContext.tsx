@@ -16,6 +16,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
     const [unreadBell, setUnreadBell] = useState<boolean>(true)
+    const [welcome, setWelcome] = useState<boolean>(true)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -29,12 +30,14 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         setLoading(true)
         createUserWithEmailAndPassword(auth, email, password);
         setLoading(false)
+        setWelcome(false)
       };
     
       const logIn = (email: string, password: string) => {
         setLoading(true)
         signInWithEmailAndPassword(auth, email, password);
         setLoading(false)
+        setWelcome(false)
       };
     
       const logOut = async () => {
@@ -80,7 +83,9 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             userImage,
             setUserImage,
             unreadBell,
-            setUnreadBell
+            setUnreadBell,
+            welcome,
+            setWelcome
             }}>
             {loading ? null : children}
         </AuthContext.Provider>
