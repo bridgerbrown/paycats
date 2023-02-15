@@ -7,14 +7,11 @@ import { updateNotifications, updateUnread } from '@/components/firebase/firesto
 export default function Notification(props: any) {
     const { userNotification, findUser } = props
     const [read, setRead] = useState<any>(userNotification.read)
-    
-
 
     useEffect(() => {
     }, [read])
 
     function updateReadNotifications(id: number){
-        const findNotification = findUser.notifications.find((item: any) => item.id === id)
         const allNotifications = findUser.notifications.map((item: any) => item.id === id ? {...item, read: true}: item)
         updateNotifications(findUser.email, allNotifications)
         setRead(true)

@@ -43,6 +43,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
       const logOut = async () => {
         setUserFound("");
         setLoading(true)
+        setUserImage(1)
         await signOut(auth);
         setLoading(false)
       };

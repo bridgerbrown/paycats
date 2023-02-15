@@ -33,11 +33,9 @@ export default function ProfilePageCard({findUser}: any) {
 
     const sendUserImg = () => {
         return new Promise(resolve => {
-            setTimeout(() => {
                 resolve(
-                    updateUserImage(userFound, radioState)
+                    updateUserImage(findUser.email, radioState)
                     )
-            }, 2000)
         })
     }
 
@@ -74,7 +72,7 @@ export default function ProfilePageCard({findUser}: any) {
 
     return (
         <div className=''>
-            <div className='rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
+            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
                     {
                         imageChange ?
                         <div>
@@ -116,9 +114,9 @@ export default function ProfilePageCard({findUser}: any) {
                         width={498}
                         height={500}
                         alt="Cat headshot number one"
-                        className='object-cover w-32 h-32 rounded-full border border-slate-400 mb-4'
+                        className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mb-4'
                     />
-                    <h1 className='text-2xl flex justify-center mb-2'>{username}</h1>
+                    <h1 className='text-3xl flex justify-center mb-2'>{username}</h1>
                     <h2 className='text-md flex justify-center mb-2'>{userFound}</h2>
                     <div className='flex'>
                         <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>

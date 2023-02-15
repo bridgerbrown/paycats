@@ -20,7 +20,6 @@ export default function About() {
         <div className='w-screen min-h-screen relative bg-stone-100'>
             <Navbar />
             <Footer />
-            <Welcome />
         </div>
     )
 }

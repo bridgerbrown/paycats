@@ -21,12 +21,12 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
         <div className='min-h-screen w-screen relative font-Hind bg-stone-100'>
             <Navbar />
                 <div className='flex justify-center'>
-                    <div className='w-192 mt-4 mb-4'>
+                    <div className='w-192 mt-8 mb-4'>
                         <h1 className='text-xl font-normal tracking-wide'>Notifications</h1>
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                <div className='mb-48 rounded-lg border border-slate-300 flex py-4 font-Hind bg-white mx-20 w-192'>
+                <div className='shadow-md mb-48 rounded-lg border border-slate-300 flex py-4 font-Hind bg-white mx-20 w-192'>
                     <div className='flex flex-col'>
                             <div className='mt-4 mb-6 flex flex-col'>
                             { userNotifications.length > 0 ?

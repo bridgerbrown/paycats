@@ -2,15 +2,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useAuth } from '../context/AuthContext'
 import { updateUnread } from '../firebase/firestore'
-import React, {MouseEvent, useEffect} from 'react'
+import React, {MouseEvent, useEffect, useState} from 'react'
 
 export default function Navbar() {
     const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
     const { userFound, userImage, unreadBell, setUnreadBell } = useAuth()
+    const [bell, setBell] = useState<boolean>(unreadBell)
 
     useEffect(() => {
 
-    }, [unreadBell])
+    }, [unreadBell, bell])
 
     const dynamicUserImg = () => {
         if(userFound) {
@@ -25,6 +26,7 @@ export default function Navbar() {
     }
 
     const bellToRead = () => {
+        setBell(false)
         updateUnread(userFound, false)
         setUnreadBell(false)
         console.log(unreadBell)
@@ -74,7 +76,7 @@ export default function Navbar() {
                         onClick={() => bellToRead()}
                     />
                     { userFound ?
-                        unreadBell
+                        bell
                         ?
                         <span className="absolute top-8 right-20 h-2.5 w-2.5 mr-4">
                             <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>

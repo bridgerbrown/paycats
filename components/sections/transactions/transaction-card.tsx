@@ -4,6 +4,7 @@ import { catUsers } from '../../data/catUsers'
 import { useAuth } from '@/components/context/AuthContext'
 import { getUserData } from '@/components/firebase/firestore'
 import Comment from './comment'
+import { useRouter } from 'next/router'
 
 export default function TransactionCard(props: any) {
     const {userFound, userImage, updateTransactionSocials} = useAuth()
@@ -13,31 +14,36 @@ export default function TransactionCard(props: any) {
     const [commentsLength, setCommentsLength] = useState<number>(transaction.comments.length)
     const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false)
     const [comments, setComments] = useState<any>(transaction.comments)
+    const router = useRouter()
 
     useEffect(() => {
 
     }, [likes, commentsLength, comments])
 
     const updateLikes = () => {
-        const addedLike = likes + 1
-        const removedLike = likes <= 0 ? 0 : likes - 1
-        console.log(likes)
-        if(liked) {
-            getUserData(userFound)
-                .then((data) => {
-                    updateTransactionSocials(data, transaction.id, removedLike, false, transaction.comments)
-                })
-            setLikes(prev => prev <= 0 ? 0 : prev - 1)
-            setLiked(!liked)
-            console.log("disliked " + (likes -1))
-        } else if(!liked) {
-            getUserData(userFound)
-                .then((data) => {
-                    updateTransactionSocials(data, transaction.id, addedLike, true, transaction.comments)
-                })
-            setLikes(prev => prev + 1)
-            setLiked(!liked)
-            console.log("liked " + (likes + 1))
+        if(userFound){
+            const addedLike = likes + 1
+            const removedLike = likes <= 0 ? 0 : likes - 1
+            console.log(likes)
+            if(liked) {
+                getUserData(userFound)
+                    .then((data) => {
+                        updateTransactionSocials(data, transaction.id, removedLike, false, transaction.comments)
+                    })
+                setLikes(prev => prev <= 0 ? 0 : prev - 1)
+                setLiked(!liked)
+                console.log("disliked " + (likes -1))
+            } else if(!liked) {
+                getUserData(userFound)
+                    .then((data) => {
+                        updateTransactionSocials(data, transaction.id, addedLike, true, transaction.comments)
+                    })
+                setLikes(prev => prev + 1)
+                setLiked(!liked)
+                console.log("liked " + (likes + 1))
+            }
+        } else {
+            router.push('/profile/signup')
         }
     }
 
@@ -66,8 +72,12 @@ export default function TransactionCard(props: any) {
         addComment()
     }
 
-    const toSingleTransaction = () => {
-        setCommentsDropdown(!commentsDropdown)
+    const dropdown = () => {
+        if(userFound){
+            setCommentsDropdown(!commentsDropdown)
+        } else {
+            router.push('/profile/signup')
+        }
     }
 
     function findUserImg(fromUser: string) {
@@ -81,7 +91,7 @@ export default function TransactionCard(props: any) {
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
     
     return (
-        <div className='font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-4 pt-4'>
+        <div className='shadow-md font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-3 pt-3'>
             <div className='w-192 border-b border-slate-300 flex-column'>
                 <div className='ml-2 flex'>
                     <Image 
@@ -89,7 +99,7 @@ export default function TransactionCard(props: any) {
                         width={498}
                         height={500}
                         alt="Cat headshot number one"
-                        className='mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-400'
+                        className='shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-400'
                     />
                     <div className='flex-column font-Hind pb-7'>
                         
@@ -110,10 +120,10 @@ export default function TransactionCard(props: any) {
                                 height={100}
                                 alt="heart icon"
                                 src="/icons/globe-icon.png"
-                                className='w-4 h-4 my-1 mx-1'
+                                className='w-4 h-4 mx-0.5'
                             />
                         </div>
-                        <p className='mt-2 max-w-xl'>
+                        <p className='mt-1 max-w-xl'>
                             {transaction.description}
                         </p>
                         <div className='flex mt-4'>
@@ -135,7 +145,7 @@ export default function TransactionCard(props: any) {
                                     alt="comment icon"
                                     src="/icons/comment-icon.png"
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
-                                    onClick={() => toSingleTransaction()}
+                                    onClick={() => dropdown()}
                                 />
                                 <p className='ml-1 text-sm'>{commentsLength}</p>
                             </div>

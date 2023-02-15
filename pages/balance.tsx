@@ -53,7 +53,7 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                 </div>
             </div>
             <div className='pb-96 flex justify-center mx-20'>
-                <div className='bg-white py-5 px-5 mx-3 w-96 h-56 border border-slate-300 rounded-lg'>
+                <div className='shadow-md bg-white py-5 px-5 mx-3 w-96 h-56 border border-slate-300 rounded-lg'>
                     <h2 className='text-slate-900 text-xl font-semibold'>PayCats balance</h2>
                     <h1 className='text-5xl tracking-wide'>${formattedBalance}.00</h1>
                     <p className='text-slate-900 text-sm mb-6'>Available</p>
@@ -63,7 +63,7 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                             Transfer Money
                     </button>
                 </div>
-                <div className='bg-white py-5 px-5 mx-3 w-96 h-76 border border-slate-300 rounded-lg'>
+                <div className='shadow-md bg-white py-5 px-5 mx-3 w-96 h-76 border border-slate-300 rounded-lg'>
                     <h2 className='text-slate-900 text-xl font-semibold mb-2'>Bank and cards</h2>
                     <div className='flex-col justify-center items-center'>
                         <div className='px-3 pt-3 pb-4 flex items-start cursor-pointer my-1 transition hover:transition hover:bg-slate-200 w-full rounded-sm'>
