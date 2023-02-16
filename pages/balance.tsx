@@ -9,34 +9,38 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { updateNotifications } from '@/components/firebase/firestore'
 import { updateUnread } from '@/components/firebase/firestore'
+import { useRouter } from 'next/router'
 
 export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, transferMoneyBtn, loading, setUnreadBell } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const [balance, setBalance] = useState<number>(findUser.balance)
     const formattedBalance = (balance).toLocaleString("en-US")
+    const router = useRouter()
+
+    useEffect(() => {
+
+    }, [balance, setBalance])
 
     const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
+        setUnreadBell(true)
         setBalance(prev => balance + 10000)
         transferMoneyBtn(userFound, findUser)
-        alert("Transfered $10,000 to your account!")
         const transferNotification: any = {
             message: `Successfully transferred $10,000 to your balance.` ,
             type: "transfer",
             id: findUser.notifications.length,
+            read: false,
         }
         const allNotifications = [
                 ...findUser.notifications, transferNotification,
         ]
         updateNotifications(userFound, allNotifications)
         updateUnread(findUser.email, true)
-        setUnreadBell(true)
     }
+    console.log(balance)
 
-    useEffect(() => {
-
-    }, [balance])
 
     if(loading) return (
         <div>

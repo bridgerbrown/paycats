@@ -26,10 +26,9 @@ export default function Navbar() {
     }
 
     const bellToRead = () => {
+        setUnreadBell(false)
         setBell(false)
         updateUnread(userFound, false)
-        setUnreadBell(false)
-        console.log(unreadBell)
     }
 
 
@@ -76,7 +75,7 @@ export default function Navbar() {
                         onClick={() => bellToRead()}
                     />
                     { userFound ?
-                        bell
+                        unreadBell
                         ?
                         <span className="absolute top-8 right-20 h-2.5 w-2.5 mr-4">
                             <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>

@@ -34,9 +34,9 @@ export default function LogIn() {
   
     const onSubmit = async (data: any) => {
       try {
+        resolveUserData(data.email)
         await logIn(data.email, data.password);
         setInvalid("")
-        resolveUserData(data.email)
         setTimeout(() => {router.push("/profile");}, 1000)
       } catch (error) {
         if (error instanceof Error) {

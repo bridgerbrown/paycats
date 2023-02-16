@@ -31,6 +31,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
     </div>
   )
   console.log(transactions)
+  console.log(userFound)
 
   return (
       <div className='w-screen min-h-screen relative bg-stone-100'>

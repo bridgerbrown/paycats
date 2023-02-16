@@ -53,11 +53,10 @@ export default function ProfilePageCard({findUser}: any) {
         }
     }
 
-    const numberOfUsersTransactions = () => {
-        const usersUsername = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
+    const numberOfUsersTransactions = (username: string) => {
         const onlyMyTransactions = findUser ? findUser.transactions.filter(
             function (item: any) {
-                return item.from == usersUsername || item.to == usersUsername
+                return item.from == username || item.to == username
             }
         ) : transactions
         console.log(onlyMyTransactions.length)
@@ -109,35 +108,39 @@ export default function ProfilePageCard({findUser}: any) {
                         </div>
                         :
                     <div className='flex flex-col justify-center items-center'>
-                    <Image 
-                        src={dynamicUserImg()}
-                        width={498}
-                        height={500}
-                        alt="Cat headshot number one"
-                        className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mb-4'
-                    />
-                    <h1 className='text-3xl flex justify-center mb-2'>{username}</h1>
-                    <h2 className='text-md flex justify-center mb-2'>{userFound}</h2>
-                    <div className='flex'>
-                        <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
-                        <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
-                        <p className='font-semibold tracking-wider'>4 friends</p>
-                    </div>
-                    <div className='my-2'>
-                        <p className='font-normal text-sm tracking-wider'>{numberOfUsersTransactions()} transactions</p>
-                    </div>
-                    <div className='mt-6 mb-4 flex justify-center items-center'>
-                        <button
-                            onClick={handleMouseEvent}
-                            className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
-                                Edit
-                        </button>
-                        <Link href="/profile/login">
-                            <h1 onClick={() => logOut()} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
-                                Log out
-                            </h1>
-                        </Link>
-                    </div>
+                        <Image 
+                            src={dynamicUserImg()}
+                            width={498}
+                            height={500}
+                            alt="Cat headshot number one"
+                            className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mt-2 mb-4'
+                        />
+                        <h1 className='text-3xl flex justify-center mb-2'>{username}</h1>
+                        <h2 className='text-md flex justify-center mb-2'>{userFound}</h2>
+                        <div className='flex'>
+                            <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
+                            <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
+                            <p className='font-semibold tracking-wider'>4 friends</p>
+                        </div>
+                        <div className='my-2'>
+                            <p className='font-normal text-sm tracking-wider'>{
+                                findUser ?
+                            numberOfUsersTransactions(username)
+                            : ""
+                            } transactions</p>
+                        </div>
+                        <div className='mt-6 flex justify-center items-center'>
+                            <button
+                                onClick={handleMouseEvent}
+                                className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
+                                    Edit
+                            </button>
+                            <Link href="/profile/login">
+                                <h1 onClick={() => logOut()} className='cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'>
+                                    Log out
+                                </h1>
+                            </Link>
+                        </div>
                     </div>
                     }
             </div>

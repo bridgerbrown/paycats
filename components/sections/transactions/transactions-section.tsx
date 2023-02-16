@@ -1,9 +1,12 @@
 import React from 'react'
 import TransactionCard from '@/components/sections/transactions/transaction-card'
+import { useAuth } from '@/components/context/AuthContext'
+import { transactions } from '@/components/data/defaultTransactions'
 
 
 export default function TransactionsSection(props: any) {
-    const transactionsData = props.transactions 
+    const { userFound } = useAuth()
+    const transactionsData = props.transactions ? props.transactions : transactions
     const sortedTransactions = transactionsData.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )

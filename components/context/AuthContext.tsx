@@ -15,7 +15,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
     const [userFound, setUserFound] = useState<any>(null)
     const [userImage, setUserImage] = useState<number>(1)
     const [loading, setLoading] = useState(true)
-    const [unreadBell, setUnreadBell] = useState<boolean>(true)
+    const [unreadBell, setUnreadBell] = useState<boolean>(false)
     const [welcome, setWelcome] = useState<boolean>(true)
 
     useEffect(() => {

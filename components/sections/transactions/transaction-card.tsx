@@ -99,7 +99,7 @@ export default function TransactionCard(props: any) {
                         width={498}
                         height={500}
                         alt="Cat headshot number one"
-                        className='shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-400'
+                        className='shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
                     />
                     <div className='flex-column font-Hind pb-7'>
                         
@@ -114,7 +114,7 @@ export default function TransactionCard(props: any) {
                                     </p>
                                 }
                         <div className='flex items-center'>
-                            <p className='text-sm text-slate-600 font-light mr-1'>3h</p>
+                            <p className='text-sm text-slate-600 mr-1'>3h</p>
                             <Image
                                 width={100}
                                 height={100}

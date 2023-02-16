@@ -17,6 +17,7 @@ export default function Notification(props: any) {
         setRead(true)
         updateUnread(findUser.email, false)
     }
+    
 
     const getNotificationLink = (type: string) => {
         if(type == "commented"){

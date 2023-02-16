@@ -42,9 +42,16 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
             {userFound ? 
             
             <div className='w-screen relative'>
-                <div className=' pb-60 flex flex-col justify-center items-center'>
+                <div className='pb-60 flex flex-col justify-center items-center'>
                     <div className='shadow-md rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
-                        { sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
+                    {
+                        onlyMyTransactions.length > 0 ?
+                            sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )
+                        :
+                        <div className='pt-8 bg-white w-192 border-x border-slate-300 shadow-md flex text-center justify-center'>
+                            <h2 className='text-slate-500 font-thin'>No transactions made yet!</h2>
+                        </div>
+                    }
                     <div className='shadow-md rounded-b-lg border-slate-300 border-x border-b h-16 bg-white w-192'></div>
                 </div>
             </div>

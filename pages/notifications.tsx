@@ -7,15 +7,26 @@ import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
-import { updateNotifications } from '@/components/firebase/firestore'
+import { updateNotifications, updateUnread } from '@/components/firebase/firestore'
 
 export default function Notifications({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { userFound } = useAuth()
+    const { userFound, setUnreadBell } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const userNotifications = findUser.notifications
     const sortedNotifications = userNotifications.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     )
+
+    useEffect(() => {}, [])
+
+    function markAllRead() {
+        const allRead = userNotifications.map((obj: any) => ({...obj, read: true}))
+        updateNotifications(userFound, allRead)
+        updateUnread(findUser.email, false)
+        setUnreadBell(false)
+        console.log(allRead)
+    }
+    markAllRead()
 
     return (
         <div className='min-h-screen w-screen relative font-Hind bg-stone-100'>

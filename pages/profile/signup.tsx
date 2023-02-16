@@ -16,7 +16,7 @@ type FormValues = {
 
 export default function SignUp() {
     const methods = useForm({ mode: "onBlur"})
-    const { signUp } = useAuth()
+    const { signUp, setUnreadBell } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   
@@ -35,10 +35,11 @@ export default function SignUp() {
   
     const onSubmit = async (data: any) => {
       try {
+        createUserData(data.email)
         await signUp(data.email, data.password);
         setInvalid("")
-        createUserData(data.email)
         setTimeout(() => {router.push("/profile");}, 1000)
+        setUnreadBell(true)
       } catch (error) {
         if (error instanceof Error) {
           setInvalid("Email already in use")
