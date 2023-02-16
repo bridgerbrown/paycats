@@ -46,7 +46,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           }
           <Footer />
           {
-            welcome ?
+            !findUser ?
             <Welcome enter={enter}/>
             :
             <div></div>

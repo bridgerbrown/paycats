@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
 import { checkUser } from '@/components/firebase/firestore'
 import { getUserData } from '@/components/firebase/firestore'
+import { auth } from '@/components/firebase/firebase.config'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 type FormValues = {
   email: string;
@@ -16,7 +18,7 @@ type FormValues = {
 
 export default function SignUp() {
     const methods = useForm({ mode: "onBlur"})
-    const { signUp, setUnreadBell } = useAuth()
+    const { setUnreadBell, setWelcome } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
   
@@ -34,18 +36,19 @@ export default function SignUp() {
     }
   
     const onSubmit = async (data: any) => {
-      try {
-        createUserData(data.email)
-        await signUp(data.email, data.password);
-        setInvalid("")
-        setTimeout(() => {router.push("/profile");}, 1000)
-        setUnreadBell(true)
-      } catch (error) {
-        if (error instanceof Error) {
-          setInvalid("Email already in use")
-          console.log(error.message);
-        }
-      }
+      await createUserWithEmailAndPassword(auth, data.email, data.password)
+        .then(() => {
+          createUserData(data.email),
+          setTimeout(() => {router.push("/profile");}, 1000),
+          setUnreadBell(true),
+          setInvalid(""),
+          setWelcome(false)
+        })
+        .catch ((error: any) => {
+          if (error) {
+            setInvalid("Email already in use")
+          }
+      })
     };
 
     return (

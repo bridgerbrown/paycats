@@ -3,6 +3,8 @@ import React, { createContext, useContext, useEffect, useState, ReactNode, FC } 
 import { auth } from "../firebase/firebase.config"
 import { updateTransactions, changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
 import { transactions } from "../data/defaultTransactions";
+import { FirebaseError } from "firebase/app";
+
 
 type AuthContextType = {
     children: ReactNode
@@ -25,13 +27,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         })
         return () => unsubscribe()
     }, [userFound])
-
-    const signUp = (email: string, password: string) => {
-        setLoading(true)
-        createUserWithEmailAndPassword(auth, email, password);
-        setLoading(false)
-        setWelcome(false)
-      };
     
       const logIn = (email: string, password: string) => {
         setLoading(true)
@@ -76,7 +71,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
             userFound, 
             transferMoneyBtn,   
             updateUserImage, 
-            signUp, 
             logIn, 
             logOut,
             loading,

@@ -29,7 +29,12 @@ export default function Profile({users}: InferGetServerSidePropsType<typeof getS
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <ProfilePageCard findUser={findUser} />
+                    {
+                        userFound ?
+                        <ProfilePageCard findUser={findUser} />
+                        :
+                        <div></div>
+                    }
                 </div>
             <Footer />
         </div>
