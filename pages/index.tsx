@@ -39,7 +39,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           <div>
             <SearchBar />
           </div>
-          {userFound ? 
+          {userFound ?
             <TransactionsSection {...findUser} /> 
             :
             <TransactionsSection transactions={transactions} enter={enter} />

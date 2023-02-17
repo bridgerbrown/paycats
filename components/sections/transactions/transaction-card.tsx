@@ -168,7 +168,7 @@ export default function TransactionCard(props: any) {
                             />
                             <div className='ml-28 w-full flex justify-end'>
                                 <button
-                                    className='cursor-pointer bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
+                                    className='cursor-pointer bg-blue-800 text-sm text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
                                     onClick={commentSubmit}
                                 >Submit</button>
                             </div>

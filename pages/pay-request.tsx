@@ -11,6 +11,7 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { catUsers } from '@/components/data/catUsers'
 import { updateUnread } from '@/components/firebase/firestore'
+import LoadingCircle from '@/components/features/loading-circle'
 
 interface FormType {
     id: number | null,
@@ -31,7 +32,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const [toDropdown, setToDropdown] = useState<boolean>(false)
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
-    const [loadingWheel, setLoadingWheel] = useState<boolean>(false)
+    const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
     const [formContents, setFormContents] = useState<FormType>({    
         id: findUser.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
@@ -161,21 +162,21 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 setTimeout(() => {router.push("/my-transactions");}, 1000)
             }
         }
-        setLoadingWheel(true)
+        setLoadingTransition(true)
     }
 
-    const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-700 peer-checked:border-transparent`
+    const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-600 peer-checked:border-transparent`
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
             <div className='flex justify-center'>
-                <div className=' w-192 mt-8 mb-4'>
+                <div className='w-144 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>Pay/Request</h1>
                 </div>
             </div>
             <div className='flex justify-center'>
-                <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-192'>
+                <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-144'>
                     <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
                             <h2>To:</h2>
@@ -210,7 +211,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                             }
                         </div>
                         <div className="before:text-xl before:ml-3 before:mt-1.25 relative before:absolute before:content-['$']">
-                            <input className=' pl-7 flex justify-end items-end active:outline-none focus:outline-none border-none text-black text-xl' 
+                            <input className='pl-7 flex justify-end items-end active:outline-none focus:outline-none border-none text-black text-xl' 
                                 type="number" placeholder='0.00' min="0.00" max="10000.00" step="0.01" 
                                 required 
                                 id='amount'
@@ -226,12 +227,12 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     <div></div>
                     }
                     <textarea placeholder="What's it for?" 
-                        className='w-full resize-none h-60 text-black border-none focus:border-none active:border-none'
+                        className='w-full px-4 py-4 resize-none h-60 text-black border-none focus:border-none active:border-none'
                         id='description'
                     />
-                    <div className='w-192'>
+                    <div className='w-144'>
                         <form action="">
-                            <ul className="w-192 flex">
+                            <ul className="w-144 flex">
                                 <li className="w-1/2">
                                     <input onChange={(e) => onRadioChange(e)} className="sr-only peer" type="radio" defaultChecked value="pay" name="payRequest" id="paySelect"/>
                                     <label className={payRequestButtonStyling} htmlFor="paySelect">Pay</label>
@@ -246,7 +247,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     <div className=''>
                         <button
                             onClick={submitForm}
-                            className='w-192 h-16 bg-slate-300 rounded-none hover:bg-green-400'
+                            className='w-144 h-16 bg-blue-800 text-white rounded-none hover:bg-blue-700'
                         >
                             Submit
                         </button>
@@ -255,14 +256,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             </div>
             <div className='w-screen flex justify-center items-center'>
                 {
-                    loadingWheel ?
-                    <Image 
-                        src="/loading-icon.png"
-                        width={200}
-                        height={200}
-                        alt="loading wheel"
-                        className='animate-spin opacity-50 object-fit w-12 h-12'
-                    />
+                    loadingTransition ?
+                    <LoadingCircle />
                     :
                     <div></div>
                 }

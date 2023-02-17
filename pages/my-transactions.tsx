@@ -46,7 +46,9 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
                     <div className='shadow-md rounded-t-lg border-slate-300 border-x border-t h-6 bg-white w-192'></div>
                     {
                         onlyMyTransactions.length > 0 ?
-                            sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )
+                            <div className=''>
+                                {sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
+                            </div>
                         :
                         <div className='pt-8 bg-white w-192 border-x border-slate-300 shadow-md flex text-center justify-center'>
                             <h2 className='text-slate-500 font-thin'>No transactions made yet!</h2>

@@ -6,6 +6,7 @@ import { FormProvider, useForm, resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
 import { getUserData } from '@/components/firebase/firestore'
+import LoadingCircle from '@/components/features/loading-circle'
 
 type FormValues = {
   email: string;
@@ -18,6 +19,7 @@ export default function LogIn() {
     const { logIn } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
+    const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
   
     const {
       register,
@@ -37,6 +39,7 @@ export default function LogIn() {
         resolveUserData(data.email)
         await logIn(data.email, data.password);
         setInvalid("")
+        setLoadingTransition(true)
         setTimeout(() => {router.push("/profile");}, 1000)
       } catch (error) {
         if (error instanceof Error) {
@@ -50,7 +53,7 @@ export default function LogIn() {
         <div className="font-Hind w-screen relative bg-stone-100 h-screen">
         <Navbar />
         <div className="flex justify-center items-center">
-              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-36 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
+              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-12 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
                 <h4 className="mb-6 text-2xl font-semibold tracking-wide">Log In</h4>
                 <FormProvider {...methods}>
                   <form action="" onSubmit={handleSubmit(onSubmit)} className="">
@@ -96,6 +99,15 @@ export default function LogIn() {
                 <Link href="/profile/signup">
                   <p className="text-xs text-slate-500">Don't have an account? Click here to sign up!</p>
                 </Link>
+                {
+                  loadingTransition
+                  ?
+                  <div className='pt-8 '>
+                    <LoadingCircle />
+                  </div>
+                  :
+                  <div className='pt-24 pb-5 mb-0.5'></div>
+                }
               </div>
           </div>
           <Footer />

@@ -9,6 +9,7 @@ import { checkUser } from '@/components/firebase/firestore'
 import { getUserData } from '@/components/firebase/firestore'
 import { auth } from '@/components/firebase/firebase.config'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import LoadingCircle from '@/components/features/loading-circle'
 
 type FormValues = {
   email: string;
@@ -21,6 +22,7 @@ export default function SignUp() {
     const { setUnreadBell, setWelcome } = useAuth()
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
+    const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
   
     const {
       register,
@@ -39,6 +41,7 @@ export default function SignUp() {
       await createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
           createUserData(data.email),
+          setLoadingTransition(true),
           setTimeout(() => {router.push("/profile");}, 1000),
           setUnreadBell(true),
           setInvalid(""),
@@ -55,7 +58,7 @@ export default function SignUp() {
         <div className="w-screen relative bg-stone-100 h-screen">
         <Navbar />
         <div className="flex justify-center items-center">
-              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-36 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
+              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-12 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
                 <h4 className="mb-6 text-2xl font-semibold tracking-wide">Sign Up</h4>
                 <FormProvider {...methods}>
                   <form action="" onSubmit={handleSubmit(onSubmit)} className="">
@@ -119,6 +122,15 @@ export default function SignUp() {
                 <Link href="/profile/login">
                   <p className="text-xs text-slate-500">Already have an account? Click here to log in!</p>
                 </Link>
+                {
+                  loadingTransition
+                  ?
+                  <div className='pt-8 '>
+                    <LoadingCircle />
+                  </div>
+                  :
+                  <div className='pt-24 pb-5 mb-0.5'></div>
+                }
               </div>
           </div>
           <Footer />
