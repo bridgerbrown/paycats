@@ -34,11 +34,15 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
   console.log(userFound)
 
   return (
-      <div className='w-screen min-h-screen relative bg-stone-100'>
+      <div className='w-screen min-h-screen relative bg-stone-100 font-Hind'>
           <Navbar />
-          <div>
-            <SearchBar />
-          </div>
+          <div className='flex justify-center bg-stone-100'>
+                <div className='w-192 mt-8 mb-4'>
+                    <h1 className='text-xl font-normal tracking-wide'>
+                        Home
+                    </h1>
+                </div>
+            </div>
           {userFound ?
             <TransactionsSection {...findUser} /> 
             :
