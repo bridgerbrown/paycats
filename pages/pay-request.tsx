@@ -33,6 +33,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const [toImage, setToImage] = useState<string | null>(null)
     const [radioState, setRadioState] = useState<string>("pay")
     const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
+    const [errorMessage, setErrorMessage] = useState<string>("")
     const [formContents, setFormContents] = useState<FormType>({    
         id: findUser.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
@@ -45,6 +46,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         comments: []
     })
 
+    useEffect(() => {}, [errorMessage])
+
     function recipientImagePreview(image: string, name: string) {
         setToImage(image)
         setFormContents({...formContents, to: name})
@@ -52,6 +55,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
 
     function cancelSelection() {
         setToDropdown(false)
+        setFormContents({...formContents, to: ""})
         setToImage(null)
     }
 
@@ -135,34 +139,61 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         updateNotifications(userFound, allNotifications)
     }
 
+    function checkFields(){
+        const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
+        const descriptionValue = (document.getElementById("description") as HTMLInputElement).value
+        const correctTo = formContents.to !== "" ? true : false
+        const correctAmount = Number.isInteger(amountValue) ? true : false
+        const correctDescription = descriptionValue ? true : false
+        console.log("to: " + correctTo)
+        console.log("amount: " + correctAmount)
+        console.log("desc: " + correctDescription)
+        if(!correctTo){
+            setErrorMessage("Set a user to make a transaction with!")
+            return false
+        } else if(!correctAmount){
+            setErrorMessage("Make sure to set a correct amount.")
+            return false
+        } else if(!correctDescription){
+            setErrorMessage("Make sure to set a description!")
+            return false
+        } else {
+            return true
+        }
+    }
+
+
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
         const balanceDeducted = parseInt(findUser.balance) - amountValue
         const balanceAdded = parseInt(findUser.balance) + amountValue
-
-        if(radioState == "pay") {
-            if (balanceDeducted <= 0) {
-                alert("Not enough money in your balance.")
+        checkFields()
+        if(checkFields()){
+            setErrorMessage("")
+            if(radioState == "pay") {
+                if (balanceDeducted <= 0) {
+                    alert("Not enough money in your balance.")
+                } else {
+                    sendUserTransaction();
+                    updateBalance(userFound, balanceDeducted);
+                    setTimeout(() => {router.push("/my-transactions");}, 1000)
+                }
             } else {
-                sendUserTransaction();
-                updateBalance(userFound, balanceDeducted);
-                setTimeout(() => {router.push("/my-transactions");}, 1000)
+                if (formContents.to === "Mr. Bitters"){
+                    console.log("denied")
+                    const allNotifications = [
+                        ...findUser.notifications, getNewNotification(formContents.to)
+                    ]
+                    updateNotifications(userFound, allNotifications)
+                    setTimeout(() => {router.push("/my-transactions");}, 1000)
+                } else {
+                    sendUserTransaction();
+                    updateBalance(userFound, balanceAdded);
+                    setTimeout(() => {router.push("/my-transactions");}, 1000)
+                }
             }
-        } else {
-            if (formContents.to === "Mr. Bitters"){
-                console.log("denied")
-                const allNotifications = [
-                    ...findUser.notifications, getNewNotification(formContents.to)
-                ]
-                updateNotifications(userFound, allNotifications)
-                setTimeout(() => {router.push("/my-transactions");}, 1000)
-            } else {
-                sendUserTransaction();
-                updateBalance(userFound, balanceAdded);
-                setTimeout(() => {router.push("/my-transactions");}, 1000)
-            }
+            setLoadingTransition(true)
         }
-        setLoadingTransition(true)
     }
 
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-600 peer-checked:border-transparent`
@@ -210,8 +241,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                             </div>
                             }
                         </div>
-                        <div className="before:text-xl before:ml-3 before:mt-1.25 relative before:absolute before:content-['$']">
-                            <input className='pl-7 flex justify-end items-end active:outline-none focus:outline-none border-none text-black text-xl' 
+                        <div className="mr-2 before:text-xl before:ml-3 before:mt-1.25 relative before:absolute before:content-['$']">
+                            <input className='w-24 pl-7 flex justify-end items-end active:outline-none focus:outline-none border-none text-black text-xl' 
                                 type="number" placeholder='0.00' min="0.00" max="10000.00" step="0.01" 
                                 required 
                                 id='amount'
@@ -255,6 +286,9 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 </div>
             </div>
             <div className='w-screen flex justify-center items-center'>
+                <div>
+                    <h2 className='text-red-500'>{errorMessage}</h2>
+                </div>
                 {
                     loadingTransition ?
                     <LoadingCircle />
