@@ -14,11 +14,12 @@ export default function TransactionCard(props: any) {
     const [commentsLength, setCommentsLength] = useState<number>(transaction.comments.length)
     const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false)
     const [comments, setComments] = useState<any>(transaction.comments)
+    const [errorMessage, setErrorMessage] = useState<string>("")
     const router = useRouter()
 
     useEffect(() => {
 
-    }, [likes, commentsLength, comments])
+    }, [likes, commentsLength, comments, errorMessage])
 
     const updateLikes = () => {
         if(userFound){
@@ -53,6 +54,7 @@ export default function TransactionCard(props: any) {
 
     function addComment() {
         const commentValue = (document.getElementById("comment") as HTMLInputElement).value
+        setErrorMessage("")
         const addedComment = [...transaction.comments, {
             from: userFound,
             message: commentValue}]
@@ -69,7 +71,9 @@ export default function TransactionCard(props: any) {
 
     const commentSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        addComment()
+        const commentValue = (document.getElementById("comment") as HTMLInputElement).value
+        let noSpaces = commentValue.replace(/\s/g, "")
+        noSpaces.length ? addComment() : setErrorMessage("Make sure to enter a comment!")
     }
 
     const dropdown = () => {
@@ -166,11 +170,16 @@ export default function TransactionCard(props: any) {
                                 className='border-slate-400 w-full ml-26 rounded resize-none mb-2 text-black'
                                 id='comment'
                             />
-                            <div className='ml-28 w-full flex justify-end'>
-                                <button
-                                    className='cursor-pointer bg-blue-800 text-sm text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
-                                    onClick={commentSubmit}
-                                >Submit</button>
+                            <div className='flex justify-between ml-28 w-full'>
+                                <div className=''>
+                                    <p className='text-red-500 text-sm'>{errorMessage}</p>
+                                </div>
+                                <div className='flex'>
+                                    <button
+                                        className='cursor-pointer bg-blue-800 text-sm text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
+                                        onClick={commentSubmit}
+                                    >Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
