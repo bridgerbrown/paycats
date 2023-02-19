@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 import Link from 'next/link'
-import { FormProvider, useForm, resolver } from 'react-hook-form'
+import { FormProvider, useForm, Resolver } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
 import { checkUser } from '@/components/firebase/firestore'
@@ -23,7 +23,20 @@ export default function SignUp() {
     const router = useRouter()
     const [invalid, setInvalid] = useState("")
     const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
-  
+
+    const resolver: Resolver<FormValues> = async (values) => {
+      return {
+        values: values.email ? values : {},
+        errors: !values.email
+        ? {
+          email: {
+            type: 'required',
+            message: 'This is required.',
+          },
+        }
+        : {},
+      }
+    }
     const {
       register,
       handleSubmit,
