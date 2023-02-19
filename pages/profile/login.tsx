@@ -97,7 +97,7 @@ export default function LogIn() {
                   </form>
                 </FormProvider>
                 <Link href="/profile/signup">
-                  <p className="text-xs text-slate-500">Don't have an account? Click here to sign up!</p>
+                  <p className="text-xs text-slate-500">Don&apos;t have an account? Click here to sign up!</p>
                 </Link>
                 {
                   loadingTransition
