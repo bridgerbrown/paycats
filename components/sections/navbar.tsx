@@ -5,7 +5,7 @@ import { updateUnread } from '../firebase/firestore'
 import React, {MouseEvent, useEffect, useState} from 'react'
 
 export default function Navbar() {
-    const navItemStyle: string = "text-base font-normal px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
+    const navItemStyle: string = "sm:text-sm md:text-base font-normal sm:px-2 md:px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"
     const { userFound, userImage, unreadBell, setUnreadBell } = useAuth()
     const [bell, setBell] = useState<boolean>(unreadBell)
 
@@ -33,80 +33,87 @@ export default function Navbar() {
 
 
     return (
-        <nav className="relative flex justify-between py-7 bg-blue-900 w-screen">
-            <div className='flex'>
-                <Link href="/" className="">
-                    <Image
-                        src="/paycats-logo-whiteeyes.png"
-                        width={200}
-                        height={44.48}
-                        alt="PayCats logo"
-                        className='ml-14'
-                    />
-                </Link>
-                <div className='flex items-center text-white px-6 font-Hind tracking-wide'>
-                    <Link href={redirectIfNoUser("/pay-request")} className='text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
-                        Pay/Request
-                    </Link>
-                    <Link href="/" className={navItemStyle}>
-                        Home
-                    </Link>
-                    <Link href={redirectIfNoUser("/my-transactions")} className={navItemStyle}>
-                        My Transactions
-                    </Link>
-                    <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
-                        <div className='flex items-center'>
-                            <h2 className='tracking-wide text-white'>Balance</h2>
+        <nav className="relative flex justify-between sm:py-5 lg:py-7 bg-blue-900 w-screen">
+            <div className='lg:flex sm:flex-column sm:justify-center md:justify-start'>
+                <div className='w-screen md:flex-column lg:flex items-center text-white font-Hind tracking-wide'>
+                    <div className='sm:w-screen sm:flex sm:justify-center lg:w-48'>
+                        <Link href="/" className="">
+                            <Image
+                                src="/paycats-logo-whiteeyes.png"
+                                width={200}
+                                height={44.48}
+                                alt="PayCats logo"
+                                className='w-48 lg:ml-8 sm:ml-4 sm:mb-4 sm:mt-1 sm:w-60'
+                            />
+                        </Link>
+                    </div>
+                    <div className='sm:ml-8 lg:ml-16 w-full flex justify-between'>
+                        <div className='flex items-center justify-start'>
+                            <Link href={redirectIfNoUser("/pay-request")} className='sm:text-sm md:text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
+                                Pay/Request
+                            </Link>
+                            <Link href="/" className={navItemStyle}>
+                                Home
+                            </Link>
+                            <Link href={redirectIfNoUser("/my-transactions")} className={navItemStyle}>
+                                My Transactions
+                            </Link>
+                            <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
+                                <div className='flex items-center'>
+                                    <h2 className='sm:text-sm md:text-base tracking-wide text-white'>Balance</h2>
+                                </div>
+                            </Link>
+                            <Link href="/about" className={navItemStyle}>
+                                About
+                            </Link>
                         </div>
-                    </Link>
-                    <Link href="/about" className={navItemStyle}>
-                        About
-                    </Link>
+                        <div className='flex items-center sm:mr-12 lg:mr-0'>
+                            <Link href={redirectIfNoUser("/notifications")}>
+                                <Image
+                                    src="/notification-bell.png"
+                                    width={139}
+                                    height={163}
+                                    alt="notifications bell"
+                                    className='w-5 h-6 mr-7 cursor-pointer'
+                                    onClick={() => bellToRead()}
+                                />
+                                { userFound ?
+                                    unreadBell
+                                    ?
+                                    <span className="absolute sm:top-25 lg:top-9 sm:right-24 lg:right-20 h-2.5 w-2.5 mr-4">
+                                        <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
+                                        <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
+                                    </span>
+                                    :
+                                    <div></div>
+                                    :
+                                    <div></div>
+                                }
+                            </Link>
+                            { !userFound ? (
+                                <Link 
+                                    href="/profile/login"
+                                    className='font-bold text-white tracking-wider sm:mr-4 lg:mr-12 text-xs'>
+                                    LOG IN
+                                </Link>
+                            ) : (
+                                <Link 
+                                    href="/profile"
+                                    className=''>
+                                        <Image
+                                        src={dynamicUserImg()}
+                                        width={25}
+                                        height={25}
+                                        alt="user icon"
+                                        className='w-10 h-10 rounded-full mr-8 cursor-pointer'
+                                        /> 
+                                </Link> 
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className='flex items-center'>
-                <Link href={redirectIfNoUser("/notifications")}>
-                    <Image
-                        src="/notification-bell.png"
-                        width={139}
-                        height={163}
-                        alt="notifications bell"
-                        className='w-5 h-6 mr-7 cursor-pointer'
-                        onClick={() => bellToRead()}
-                    />
-                    { userFound ?
-                        unreadBell
-                        ?
-                        <span className="absolute top-8 right-20 h-2.5 w-2.5 mr-4">
-                            <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
-                            <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
-                        </span>
-                        :
-                        <div></div>
-                        :
-                        <div></div>
-                    }
-                </Link>
-                { !userFound ? (
-                    <Link 
-                        href="/profile/login"
-                        className='font-bold text-white tracking-wider mr-14 text-xs'>
-                        LOG IN
-                    </Link>
-                ) : (
-                    <Link 
-                        href="/profile"
-                        className=''>
-                            <Image
-                            src={dynamicUserImg()}
-                            width={25}
-                            height={25}
-                            alt="user icon"
-                            className='w-10 h-10 rounded-full mr-8 cursor-pointer'
-                            /> 
-                    </Link> 
-                )}
-            </div>
+            
         </nav>
     )
 }

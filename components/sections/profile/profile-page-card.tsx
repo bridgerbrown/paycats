@@ -13,7 +13,7 @@ export default function ProfilePageCard({findUser}: any) {
     const { userFound, loading, logOut, updateUserImage, userImage } = useAuth()
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
-    const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover h-36 w-36 z-10 bg-transparent`
+    const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover sm:h-24 sm:w-24 lg:h-36 lg:w-36 z-10 bg-transparent`
     const [imageChange, setImageChange] = useState<boolean>(false)
     const [radioState, setRadioState] = useState<string>("1")
     const router = useRouter()
@@ -71,11 +71,11 @@ export default function ProfilePageCard({findUser}: any) {
 
     return (
         <div className=''>
-            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
+            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 sm:w-144 lg:w-192 '>
                     {
                         imageChange ?
                         <div>
-                            <h2 className='text-xl mb-6'>Choose a new profile picture:</h2>
+                            <h2 className='text-xl mb-8'>Choose a new profile picture:</h2>
                             <div className='flex my-2'>
                                 <form action="">
                                     <input type="radio" name="img" id="img1" value="1"

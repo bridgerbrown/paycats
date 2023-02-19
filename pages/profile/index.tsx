@@ -24,11 +24,11 @@ export default function Profile({users}: InferGetServerSidePropsType<typeof getS
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
                 <div className='flex justify-center'>
-                    <div className=' w-192 mt-8 mb-4'>
+                    <div className='sm:w-144 lg:w-192  mt-8 mb-4'>
                         <h1 className='text-xl font-normal tracking-wide'>Profile</h1>
                     </div>
                 </div>
-                <div className='flex justify-center'>
+                <div className='pb-60 flex justify-center'>
                     {
                         userFound ?
                         <ProfilePageCard findUser={findUser} />

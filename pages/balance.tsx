@@ -52,14 +52,14 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
         <Navbar />
             <div className='flex justify-center'>
-                <div className=' w-192 mt-8 mb-4'>
+                <div className='sm:w-144 lg:w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>Balance</h1>
                 </div>
             </div>
             <div className='pb-96 flex justify-center mx-20'>
                 <div className='shadow-md bg-white py-5 px-5 mx-3 w-96 h-56 border border-slate-300 rounded-lg'>
-                    <h2 className='text-slate-900 text-xl font-semibold'>PayCats balance</h2>
-                    <h1 className='text-5xl tracking-wide'>${formattedBalance}.00</h1>
+                    <h2 className='text-slate-900 sm:text-base lg:text-xl font-semibold'>PayCats balance</h2>
+                    <h1 className='sm:text-4xl lg:text-5xl tracking-wide'>${formattedBalance}.00</h1>
                     <p className='text-slate-900 text-sm mb-6'>Available</p>
                     <button 
                         onClick={handleTransferSubmit}
@@ -68,7 +68,7 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                     </button>
                 </div>
                 <div className='shadow-md bg-white py-5 px-5 mx-3 w-96 h-76 border border-slate-300 rounded-lg'>
-                    <h2 className='text-slate-900 text-xl font-semibold mb-2'>Bank and cards</h2>
+                    <h2 className='text-slate-900 sm:text-base lg:text-xl font-semibold mb-2'>Bank and cards</h2>
                     <div className='flex-col justify-center items-center'>
                         <div className='px-3 pt-3 pb-4 flex items-start cursor-pointer my-1 transition hover:transition hover:bg-slate-200 w-full rounded-sm'>
                             <Image 
@@ -79,7 +79,7 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                                 className="object-contain mt-2 mr-4"
                             />
                             <div>
-                                <h2 className='text-2xl'>WHISKERS WEALTH BANK</h2>
+                                <h2 className='sm:text-lg lg:text-2xl'>WHISKERS WEALTH BANK</h2>
                                 <h3 className='text-sm'>Checking ••••1234</h3>
                             </div>
                         </div>
@@ -94,14 +94,14 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
                                 className="object-contain mt-2 mr-4"
                             />
                             <div>
-                                <h2 className='text-2xl'>FELINE FIRST FINANCIAL</h2>
+                                <h2 className='sm:text-lg lg:text-2xl'>FELINE FIRST FINANCIAL</h2>
                                 <h3 className='text-sm'>Checking ••••1234</h3>
                             </div>
                         </div>
                     </div>
                     <div className='mt-4'>
                         <h2 
-                        className='w-fit text-xl text-blue-600 font-semibold hover:border-b-2 hover:border-blue-800 border-b-2 border-transparent hover:text-blue-800 cursor-pointer'>
+                        className='w-fit sm:text-lg lg:text-xl text-blue-600 font-semibold hover:border-b-2 hover:border-blue-800 border-b-2 border-transparent hover:text-blue-800 cursor-pointer'>
                             Link a Card or Bank
                         </h2>
                     </div>

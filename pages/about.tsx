@@ -20,14 +20,14 @@ export default function About() {
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
             <div className='flex justify-center bg-stone-100'>
-                <div className='w-192 mt-8 mb-4'>
+                <div className='sm:w-144 lg:w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>
                         About
                     </h1>
                 </div>
             </div>
             <div className='w-screen relative pb-48 flex justify-center'>
-                <div className='flex-column shadow-md rounded-lg border border-slate-300 items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
+                <div className='flex-column shadow-md rounded-lg border border-slate-300 items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white sm:w-144 lg:w-192'>
                     <div className='flex justify-center'>
                         <Image 
                             src="/paycats-logo-whiteeyes.png"
@@ -38,20 +38,20 @@ export default function About() {
                         />
                     </div>
                     <div className='text-center'>
-                        <h1 className='text-3xl mt-8 mb-6'>
+                        <h1 className='text-2xl mt-8 mb-4'>
                             Welcome to PayCats!
                         </h1>
-                        <h2 className='px-32 text-base mb-6'>
+                        <h2 className='sm:px-16 lg:px-32 text-base mb-6'>
                             PayCats is a Venmo/Paypal clone with a database of cat users you can pay
                             and request fake money from. Like Venmo, you can securely login, make requests
                             to users, track your balance, and interact with the history of transactions.
                         </h2>
-                        <h2 className='px-32 text-base mb-6'>
+                        <h2 className='sm:px-16 lg:px-32 text-base mb-8'>
                             Try heading to the Pay/Request page and making a transaction with one of the
                             available users. When a transaction goes through, you will be able to see a 
                             comment made by that cat user afterwards!
                         </h2>
-                        <div className='flex justify-center mt-4 mb-4'>
+                        <div className='flex justify-center mb-6'>
                             <Image 
                                 src="/cat1.jpg"
                                 width={498}
@@ -74,7 +74,7 @@ export default function About() {
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                         </div>
-                        <h2 className='px-32 text-base mb-6'>
+                        <h2 className='sm:px-16 lg:px-32 text-base mb-12'>
                             Each cat has a different selection of responses to find. If you run out of money, you can always head to your balance and transfer more.
                             Your notifications page will be updated after any of your actions!
                         </h2>
@@ -82,7 +82,7 @@ export default function About() {
                         <h1 className='text-2xl mt-8 mb-4'>
                             Development
                         </h1>
-                        <h2 className='px-32 text-base mb-4'>
+                        <h2 className='sm:px-16 lg:px-32 text-base mb-4'>
                             This Frontend development project was made using <br/> <span className='font-semibold'>React</span>, <span className='font-semibold'>Typescript</span>, <span className='font-semibold'>NextJS</span>, <span className='font-semibold'>Tailwind CSS</span>, 
                             <span className='font-semibold'> Firebase Auth</span>, and <span className='font-semibold'> Firestore</span>.
                         </h2>

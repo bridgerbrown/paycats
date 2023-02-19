@@ -56,7 +56,7 @@ export default function Notification(props: any) {
     }
 
     return (
-        <div className='w-192 flex justify-left items-center px-10'>
+        <div className='sm:w-144 lg:w-192 flex justify-left items-center px-10'>
             {
                read ?
                <Link href={`${getNotificationLink(userNotification.type)}`} className='w-full'>

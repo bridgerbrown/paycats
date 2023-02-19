@@ -95,8 +95,8 @@ export default function TransactionCard(props: any) {
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
     
     return (
-        <div className='shadow-md font-Hind w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-3 pt-3'>
-            <div className='w-192 border-b border-slate-300 flex-column'>
+        <div className='shadow-md font-Hind sm:w-144 lg:w-192 flex justify-left pt-5 px-10 bg-white border-x border-slate-300 pb-3 pt-3'>
+            <div className='sm:w-144 lg:w-192 border-b border-slate-300 flex-column'>
                 <div className='ml-2 flex'>
                     <Image 
                         src={`/${fromImg}`}
