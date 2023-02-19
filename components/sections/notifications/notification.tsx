@@ -63,7 +63,7 @@ export default function Notification(props: any) {
                     <div id="element" className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
                         <div className='flex items-center'>
                             <Image 
-                                src={getNotificationImage(userNotification.type)}
+                                src={`${getNotificationImage(userNotification.type)}`}
                                 width={700}
                                 height={700}
                                 alt="dollars icon"
@@ -80,7 +80,7 @@ export default function Notification(props: any) {
                     <div onMouseOver={() => updateReadNotifications(userNotification.id)} className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex cursor-pointer text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
                         <div className='flex items-center'>
                             <Image 
-                                src={getNotificationImage(userNotification.type)}
+                                src={`${getNotificationImage(userNotification.type)}`}
                                 width={700}
                                 height={700}
                                 alt="dollars icon"
