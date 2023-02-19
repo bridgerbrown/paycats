@@ -26,7 +26,7 @@ export default function About() {
                     </h1>
                 </div>
             </div>
-            <div className='flex justify-center'>
+            <div className='w-screen relative pb-48 flex justify-center'>
                 <div className='flex-column shadow-md rounded-lg border border-slate-300 items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 w-192'>
                     <div className='flex justify-center'>
                         <Image 
@@ -34,43 +34,63 @@ export default function About() {
                             width={1056}
                             height={263}
                             alt="PayCats logo"
-                            className='object-cover bg-blue-900 rounded w-2/3'
+                            className='object-cover bg-blue-900 rounded w-1/2'
                         />
                     </div>
                     <div className='text-center'>
-                        <h1 className='text-3xl mt-8 mb-4'>
+                        <h1 className='text-3xl mt-8 mb-6'>
                             Welcome to PayCats!
                         </h1>
-                        <h2 className='px-24 text-base mb-4'>
+                        <h2 className='px-32 text-base mb-6'>
                             PayCats is a Venmo/Paypal clone with a database of cat users you can pay
                             and request fake money from. Like Venmo, you can securely login, make requests
                             to users, track your balance, and interact with the history of transactions.
                         </h2>
-                        <h1 className='text-2xl mt-8 mb-4'>
-                            What should I do?
-                        </h1>
-                        <h2 className='px-24 text-base mb-4'>
-                            After signing up, you can set a custom profile picture in your profile page.
-                            <br/>
-                            <br/>
-                            Then, try heading to the Pay/Request page and making a transaction with one of the
+                        <h2 className='px-32 text-base mb-6'>
+                            Try heading to the Pay/Request page and making a transaction with one of the
                             available users. When a transaction goes through, you will be able to see a 
-                            comment made by that cat user afterwards! Each cat will have a different selection
-                            of responses! If you run out of money, you can always head to your balance and transfer more.
-                            <br/>
-                            <br/>
+                            comment made by that cat user afterwards!
+                        </h2>
+                        <div className='flex justify-center mt-4 mb-4'>
+                            <Image 
+                                src="/cat1.jpg"
+                                width={498}
+                                height={500}
+                                alt="Cat headshot number one"
+                                className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
+                            />
+                            <Image 
+                                src="/cat3.jpg"
+                                width={498}
+                                height={500}
+                                alt="Cat headshot number one"
+                                className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
+                            />
+                            <Image 
+                                src="/cat4.jpg"
+                                width={498}
+                                height={500}
+                                alt="Cat headshot number one"
+                                className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
+                            />
+                        </div>
+                        <h2 className='px-32 text-base mb-6'>
+                            Each cat has a different selection of responses to find. If you run out of money, you can always head to your balance and transfer more.
                             Your notifications page will be updated after any of your actions!
                         </h2>
-                        <h2 className='px-24 text-base mb-4'>
-                            This Frontend development project was made using React, Typescript, NextJS, Tailwind CSS, 
-                            Firebase Auth, and Firestore.
-                        </h2>
+                        
                         <h1 className='text-2xl mt-8 mb-4'>
-                            About Me
+                            Development
                         </h1>
+                        <h2 className='px-32 text-base mb-4'>
+                            This Frontend development project was made using <br/> <span className='font-semibold'>React</span>, <span className='font-semibold'>Typescript</span>, <span className='font-semibold'>NextJS</span>, <span className='font-semibold'>Tailwind CSS</span>, 
+                            <span className='font-semibold'> Firebase Auth</span>, and <span className='font-semibold'> Firestore</span>.
+                        </h2>
                         <div className='flex-column text-center justify-center items-center'>
                             <p>Check out my other projects:</p>
-                            <a href="www.bridgerbrown.dev" className='text-blue-500'>www.bridgerbrown.dev</a>
+                            <a href="https://www.bridgerbrown.dev" target="_blank" rel="noopener noreferrer"
+                                className='hover:text-blue-700 text-blue-500'
+                            >www.bridgerbrown.dev</a>
                         </div>
                     </div>                 
                 </div>
