@@ -36,18 +36,18 @@ export default function Navbar() {
         <nav className="relative flex justify-between sm:py-5 lg:py-7 bg-blue-900 w-screen">
             <div className='lg:flex sm:flex-column sm:justify-center md:justify-start'>
                 <div className='w-screen md:flex-column lg:flex items-center text-white font-Hind tracking-wide'>
-                    <div className='sm:w-screen sm:flex sm:justify-center lg:w-48'>
+                    <div className='sm:w-screen sm:flex sm:justify-center lg:w-60'>
                         <Link href="/" className="">
                             <Image
                                 src="/paycats-logo-whiteeyes.png"
                                 width={200}
                                 height={44.48}
                                 alt="PayCats logo"
-                                className='w-48 lg:ml-8 sm:ml-4 sm:mb-4 sm:mt-1 sm:w-60'
+                                className='lg:ml-8 sm:ml-4 sm:mb-2 lg:mb-1 sm:mt-1 sm:w-60'
                             />
                         </Link>
                     </div>
-                    <div className='sm:ml-8 lg:ml-16 w-full flex justify-between'>
+                    <div className='sm:ml-8 lg:ml-16 w-full flex sm:justify-center lg:justify-between'>
                         <div className='flex items-center justify-start'>
                             <Link href={redirectIfNoUser("/pay-request")} className='sm:text-sm md:text-base font-normal mr-2 bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                                 Pay/Request
@@ -55,7 +55,7 @@ export default function Navbar() {
                             <Link href="/" className={navItemStyle}>
                                 Home
                             </Link>
-                            <Link href={redirectIfNoUser("/my-transactions")} className={navItemStyle}>
+                            <Link href={redirectIfNoUser("/my-transactions")} className={`text-center ${navItemStyle}`}>
                                 My Transactions
                             </Link>
                             <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
@@ -67,7 +67,7 @@ export default function Navbar() {
                                 About
                             </Link>
                         </div>
-                        <div className='flex items-center sm:mr-12 lg:mr-0'>
+                        <div className='flex ml-4 items-center sm:mr-12 lg:mr-0'>
                             <Link href={redirectIfNoUser("/notifications")}>
                                 <Image
                                     src="/notification-bell.png"

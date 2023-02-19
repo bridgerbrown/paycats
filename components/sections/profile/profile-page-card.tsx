@@ -10,7 +10,7 @@ import { transactions } from '@/components/data/defaultTransactions'
 // Leaving userFound for username display for now
 
 export default function ProfilePageCard({findUser}: any) {
-    const { userFound, loading, logOut, updateUserImage, userImage } = useAuth()
+    const { userFound, loading, logOut, updateUserImage, userImage, setUserImage } = useAuth()
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
     const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover sm:h-24 sm:w-24 lg:h-36 lg:w-36 z-10 bg-transparent`
@@ -46,8 +46,9 @@ export default function ProfilePageCard({findUser}: any) {
     }
 
     const dynamicUserImg = () => {
-        if(userFound) {
-            return `/cat-profile-${userImage}.jpg`
+        if(findUser) {
+            setUserImage(findUser.img)
+            return `/cat-profile-${findUser.img}.jpg`
         } else {
             return `/cat-profile-1.jpg`
         }
@@ -71,7 +72,7 @@ export default function ProfilePageCard({findUser}: any) {
 
     return (
         <div className=''>
-            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 sm:w-144 lg:w-192 '>
+            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 sm:w-144 lg:w-192'>
                     {
                         imageChange ?
                         <div>

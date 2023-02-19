@@ -66,8 +66,8 @@ export default function LogIn() {
     return (
         <div className="pb-60 font-Hind w-screen relative bg-stone-100 min-h-screen">
         <Navbar />
-        <div className="flex justify-center items-center">
-              <div className="border border-slate-300 rounded-lg px-40 pt-28 pb-12 mt-20 mb-4 flex bg-white flex-col justify-center items-center">
+        <div className="flex justify-center text-center">
+              <div className="w-144 flex-col justify-center items-center border border-slate-300 rounded-lg pt-28 pb-12 mt-20 mb-4 bg-white">
                 <h4 className="mb-6 text-2xl font-semibold tracking-wide">Log In</h4>
                 <FormProvider {...methods}>
                   <form action="" onSubmit={handleSubmit(onSubmit)} className="">
