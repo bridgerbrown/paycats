@@ -33,7 +33,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
             <div className='flex justify-center bg-stone-100'>
-                <div className='sm:w-144 lg:w-192 mt-8 mb-4'>
+                <div className='xs:w-11/12 sm:w-144 lg:w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>
                         My Transactions
                     </h1>
@@ -43,18 +43,18 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
             
             <div className='w-screen relative'>
                 <div className='pb-60 flex flex-col justify-center items-center'>
-                    <div className='shadow-md rounded-t-lg border-slate-300 border-x border-t h-6 bg-white sm:w-144 lg:w-192'></div>
+                    <div className='xs:w-11/12 shadow-md rounded-t-lg border-slate-300 border-x border-t h-6 bg-white sm:w-144 lg:w-192'></div>
                     {
                         onlyMyTransactions.length > 0 ?
                             <div className=''>
                                 {sortedTransactions.map((transaction: any) => <TransactionCard key={transaction.id} transaction={transaction} /> )}
                             </div>
                         :
-                        <div className='pt-8 bg-white sm:w-144 lg:w-192  border-x border-slate-300 shadow-md flex text-center justify-center'>
+                        <div className='pt-8 bg-white xs:w-11/12 sm:w-144 lg:w-192  border-x border-slate-300 shadow-md flex text-center justify-center'>
                             <h2 className='text-slate-500 font-thin'>No transactions made yet!</h2>
                         </div>
                     }
-                    <div className='shadow-md rounded-b-lg border-slate-300 border-x border-b h-16 bg-white sm:w-144 lg:w-192 '></div>
+                    <div className='xs:w-11/12 shadow-md rounded-b-lg border-slate-300 border-x border-b h-16 bg-white sm:w-144 lg:w-192 '></div>
                 </div>
             </div>
             

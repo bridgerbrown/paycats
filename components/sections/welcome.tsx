@@ -6,7 +6,7 @@ export default function Welcome(props: any) {
 
     return (
         <div className='font-Hind bg-black/25 top-0 absolute w-screen h-full flex justify-center items-center'>
-            <div className='absolute top-1/6 flex-column justify-center items-center py-14 bg-white w-144 h-144 shadow-lg rounded-lg border border-slate-400'>
+            <div className='absolute top-1/6 flex-column justify-center items-center py-14 bg-white sm:w-11/12 md:w-144 h-144 shadow-lg rounded-lg border border-slate-400'>
                 <div className='flex-column justify-center items-center text-center mb-8'>
                     {/* <Image 
                         src="/paycats-logo-git.jpg"
@@ -32,7 +32,7 @@ export default function Welcome(props: any) {
                     </h2>
                 </div>
                 <div className='flex-column justify-center items-center text-center mb-8'>
-                    <div className='flex w-144 justify-center mb-4'>
+                    <div className='flex justify-center mb-4'>
                         <Image 
                             src="/cat1.jpg"
                             width={498}

@@ -37,7 +37,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
       <div className='w-screen min-h-screen relative bg-stone-100 font-Hind'>
           <Navbar />
           <div className='flex justify-center bg-stone-100'>
-                <div className='sm:w-144 lg:w-192 mt-8 mb-4'>
+                <div className='xs:w-11/12 sm:w-144 lg:w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>
                         Home
                     </h1>
