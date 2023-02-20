@@ -13,14 +13,14 @@ export default function ProfilePageCard({findUser}: any) {
     const { userFound, loading, logOut, updateUserImage, userImage, setUserImage } = useAuth()
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
-    const inputCss = `cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover sm:h-24 sm:w-24 lg:h-36 lg:w-36 z-10 bg-transparent`
+    const inputCss = `xs:h-20 xs:w-20 sm:h-24 sm:w-24 lg:h-36 lg:w-36 cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover z-10 bg-transparent`
     const [imageChange, setImageChange] = useState<boolean>(false)
-    const [radioState, setRadioState] = useState<string>("1")
+    const [radioState, setRadioState] = useState<string>(findUser.img)
     const router = useRouter()
 
     useEffect(() => {
 
-    }, [userFound, findUser])
+    }, [userFound, findUser, radioState])
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
@@ -42,13 +42,15 @@ export default function ProfilePageCard({findUser}: any) {
     async function handleImgSubmit(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
         setImageChange(!imageChange)
+        setUserImage(radioState)
         await sendUserImg()
+        setTimeout((() => router.reload()), 500)
     }
 
     const dynamicUserImg = () => {
         if(findUser) {
             setUserImage(findUser.img)
-            return `/cat-profile-${findUser.img}.jpg`
+            return `/cat-profile-${radioState}.jpg`
         } else {
             return `/cat-profile-1.jpg`
         }
@@ -71,12 +73,12 @@ export default function ProfilePageCard({findUser}: any) {
     )
 
     return (
-        <div className=''>
-            <div className='shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white mx-20 sm:w-144 lg:w-192'>
+        <div className='w-screen flex justify-center'>
+            <div className='xs:w-11/12 shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white sm:w-144 lg:w-192'>
                     {
                         imageChange ?
                         <div>
-                            <h2 className='text-xl mb-8'>Choose a new profile picture:</h2>
+                            <h2 className='text-center xs:text-lg sm:text-xl mb-8'>Choose a new profile picture:</h2>
                             <div className='flex my-2'>
                                 <form action="">
                                     <input type="radio" name="img" id="img1" value="1"
