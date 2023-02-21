@@ -8,18 +8,11 @@ export default function Welcome(props: any) {
         <div className='font-Hind bg-black/25 top-0 absolute w-screen h-full flex justify-center items-center'>
             <div className='absolute top-1/6 flex-column justify-center items-center py-14 bg-white xs:w-11/12 md:w-144 xs:h-1/2 sm:h-144 shadow-lg rounded-lg border border-slate-400'>
                 <div className='flex-column justify-center items-center text-center mb-8'>
-                    {/* <Image 
-                        src="/paycats-logo-git.jpg"
-                        width={352}
-                        height={87}
-                        alt="Cat headshot number one"
-                        className='inline mb-4 w-1/3 rounded-lg'
-                    /> */}
                     <Image 
                         src="/icons/smile-icon.png"
                         width={500}
                         height={500}
-                        alt="Cat headshot number one"
+                        alt="smile icon"
                         className='inline object-cover w-20 h-20 mb-2 rounded-full'
                     />
                     <h1 className='text-2xl mb-2'>
@@ -44,14 +37,14 @@ export default function Welcome(props: any) {
                             src="/cat3.jpg"
                             width={498}
                             height={500}
-                            alt="Cat headshot number one"
+                            alt="Cat headshot number three"
                             className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                         />
                         <Image 
                             src="/cat4.jpg"
                             width={498}
                             height={500}
-                            alt="Cat headshot number one"
+                            alt="Cat headshot number four"
                             className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                         />
                     </div>

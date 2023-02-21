@@ -18,7 +18,6 @@ export default function Notification(props: any) {
         updateUnread(findUser.email, false)
     }
     
-
     const getNotificationLink = (type: string) => {
         if(type == "commented"){
             return "/my-transactions"
@@ -66,7 +65,7 @@ export default function Notification(props: any) {
                                 src={`${getNotificationImage(userNotification.type)}`}
                                 width={700}
                                 height={700}
-                                alt="dollars icon"
+                                alt={"notification " + userNotification.type + " read"}
                                 className='object-fit w-9 h-9 mx-4'
                             />
                             <p className='font-regular text-slate-300'>
@@ -83,7 +82,7 @@ export default function Notification(props: any) {
                                 src={`${getNotificationImage(userNotification.type)}`}
                                 width={700}
                                 height={700}
-                                alt="dollars icon"
+                                alt={"notification " + userNotification.type + " unread"}
                                 className='object-fit w-9 h-9 mx-4'
                             />
                             <p className='font-regular marker:text-slate-500'>
@@ -100,15 +99,3 @@ export default function Notification(props: any) {
         </div>
     )
 }
-
-    // Notifications for
-    // 1) Paying -- DONE
-    // 2) Requesting -- DONE
-    // 3) Denied Request by Mr. Bitters -- DONE
-    // 4) Bank Transfers -- DONE
-    // 5) Achievements
-    // 6) Signing up -- DONE
-
-    // Read notification state
-    // - On bell click or hover to mark as read
-    // - New not's on bell animation

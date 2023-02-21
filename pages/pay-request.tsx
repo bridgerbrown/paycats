@@ -226,7 +226,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                                     src={`/${toImage}`}
                                     width={498}
                                     height={500}
-                                    alt="Cat headshot number one"
+                                    alt="pay request recipient option"
                                     className='object-cover w-12 h-12 rounded-full border border-slate-400 ml-4'
                                     />
                                     <p className='text-slate-600 cursor-pointer ml-1.5 py-0 leading-none font-hind text-sm'

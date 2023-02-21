@@ -7,7 +7,6 @@ export default function UserSelectDropdown({recipientImagePreview}: any) {
 
     function selectUser(selected: number) {
         setUserSelect(selected)
-        console.log(userSelect)
     }
     return(
         <div className="border-y-2 border-slate-300 relative top-0 font-Hind bg-white z-10 bg-white">

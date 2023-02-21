@@ -115,7 +115,7 @@ export default function ProfilePageCard({findUser}: any) {
                             src={dynamicUserImg()}
                             width={498}
                             height={500}
-                            alt="Cat headshot number one"
+                            alt="User profile picture of cat headshot"
                             className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mt-2 mb-4'
                         />
                         <h1 className='text-3xl flex justify-center mb-2'>{username}</h1>

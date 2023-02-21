@@ -16,7 +16,7 @@ export default function UserSelectCard({user, userSelect, selectUser, recipientI
                 src={`/${user.img}`}
                 width={498}
                 height={500}
-                alt="Cat headshot number one"
+                alt={`select user ${user.name}`}
                 className='object-cover w-12 h-12 rounded-full border border-slate-400 mr-4'
             />
             <h2>{user.name}</h2>

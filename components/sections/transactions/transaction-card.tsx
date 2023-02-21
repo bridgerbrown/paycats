@@ -102,8 +102,8 @@ export default function TransactionCard(props: any) {
                         src={`/${fromImg}`}
                         width={498}
                         height={500}
-                        alt="Cat headshot number one"
-                        className='shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
+                        alt={`transaction sender, ${transaction.from}`}
+                        className='xs:w-16 xs:h-16 shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
                     />
                     <div className='flex-column font-Hind pb-7'>
                         
@@ -135,7 +135,7 @@ export default function TransactionCard(props: any) {
                                 <Image
                                     width={100}
                                     height={88}
-                                    alt="heart icon"
+                                    alt="like heart icon"
                                     src={liked ? "/icons/heart-icon-red.png" : "/icons/heart-icon-gray.png"}
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => updateLikes()}
@@ -146,7 +146,7 @@ export default function TransactionCard(props: any) {
                                 <Image
                                     width={100}
                                     height={104}
-                                    alt="comment icon"
+                                    alt="comment dropdown icon"
                                     src="/icons/comment-icon.png"
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => dropdown()}
@@ -167,10 +167,10 @@ export default function TransactionCard(props: any) {
                         }
                         <div className='mb-6'>
                             <textarea placeholder="Write something..." 
-                                className='border-slate-400 w-full ml-26 rounded resize-none mb-2 text-black'
+                                className='border-slate-400 w-full xs:ml-20 sm:ml-26 rounded resize-none mb-2 text-black'
                                 id='comment'
                             />
-                            <div className='flex justify-between ml-28 w-full'>
+                            <div className='flex justify-between xs:ml-20 sm:ml-28 w-full'>
                                 <div className=''>
                                     <p className='text-red-500 text-sm'>{errorMessage}</p>
                                 </div>

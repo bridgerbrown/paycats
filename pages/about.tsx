@@ -63,14 +63,14 @@ export default function About() {
                                 src="/cat3.jpg"
                                 width={498}
                                 height={500}
-                                alt="Cat headshot number one"
+                                alt="Cat headshot number three"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                             <Image 
                                 src="/cat4.jpg"
                                 width={498}
                                 height={500}
-                                alt="Cat headshot number one"
+                                alt="Cat headshot number four"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                         </div>

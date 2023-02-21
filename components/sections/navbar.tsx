@@ -49,7 +49,7 @@ export default function Navbar() {
                                     width={200}
                                     height={44.48}
                                     alt="PayCats logo"
-                                    className='lg:ml-8 xs:ml-4 sm:mb-2 lg:mb-1 xs:mt-5 sm:mt-1 sm:w-60'
+                                    className='lg:ml-8 xs:ml-4 sm:mb-2 lg:mb-1 xs:mt-5 xs:pt-0.5 sm:mt-1 sm:w-60'
                                 />
                             </Link>
                         </div>
@@ -144,21 +144,21 @@ export default function Navbar() {
             </nav>
             {
                 backdropMenu ?
-                <div id="backdrop-menu" className='relative opacity-90 bg-blue-900 w-screen h-screen'>
+                <div id="backdrop-menu" className='absolute z-10 opacity-90 bg-blue-900 w-screen h-screen'>
                     <div className='font-Hind pt-4 flex-col flex text-white items-center justify-center'>
-                        <Link href={redirectIfNoUser("/pay-request")} className='my-4 text-xl font-normal bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
+                        <Link href={redirectIfNoUser("/pay-request")} onClick={backdropToggle} className='my-4 text-xl font-normal bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                             Pay/Request
                         </Link>
-                        <Link href="/" className={burgerItemStyle}>
+                        <Link href="/" onClick={backdropToggle} className={burgerItemStyle}>
                             Home
                         </Link>
-                        <Link href={redirectIfNoUser("/my-transactions")} className={`text-center ${burgerItemStyle}`}>
+                        <Link href={redirectIfNoUser("/my-transactions")} onClick={backdropToggle} className={`text-center ${burgerItemStyle}`}>
                             My Transactions
                         </Link>
-                        <Link href={redirectIfNoUser("/balance")} className={burgerItemStyle}>
+                        <Link href={redirectIfNoUser("/balance")} onClick={backdropToggle} className={burgerItemStyle}>
                                 Balance
                         </Link>
-                        <Link href="/about" className={burgerItemStyle}>
+                        <Link href="/about" onClick={backdropToggle} className={burgerItemStyle}>
                             About
                         </Link>
                     </div>
