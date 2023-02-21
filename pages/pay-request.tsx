@@ -202,12 +202,12 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
             <div className='flex justify-center'>
-                <div className='w-144 mt-8 mb-4'>
+                <div className='xs:w-11/12 sm:w-144 lg:w-192 mt-8 mb-4'>
                     <h1 className='text-xl font-normal tracking-wide'>Pay/Request</h1>
                 </div>
             </div>
             <div className='flex justify-center'>
-                <div className='rounded-lg border border-slate-300 pt-4 mt-0 mb-10 font-Hind bg-white mx-20 w-144'>
+                <div className='xs:w-11/12 sm:w-144 lg:w-192 rounded-lg border border-slate-300 pt-4 mt-0 mb-60 font-Hind bg-white'>
                     <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
                             <h2>To:</h2>
@@ -261,14 +261,14 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                         className='w-full px-4 py-4 resize-none h-60 text-black border-none focus:border-none active:border-none'
                         id='description'
                     />
-                    <div className='w-144'>
+                    <div className='xs:w-full sm:w-144 lg:w-192'>
                         <form action="">
-                            <ul className="w-144 flex">
-                                <li className="w-1/2">
+                            <ul className="flex">
+                                <li className="xs:w-1/2 sm:w-1/2">
                                     <input onChange={(e) => onRadioChange(e)} className="sr-only peer" type="radio" defaultChecked value="pay" name="payRequest" id="paySelect"/>
                                     <label className={payRequestButtonStyling} htmlFor="paySelect">Pay</label>
                                 </li>
-                                <li className="w-1/2">
+                                <li className="xs:w-1/2 sm:w-1/2">
                                     <input onChange={(e) => onRadioChange(e)} className="sr-only peer" type="radio" value="request" name="payRequest" id="requestSelect"/>
                                     <label className={payRequestButtonStyling} htmlFor="requestSelect">Request</label>
                                 </li>
@@ -278,7 +278,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     <div className=''>
                         <button
                             onClick={submitForm}
-                            className='w-144 h-16 bg-blue-800 text-white rounded-none hover:bg-blue-700'
+                            className='xs:w-full sm:w-144 lg:w-192 h-16 bg-blue-800 text-white rounded-none hover:bg-blue-700'
                         >
                             Submit
                         </button>

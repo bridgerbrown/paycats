@@ -87,9 +87,9 @@ export default function Navbar() {
                                     { userFound ?
                                         unreadBell
                                         ?
-                                        <span className="absolute sm:top-25 lg:top-9 sm:right-24 lg:right-20 h-2.5 w-2.5 mr-4">
-                                            <span className="animate-ping absolute top-2 right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
-                                            <span className="absolute top-2 right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
+                                        <span className="absolute lg:top-9 lg:right-20 h-2.5 w-2.5 mr-4">
+                                            <span className="animate-ping absolute sm:-top-6 sm:-right-3 md:-top-6 md:-right-3 lg:top-2 lg:right-0 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
+                                            <span className="absolute sm:-top-6 sm:-right-3 md:-top-6 md:-right-3 lg:top-2 lg:right-0 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
                                         </span>
                                         :
                                         <div></div>
@@ -120,17 +120,19 @@ export default function Navbar() {
                         </div>
                         {
                             backdropMenu ?
-                            <Image
-                                src="/icons/x-icon.png"
-                                width={200}
-                                height={200}
-                                alt="exit out of nav menu"
-                                className='cursor-pointer absolute top-8 right-10 h-7 w-7'
-                                id='burger-close'
-                                onClick={backdropToggle}
-                            />
+                            <div className='p-6 xs:absolute sm:hidden top-2 right-4'>
+                                <Image
+                                    src="/icons/x-icon.png"
+                                    width={200}
+                                    height={200}
+                                    alt="exit out of nav menu"
+                                    className='cursor-pointer h-7 w-7'
+                                    id='burger-close'
+                                    onClick={backdropToggle}
+                                />
+                            </div>
                             :
-                            <div id="burger-menu" className="xs:absolute sm:hidden top-8 right-10 space-y-2 cursor-pointer"
+                            <div id="burger-menu" className="p-6 xs:absolute sm:hidden top-2 right-4 space-y-2 cursor-pointer"
                                 onClick={backdropToggle}
                             >
                                 <div className="w-8 h-1 bg-white"></div>
@@ -144,7 +146,7 @@ export default function Navbar() {
             </nav>
             {
                 backdropMenu ?
-                <div id="backdrop-menu" className='absolute z-10 opacity-90 bg-blue-900 w-screen h-screen'>
+                <div id="backdrop-menu" className='xs:absolute sm:hidden z-10 opacity-95 bg-blue-900 w-screen h-screen'>
                     <div className='font-Hind pt-4 flex-col flex text-white items-center justify-center'>
                         <Link href={redirectIfNoUser("/pay-request")} onClick={backdropToggle} className='my-4 text-xl font-normal bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                             Pay/Request
@@ -161,6 +163,51 @@ export default function Navbar() {
                         <Link href="/about" onClick={backdropToggle} className={burgerItemStyle}>
                             About
                         </Link>
+                        <div className='flex w-screen justify-center items-center mt-4'>
+                                <Link href={redirectIfNoUser("/notifications")}
+                                className="p-4"
+                                >
+                                    <Image
+                                        src="/notification-bell.png"
+                                        width={139}
+                                        height={163}
+                                        alt="notifications bell"
+                                        className='w-6 h-7 mr-2 cursor-pointer'
+                                        onClick={() => bellToRead()}
+                                    />
+                                    { userFound ?
+                                        unreadBell
+                                        ?
+                                        <span className="absolute h-2.5 w-2.5 mr-2">
+                                            <span className="animate-ping absolute bottom-7 left-4 inline-flex h-2.5 w-2.5 rounded-full bg-sky-400 opacity-75"></span>
+                                            <span className="absolute bottom-7 left-4 inline-flex rounded-full h-2.5 w-2.5 bg-sky-500"></span>
+                                        </span>
+                                        :
+                                        <div></div>
+                                        :
+                                        <div></div>
+                                    }
+                                </Link>
+                                { !userFound ? (
+                                    <Link 
+                                        href="/profile/login"
+                                        className='ml-2 p-4 font-bold text-white tracking-wider text-xs'>
+                                        LOG IN
+                                    </Link>
+                                ) : (
+                                    <Link 
+                                        href="/profile"
+                                        className='p-4'>
+                                            <Image
+                                            src={dynamicUserImg()}
+                                            width={25}
+                                            height={25}
+                                            alt="user icon"
+                                            className='ml-2 w-12 h-12 rounded-full cursor-pointer'
+                                            /> 
+                                    </Link> 
+                                )}
+                            </div>
                     </div>
                 </div>
                 :
