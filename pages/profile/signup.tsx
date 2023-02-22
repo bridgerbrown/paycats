@@ -14,7 +14,7 @@ import LoadingCircle from '@/components/features/loading-circle'
 type FormValues = {
   email: string;
   password: string;
-  password_confirm: string;
+  passwordConfirmation: string;
 }
 
 export default function SignUp() {
@@ -41,6 +41,7 @@ export default function SignUp() {
       register,
       handleSubmit,
       formState: { errors },
+      getValues
     } = useForm<FormValues>({ resolver });
 
     function createUserData(email: any){
@@ -51,7 +52,10 @@ export default function SignUp() {
     }
   
     const onSubmit = async (data: any) => {
-      await createUserWithEmailAndPassword(auth, data.email, data.password)
+      const pw1: any = document.getElementById("pw1")
+      const pw2: any = document.getElementById("pw2")
+      if(pw1.value === pw2.value){
+        await createUserWithEmailAndPassword(auth, data.email, data.password)
         .then(() => {
           createUserData(data.email),
           setLoadingTransition(true),
@@ -65,7 +69,17 @@ export default function SignUp() {
             console.log(error.message)
             setInvalid(error.message)
           }
+          if (error.code === "auth/weak-password") {
+            setInvalid("Password shoud be at least 6 characters long.")
+          } else if (error.code === "auth/email-already-in-use"){
+            setInvalid("Email already in use.")
+          } else if (error.code === "auth/internal-error"){
+            setInvalid("Please check fields.")
+          }
       })
+      } else {
+        setInvalid("Passwords do not match.")
+      }
     };
 
     return (
@@ -101,6 +115,7 @@ export default function SignUp() {
                         type="password"
                         {...register("password", { required: "Password is required" })}
                         className="mb-4"
+                        id='pw1'
                       />
                       {errors.password && <p className="error">{errors.password.message}</p>}
                     </div>
@@ -113,13 +128,20 @@ export default function SignUp() {
 
                     <input
                       type="password"
-                      {...register("password_confirm", {
+                      {...register("passwordConfirmation", {
                         required: "Verify your password",
+                        validate: {
+                          matchesPreviousPassword: (value) => {
+                            const { password } = getValues();
+                            return password === value || "Passwords should match!";
+                          },
+                        }
                       })}
                       className="mb-4"
+                      id="pw2"
                     />
-                    {errors.password_confirm && (
-                      <p className="">{errors.password_confirm.message}</p>
+                    {errors.passwordConfirmation && (
+                      <p className="">{errors.passwordConfirmation.message}</p>
                     )}
                   </div>
                   <div className="flex flex-col items-center justify-center">

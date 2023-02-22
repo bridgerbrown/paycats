@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import { useAuth } from '@/components/context/AuthContext'
 import { getUserData } from '@/components/firebase/firestore'
 import LoadingCircle from '@/components/features/loading-circle'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/components/firebase/firebase.config'
 
 type FormValues = {
   email: string;
@@ -49,18 +51,21 @@ export default function LogIn() {
     }
   
     const onSubmit = async (data: any) => {
-      try {
-        resolveUserData(data.email)
-        await logIn(data.email, data.password);
-        setInvalid("")
-        setLoadingTransition(true)
-        setTimeout(() => {router.push("/profile");}, 1000)
-      } catch (error) {
-        if (error instanceof Error) {
-          setInvalid("Invalid login")
-          console.log(error.message);
-        }
-      }
+        await signInWithEmailAndPassword(auth, data.email, data.password)
+        .then(() => {
+          resolveUserData(data.email),
+          setInvalid(""),
+          setLoadingTransition(true),
+          setTimeout(() => {router.push("/profile");}, 1000)
+        })
+        .catch ((error: any) => {
+          console.log(error.message)
+          if (error.code === "auth/wrong-password") {
+            setInvalid("Invalid password")
+          } else if (error.code === "auth/user-not-found"){
+            setInvalid("User not found")
+          }
+      })
     };
 
     return (

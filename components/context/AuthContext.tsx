@@ -28,13 +28,6 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         return () => unsubscribe()
     }, [userFound])
     
-      const logIn = (email: string, password: string) => {
-        setLoading(true)
-        signInWithEmailAndPassword(auth, email, password);
-        setLoading(false)
-        setWelcome(false)
-      };
-    
       const logOut = async () => {
         setUserFound("");
         setLoading(true)
@@ -70,8 +63,7 @@ export const AuthContextProvider = ({children}: AuthContextType) => {
         <AuthContext.Provider value={{ 
             userFound, 
             transferMoneyBtn,   
-            updateUserImage, 
-            logIn, 
+            updateUserImage,  
             logOut,
             loading,
             updateTransactionSocials,

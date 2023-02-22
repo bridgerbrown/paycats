@@ -285,12 +285,12 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     </div>
                 </div>
             </div>
-            <div className='w-screen flex justify-center items-center pb-60'>
+            <div className='w-screen flex justify-center items-center pt-4 pb-60'>
                 {
                     loadingTransition ?
                     <LoadingCircle />
                     :
-                    <div><h2 className='text-red-500'>{errorMessage}</h2></div>
+                    <div className='pb-32'><h2 className='text-red-500'>{errorMessage}</h2></div>
                 }
             </div>
             <Footer />
