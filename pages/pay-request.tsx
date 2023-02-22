@@ -207,7 +207,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 </div>
             </div>
             <div className='flex justify-center'>
-                <div className='xs:w-11/12 sm:w-144 lg:w-192 rounded-lg border border-slate-300 pt-4 mt-0 mb-60 font-Hind bg-white'>
+                <div className='xs:w-11/12 sm:w-144 lg:w-192 rounded-lg border border-slate-300 pt-4 mt-0 xs:mb-4 sm:mb-10 font-Hind bg-white'>
                     <div className='border-b border-slate-300 pb-4 flex justify-between items-center'>
                         <div className='h-12 mx-4 flex items-center z-0'>
                             <h2>To:</h2>
@@ -285,15 +285,12 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     </div>
                 </div>
             </div>
-            <div className='w-screen flex justify-center items-center'>
-                <div>
-                    <h2 className='text-red-500'>{errorMessage}</h2>
-                </div>
+            <div className='w-screen flex justify-center items-center pb-60'>
                 {
                     loadingTransition ?
                     <LoadingCircle />
                     :
-                    <div></div>
+                    <div><h2 className='text-red-500'>{errorMessage}</h2></div>
                 }
             </div>
             <Footer />
