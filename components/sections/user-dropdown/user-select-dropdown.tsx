@@ -9,7 +9,9 @@ export default function UserSelectDropdown({recipientImagePreview}: any) {
         setUserSelect(selected)
     }
     return(
-        <div className="border-y-2 border-slate-300 relative top-0 font-Hind bg-white z-10 bg-white">
+        <div className="border-y-2 border-slate-300 relative top-0 font-Hind bg-white z-10 bg-white"
+            data-testid="user-select-dropdown"
+        >
             { catUsers.map((user: any) => 
                 <UserSelectCard key={user.id} user={user} selectUser={selectUser} userSelect={userSelect}
                 recipientImagePreview={recipientImagePreview}

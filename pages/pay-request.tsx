@@ -62,7 +62,6 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
     }
-    console.log(radioState)
 
     const getNewComment = (toUser: string) => {
         const getRandomInt = (max: number) => {return Math.floor(Math.random() * max)}
