@@ -113,8 +113,8 @@ export default function ProfilePageCard({findUser}: any) {
                     <div className='flex flex-col justify-center items-center'>
                         <Image 
                             src={dynamicUserImg()}
-                            width={498}
-                            height={500}
+                            width={200}
+                            height={200}
                             alt="User profile picture of cat headshot"
                             className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mt-2 mb-4'
                         />

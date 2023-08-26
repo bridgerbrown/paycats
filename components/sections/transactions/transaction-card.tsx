@@ -100,8 +100,8 @@ export default function TransactionCard(props: any) {
                 <div className='ml-2 flex'>
                     <Image 
                         src={`/${fromImg}`}
-                        width={498}
-                        height={500}
+                        width={200}
+                        height={200}
                         alt={`transaction sender, ${transaction.from}`}
                         className='xs:w-16 xs:h-16 shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
                     />

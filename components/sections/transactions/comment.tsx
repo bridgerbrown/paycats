@@ -22,8 +22,8 @@ export default function Comment(props: any){
         <div className='flex items-center w-full xs:ml-20 sm:ml-26 mb-6 text-black border-t pt-4'>
             <Image 
                 src={`/${getCommentImage(comment.from)}`}
-                width={498}
-                height={500}
+                width={200}
+                height={200}
                 alt={`comment sender, ${comment.from}`}
                 className='mr-2 object-cover w-12 h-12 rounded-full border border-slate-400'
             />
