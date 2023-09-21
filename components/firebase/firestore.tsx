@@ -1,77 +1,74 @@
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
-import { db } from './firebase.config'
-import {transactions} from '../data/defaultTransactions'
-import { notifications } from '../data/defaultNotifications'
+import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { db } from './firebase.config';
+import { transactions } from '../data/defaultTransactions';
+import { notifications } from '../data/defaultNotifications';
 
-export async function checkUser(name: string) {
-    const usersRef = doc(db, "users", `${name}`)
-    const docSnap = await getDoc(usersRef)
-    const defaultData = {
-        username: name.substring(0, name.lastIndexOf("@")),
-        balance: 10000,
-        img: "1",
-        email: name,
-        transactions: transactions,
-        notifications: notifications,
-        unreadNotifications: true,
-    }
-    if (docSnap.exists()){
-        return true
-    } else {
-        await setDoc(doc(db, "users", `"${name}"`), defaultData)
-        return defaultData
-    }
+interface UserData {
+  username: string;
+  balance: number;
+  img: string;
+  email: string;
+  transactions: any[];
+  notifications: any[];
+  unreadNotifications: boolean;
 }
 
-export async function getUserData(user: string | null) {
-    const userRef = doc(db, "users", `"${user}"`)
-    const docSnap = await getDoc(userRef)
-    const userData = docSnap.data()
-    return userData
+async function getUserDocRef(user: string | null): Promise<any> {
+  return doc(db, "users", `"${user}"`);
 }
 
-export async function changeUserImage(user: string, img: string) {
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        img: img
-    })
+export async function checkUser(name: string): Promise<boolean | UserData> {
+  const usersRef = await getUserDocRef(name);
+  const docSnap = await getDoc(usersRef);
+  const defaultData: UserData = {
+    username: name.substring(0, name.lastIndexOf("@")),
+    balance: 10000,
+    img: "1",
+    email: name,
+    transactions: transactions,
+    notifications: notifications,
+    unreadNotifications: true,
+  };
+  if (docSnap.exists()) {
+    return true;
+  } else {
+    await setDoc(doc(db, "users", `"${name}"`), defaultData);
+    return defaultData;
+  }
 }
 
-export async function transferMoney(user: string, balance: number) {
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        balance: balance + 10000
-    })
+export async function getUserData(user: string | null): Promise<any> {
+  const userRef = await getUserDocRef(user);
+  const docSnap = await getDoc(userRef);
+  return docSnap.data();
 }
 
-export async function updateBalance(user: string, newBalance: number) {
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        balance: newBalance
-    })
+export async function changeUserImage(user: string, img: string): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { img });
 }
 
-export async function updateTransactions(user: string, allTransactions: any) {    
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        transactions: allTransactions,
-    })
+export async function transferMoney(user: string, balance: number): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { balance: balance + 10000 });
 }
 
-export async function updateNotifications(user: string, allNotifications: any) {    
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        notifications: allNotifications,
-    })
+export async function updateBalance(user: string, newBalance: number): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { balance: newBalance });
 }
 
-export async function updateUnread(user: string, unread: boolean) {    
-    const userRef = doc(db, "users", `"${user}"`)
-    await updateDoc(userRef, {
-        unreadNotifications: unread,
-    })
+export async function updateTransactions(user: string, allTransactions: any): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { transactions: allTransactions });
 }
 
+export async function updateNotifications(user: string, allNotifications: any): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { notifications: allNotifications });
+}
 
-
-
+export async function updateUnread(user: string, unread: boolean): Promise<void> {
+  const userRef = await getUserDocRef(user);
+  await updateDoc(userRef, { unreadNotifications: unread });
+}

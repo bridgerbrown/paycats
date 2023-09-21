@@ -11,8 +11,8 @@ import { transactions } from '@/components/data/defaultTransactions'
 import Welcome from '@/components/sections/welcome'
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {userFound, loading, welcome, setWelcome} = useAuth()
-  const findUser = users.find((item: any) => item.email === userFound)
+  const {userFound, loading, welcome, setWelcome} = useAuth();
+  const findUser = users.find((item: any) => item.email === userFound);
 
   useEffect(() =>{}, [welcome]);
 
@@ -37,7 +37,7 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
                     </h1>
                 </div>
             </div>
-          {userFound ?
+          { userFound ?
             <TransactionsSection {...findUser} /> 
             :
             <TransactionsSection transactions={transactions} enter={enter} />

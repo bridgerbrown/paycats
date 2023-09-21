@@ -1,10 +1,7 @@
-import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
-import React, { createContext, useContext, useEffect, useState, ReactNode, FC } from "react";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { auth } from "../firebase/firebase.config"
-import { updateTransactions, changeUserImage, getUserData, transferMoney } from "../firebase/firestore";
-import { transactions } from "../data/defaultTransactions";
-import { FirebaseError } from "firebase/app";
-
+import { updateTransactions, changeUserImage, transferMoney } from "../firebase/firestore";
 
 type AuthContextType = {
     children: ReactNode
@@ -14,26 +11,27 @@ const AuthContext = createContext<any>({} as AuthContextType)
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthContextProvider = ({children}: AuthContextType) => {
-    const [userFound, setUserFound] = useState<any>(null)
-    const [userImage, setUserImage] = useState<number>(1)
-    const [loading, setLoading] = useState(true)
-    const [unreadBell, setUnreadBell] = useState<boolean>(false)
-    const [welcome, setWelcome] = useState<boolean>(true)
+    const [userFound, setUserFound] = useState<any>(null);
+    const [userImage, setUserImage] = useState<number>(1);
+    const [loading, setLoading] = useState(true);
+    const [unreadBell, setUnreadBell] = useState<boolean>(false);
+    const [welcome, setWelcome] = useState<boolean>(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUserFound(user?.email)
-            setLoading(false)
-        })
-        return () => unsubscribe()
-    }, [userFound])
+            setUserFound(user?.email);
+            setLoading(false);
+            if (user) setWelcome(false);
+        });
+        return () => unsubscribe();
+    }, [userFound]);
     
       const logOut = async () => {
         setUserFound("");
-        setLoading(true)
-        setUserImage(1)
+        setLoading(true);
+        setUserImage(1);
         await signOut(auth);
-        setLoading(false)
+        setLoading(false);
       };
 
     const updateUserImage = (user: string, radioState: any) => {
