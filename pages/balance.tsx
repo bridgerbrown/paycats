@@ -9,23 +9,19 @@ import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { updateNotifications } from '@/components/firebase/firestore'
 import { updateUnread } from '@/components/firebase/firestore'
-import { useRouter } from 'next/router'
 
 export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { userFound, transferMoneyBtn, loading, setUnreadBell } = useAuth()
-    const findUser = users.find((item: any) => item.email === userFound)
-    const [balance, setBalance] = useState<number>(findUser.balance)
-    const formattedBalance = (balance).toLocaleString("en-US")
-    const router = useRouter()
+    const { userFound, transferMoneyBtn, loading, setUnreadBell } = useAuth();
+    const findUser = users.find((item: any) => item.email === userFound);
+    const [balance, setBalance] = useState<number>(findUser.balance);
+    const formattedBalance = (balance).toLocaleString("en-US");
 
-    useEffect(() => {
-
-    }, [balance, setBalance])
+    useEffect(() => {}, [balance, setBalance]);
 
     const handleTransferSubmit = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setUnreadBell(true)
-        setBalance(prev => balance + 10000)
+        setBalance(prev => prev + 10000)
         transferMoneyBtn(userFound, findUser)
         const transferNotification: any = {
             message: `Successfully transferred $10,000 to your balance.` ,
@@ -39,14 +35,12 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
         updateNotifications(userFound, allNotifications)
         updateUnread(findUser.email, true)
     }
-    console.log(balance)
-
 
     if(loading) return (
         <div>
             <Loading/>
         </div>
-    )
+    );
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
@@ -116,7 +110,7 @@ export default function Balance({users}: InferGetServerSidePropsType<typeof getS
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const usersRef = collection(db, 'users')
     const users: any = []
     const snapshot = await getDocs(usersRef)
@@ -128,4 +122,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             users: users
         }
     }
-}
+};

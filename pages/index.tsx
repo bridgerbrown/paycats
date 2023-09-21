@@ -1,15 +1,12 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
-import SearchBar from '@/components/sections/search/search-bar'
-import TransactionCard from '@/components/sections/transactions/transaction-card'
 import TransactionsSection from '@/components/sections/transactions/transactions-section'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import Loading from '@/components/features/loading'
-import { updateTransactions } from '@/components/firebase/firestore'
-import { useEffect, useState, MouseEvent } from 'react'
+import { useEffect, MouseEvent } from 'react'
 import { transactions } from '@/components/data/defaultTransactions'
 import Welcome from '@/components/sections/welcome'
 
@@ -17,21 +14,18 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
   const {userFound, loading, welcome, setWelcome} = useAuth()
   const findUser = users.find((item: any) => item.email === userFound)
 
-  useEffect(() =>{}, [welcome])
+  useEffect(() =>{}, [welcome]);
 
   function enter(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
     setWelcome(false)
-    console.log(welcome)
-  }
+  };
 
   if(loading) return (
     <div>
         <Loading/>
     </div>
-  )
-  console.log(transactions)
-  console.log(userFound)
+  );
 
   return (
       <div className='w-screen min-h-screen relative bg-stone-100 font-Hind'>
@@ -57,12 +51,12 @@ export default function Home({users}: InferGetServerSidePropsType<typeof getServ
           }
       </div>
   )
-}  
+}; 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const usersRef = collection(db, 'users')
-  const users : any = []
-  const snapshot = await getDocs(usersRef)
+export const getServerSideProps: GetServerSideProps = async () => {
+  const usersRef = collection(db, 'users');
+  const users : any = [];
+  const snapshot = await getDocs(usersRef);
   snapshot.forEach((doc) => {
       users.push({ ...doc.data() })
       })
@@ -71,4 +65,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
           users: users
       }
   }
-}
+};

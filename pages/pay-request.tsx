@@ -26,14 +26,14 @@ interface FormType {
 }
 
 export default function PayRequest({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const router = useRouter()
-    const { userFound, setUnreadBell } = useAuth()
-    const findUser = users.find((item: any) => item.email === userFound)
-    const [toDropdown, setToDropdown] = useState<boolean>(false)
-    const [toImage, setToImage] = useState<string | null>(null)
-    const [radioState, setRadioState] = useState<string>("pay")
-    const [loadingTransition, setLoadingTransition] = useState<boolean>(false)
-    const [errorMessage, setErrorMessage] = useState<string>("")
+    const router = useRouter();
+    const { userFound, setUnreadBell } = useAuth();
+    const findUser = users.find((item: any) => item.email === userFound);
+    const [toDropdown, setToDropdown] = useState<boolean>(false);
+    const [toImage, setToImage] = useState<string | null>(null);
+    const [radioState, setRadioState] = useState<string>("pay");
+    const [loadingTransition, setLoadingTransition] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
     const [formContents, setFormContents] = useState<FormType>({    
         id: findUser.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
@@ -44,24 +44,24 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         likes: 0,
         likedByUser: false,
         comments: []
-    })
+    });
 
-    useEffect(() => {}, [errorMessage])
+    useEffect(() => {}, [errorMessage]);
 
     function recipientImagePreview(image: string, name: string) {
         setToImage(image)
         setFormContents({...formContents, to: name})
-    }
+    };
 
     function cancelSelection() {
         setToDropdown(false)
         setFormContents({...formContents, to: ""})
         setToImage(null)
-    }
+    };
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
-    }
+    };
 
     const getNewComment = (toUser: string) => {
         const getRandomInt = (max: number) => {return Math.floor(Math.random() * max)}
@@ -78,7 +78,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             from: toUser,
             message: findMessage,
         }
-    }
+    };
 
     const getNewNotification = (toUser: string) => {
         let notificationMessage
@@ -103,7 +103,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             id: findUser.notifications.length,
             read: false,
         }
-    }
+    };
 
     function sendUserTransaction() {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
@@ -136,7 +136,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                 ...findUser.notifications, commentNotification, getNewNotification(formContents.to)
         ]
         updateNotifications(userFound, allNotifications)
-    }
+    };
 
     function checkFields(){
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
@@ -159,8 +159,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
         } else {
             return true
         }
-    }
-
+    };
 
     async function submitForm(e: MouseEvent<HTMLButtonElement>) {
         const amountValue = parseInt((document.getElementById("amount") as HTMLInputElement).value)
@@ -193,9 +192,9 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             }
             setLoadingTransition(true)
         }
-    }
+    };
 
-    const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-600 peer-checked:border-transparent`
+    const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-600 peer-checked:border-transparent`;
 
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
@@ -223,8 +222,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                                 <div className='flex'>
                                     <Image 
                                     src={`/${toImage}`}
-                                    width={498}
-                                    height={500}
+                                    width={200}
+                                    height={200}
                                     alt="pay request recipient option"
                                     className='object-cover w-12 h-12 rounded-full border border-slate-400 ml-4'
                                     />
@@ -234,7 +233,6 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                                 </div>
                                 :
                                 <div className='border-slate-400 border w-12 h-12 rounded-full ml-4'>
-
                                 </div>
                                 }
                             </div>
@@ -295,18 +293,18 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
             <Footer />
         </div>
     )
-}
+};
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const usersRef = collection(db, 'users')
-    const users: any = []
-    const snapshot = await getDocs(usersRef)
+export const getServerSideProps: GetServerSideProps = async () => {
+    const usersRef = collection(db, 'users');
+    const users: any = [];
+    const snapshot = await getDocs(usersRef);
     snapshot.forEach((doc) => {
         users.push({ ...doc.data() })
-        })
+    });
     return {
         props: {
             users: users
         }
     }
-}
+};

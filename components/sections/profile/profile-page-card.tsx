@@ -2,7 +2,6 @@ import React, {useState, MouseEvent, useEffect } from 'react'
 import Image from 'next/image'
 import { useAuth } from '@/components/context/AuthContext'
 import Link from 'next/link'
-import { changeUserImage } from '@/components/firebase/firestore'
 import Loading from '@/components/features/loading'
 import { useRouter } from 'next/router'
 import { transactions } from '@/components/data/defaultTransactions'
@@ -10,26 +9,24 @@ import { transactions } from '@/components/data/defaultTransactions'
 // Leaving userFound for username display for now
 
 export default function ProfilePageCard({findUser}: any) {
-    const { userFound, loading, logOut, updateUserImage, userImage, setUserImage } = useAuth()
-    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
-    const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : ""
-    const inputCss = `xs:h-20 xs:w-20 sm:h-24 sm:w-24 lg:h-36 lg:w-36 cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover z-10 bg-transparent`
-    const [imageChange, setImageChange] = useState<boolean>(false)
-    const [radioState, setRadioState] = useState<string>(findUser.img)
-    const router = useRouter()
+    const { userFound, loading, logOut, updateUserImage, setUserImage } = useAuth();
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
+    const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : "";
+    const inputCss = `xs:h-20 xs:w-20 sm:h-24 sm:w-24 lg:h-36 lg:w-36 cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover z-10 bg-transparent`;
+    const [imageChange, setImageChange] = useState<boolean>(false);
+    const [radioState, setRadioState] = useState<string>(findUser.img);
+    const router = useRouter();
 
-    useEffect(() => {
-
-    }, [userFound, findUser, radioState])
+    useEffect(() => {}, [userFound, findUser, radioState]);
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
-    }
+    };
 
     const handleMouseEvent = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         setImageChange(!imageChange)
-    }
+    };
 
     const sendUserImg = () => {
         return new Promise(resolve => {
@@ -37,7 +34,7 @@ export default function ProfilePageCard({findUser}: any) {
                     updateUserImage(findUser.email, radioState)
                     )
         })
-    }
+    };
 
     async function handleImgSubmit(e: MouseEvent<HTMLButtonElement>) {
         e.preventDefault()
@@ -45,7 +42,7 @@ export default function ProfilePageCard({findUser}: any) {
         setUserImage(radioState)
         await sendUserImg()
         setTimeout((() => router.reload()), 500)
-    }
+    };
 
     const dynamicUserImg = () => {
         if(findUser) {
@@ -54,7 +51,7 @@ export default function ProfilePageCard({findUser}: any) {
         } else {
             return `/cat-profile-1.jpg`
         }
-    }
+    };
 
     const numberOfUsersTransactions = (username: string) => {
         const onlyMyTransactions = findUser ? findUser.transactions.filter(
@@ -149,4 +146,4 @@ export default function ProfilePageCard({findUser}: any) {
             </div>
         </div>
     )
-}
+};

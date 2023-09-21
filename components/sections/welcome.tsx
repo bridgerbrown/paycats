@@ -1,17 +1,15 @@
 import React from 'react'
 import Image from 'next/image'
-import { useAuth } from '../context/AuthContext'
 
 export default function Welcome(props: any) {
-
     return (
         <div className='bg-black/25 top-0 absolute w-screen h-full flex justify-center items-center'>
             <div className='absolute top-20 bg-white xs:w-11/12 md:w-144 shadow-lg rounded-lg border border-slate-400'>
                     <div className='font-Hind pt-10 pb-12 flex-column justify-center items-center text-center'>
                         <Image 
                             src="/icons/smile-icon.png"
-                            width={500}
-                            height={500}
+                            width={100}
+                            height={100}
                             alt="smile icon"
                             className='inline object-cover w-20 h-20 mb-2 rounded-full'
                         />
@@ -26,22 +24,22 @@ export default function Welcome(props: any) {
                         <div className='flex justify-center mb-4'>
                             <Image 
                                 src="/cat1.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number one"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                             <Image 
                                 src="/cat3.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number three"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                             <Image 
                                 src="/cat4.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number four"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />

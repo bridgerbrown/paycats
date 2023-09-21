@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import TransactionsSection from '@/components/sections/transactions/transactions-section'
+import React from 'react'
 import Navbar from '@/components/sections/navbar'
 import Footer from '@/components/sections/footer'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
@@ -8,26 +7,27 @@ import { db } from '@/components/firebase/firebase.config'
 import { useAuth } from '@/components/context/AuthContext'
 import TransactionCard from '@/components/sections/transactions/transaction-card'
 import Loading from '@/components/features/loading'
-import { updateTransactions } from '@/components/firebase/firestore'
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {userFound, loading} = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
     const usersUsername = userFound.substring(0, userFound.lastIndexOf("@"))
-    const onlyMyTransactions = findUser.transactions.filter(
+    
+  const onlyMyTransactions = findUser.transactions.filter(
         function (item: any) {
             return item.from == usersUsername || item.to == usersUsername
         }
-    )
+    );
+
     const sortedTransactions = onlyMyTransactions.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
-    )
+    );
     
     if(loading) return (
         <div>
             <Loading/>
         </div>
-    )
+    );
     
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
@@ -39,7 +39,7 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
                     </h1>
                 </div>
             </div>
-            {userFound ? 
+            { userFound ? 
             
             <div className='w-screen relative'>
                 <div className='pb-60 flex flex-col justify-center items-center'>
@@ -60,9 +60,9 @@ export default function MyTransactions({users}: InferGetServerSidePropsType<type
             <Footer />
         </div>
     )
-}
+};
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const usersRef = collection(db, 'users')
     const users: any = []
     const snapshot = await getDocs(usersRef)
@@ -74,4 +74,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
             users: users
         }
     }
-}
+};

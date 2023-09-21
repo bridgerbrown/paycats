@@ -1,21 +1,9 @@
-import Loading from '@/components/features/loading'
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
 import React from 'react'
-import { getUserData } from '@/components/firebase/firestore'
-import { useAuth } from '@/components/context/AuthContext'
 import Image from 'next/image'
 
 export default function About() {
-    const { userFound, updateTransactionSocials } = useAuth()
-    function test(){
-        getUserData(userFound)
-            .then((data) => {
-                console.log(data)
-            })
-    }
-    test()
-    
     return (
         <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
             <Navbar />
@@ -54,22 +42,22 @@ export default function About() {
                         <div className='flex justify-center mb-6'>
                             <Image 
                                 src="/cat1.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number one"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                             <Image 
                                 src="/cat3.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number three"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />
                             <Image 
                                 src="/cat4.jpg"
-                                width={498}
-                                height={500}
+                                width={200}
+                                height={200}
                                 alt="Cat headshot number four"
                                 className='mx-3 object-cover w-16 h-16 rounded-full border border-slate-400'
                             />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import { useAuth } from "@/components/context/AuthContext";
 import { catUsers } from "@/components/data/catUsers";

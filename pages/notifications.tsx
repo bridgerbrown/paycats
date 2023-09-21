@@ -1,8 +1,7 @@
 import Footer from '@/components/sections/footer'
 import Navbar from '@/components/sections/navbar'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Notification from '@/components/sections/notifications/notification'
-import { useRouter } from 'next/router'
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
 import { collection, getDocs} from "firebase/firestore";
 import { db } from '@/components/firebase/firebase.config'
@@ -10,14 +9,14 @@ import { useAuth } from '@/components/context/AuthContext'
 import { updateNotifications, updateUnread } from '@/components/firebase/firestore'
 
 export default function Notifications({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    const { userFound, setUnreadBell } = useAuth()
-    const findUser = users.find((item: any) => item.email === userFound)
-    const userNotifications = findUser.notifications
+    const { userFound, setUnreadBell } = useAuth();
+    const findUser = users.find((item: any) => item.email === userFound);
+    const userNotifications = findUser.notifications;
     const sortedNotifications = userNotifications.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
-    )
+    );
 
-    useEffect(() => {}, [])
+    useEffect(() => {}, []);
 
     function markAllRead() {
         const allRead = userNotifications.map((obj: any) => ({...obj, read: true}))
@@ -25,8 +24,8 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
         updateUnread(findUser.email, false)
         setUnreadBell(false)
         console.log(allRead)
-    }
-    markAllRead()
+    };
+    markAllRead();
 
     return (
         <div className='min-h-screen w-screen relative font-Hind bg-stone-100'>
@@ -56,7 +55,7 @@ export default function Notifications({users}: InferGetServerSidePropsType<typeo
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const usersRef = collection(db, 'users')
     const users: any = []
     const snapshot = await getDocs(usersRef)
