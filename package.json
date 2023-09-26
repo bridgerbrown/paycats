@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@firebase/testing": "^0.20.11",
     "@next/font": "13.1.2",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
@@ -17,7 +18,7 @@
     "dotenv": "^16.3.1",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
-    "firebase": "^9.16.0",
+    "firebase": "^9.23.0",
     "next": "13.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
