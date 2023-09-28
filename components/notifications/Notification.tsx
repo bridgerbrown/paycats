@@ -59,7 +59,7 @@ export default function Notification(props: any) {
             {
                read ?
                <Link href={`${getNotificationLink(userNotification.type)}`} className='w-full'>
-                    <div id="element" className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
+                    <div id="element" className='border border-slate-2s00 rounded my-2 py-4 hover:bg-slate-100 text-md font-Hind ml-4 flex items-center justify-between'>
                         <div className='flex items-center'>
                             <Image 
                                 src={`${getNotificationImage(userNotification.type)}`}
@@ -76,7 +76,7 @@ export default function Notification(props: any) {
                 </Link>
                :
                <Link href="my-transactions" className='w-full'>
-                    <div onMouseOver={() => updateReadNotifications(userNotification.id)} className='border border-slate-2s00 rounded my-2 w-full py-4 hover:bg-slate-100 flex cursor-pointer text-md flex font-Hind ml-4 flex items-center justify-between w-192'>
+                    <div onMouseOver={() => updateReadNotifications(userNotification.id)} className='border border-slate-2s00 rounded my-2 py-4 hover:bg-slate-100 flex cursor-pointer text-md font-Hind ml-4 items-center justify-between'>
                         <div className='flex items-center'>
                             <Image 
                                 src={`${getNotificationImage(userNotification.type)}`}
