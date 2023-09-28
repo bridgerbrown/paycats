@@ -1,17 +1,17 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
-import UserSelectDropdown from '@/components/sections/user-dropdown/user-select-dropdown'
-import React, { useState, MouseEvent, useEffect } from 'react'
-import Image from 'next/image'
-import { useAuth } from '@/components/context/AuthContext'
-import { updateTransactions, updateBalance, updateNotifications } from '@/components/firebase/firestore'
-import { useRouter } from 'next/router'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import Footer from '@/components/general/Footer';
+import Navbar from '@/components/general/Navbar';
+import UserSelectDropdown from '@/components/user-dropdown/UserSelectDropdown';
+import React, { useState, MouseEvent, useEffect } from 'react';
+import Image from 'next/image';
+import { useAuth } from '@/data/context/AuthContext';
+import { updateTransactions, updateBalance, updateNotifications } from '@/data/firebase/firestore';
+import { useRouter } from 'next/router';
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
-import { catUsers } from '@/components/data/catUsers'
-import { updateUnread } from '@/components/firebase/firestore'
-import LoadingCircle from '@/components/features/loading-circle'
+import { db } from '@/data/firebase/firebase.config';
+import { catUsers } from '@/data/catUsers';
+import { updateUnread } from '@/data/firebase/firestore';
+import LoadingCircle from '@/components/general/LoadingCircle';
 
 interface FormType {
     id: number | null,

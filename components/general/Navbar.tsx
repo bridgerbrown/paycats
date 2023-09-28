@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { useAuth } from '../context/AuthContext'
-import { updateUnread } from '../firebase/firestore'
-import React, { useEffect, useState} from 'react'
+import Link from 'next/link';
+import Image from 'next/image';
+import { useAuth } from '../../data/context/AuthContext';
+import { updateUnread } from '../../data/firebase/firestore';
+import React, { useEffect, useState} from 'react';
 
 export default function Navbar() {
     const navItemStyle: string = "sm:text-sm md:text-base font-normal sm:px-2 md:px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2"

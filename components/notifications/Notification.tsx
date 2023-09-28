@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
-import { updateNotifications, updateUnread } from '@/components/firebase/firestore'
+import { updateNotifications, updateUnread } from '../../data/firebase/firestore';
 
 export default function Notification(props: any) {
     const { userNotification, findUser } = props

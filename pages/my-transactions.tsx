@@ -1,12 +1,12 @@
-import React from 'react'
-import Navbar from '@/components/sections/navbar'
-import Footer from '@/components/sections/footer'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import React from 'react';
+import Navbar from '@/components/general/Navbar';
+import Footer from '@/components/general/Footer';
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
-import { useAuth } from '@/components/context/AuthContext'
-import TransactionCard from '@/components/sections/transactions/transaction-card'
-import Loading from '@/components/features/loading'
+import { db } from '@/data/firebase/firebase.config';
+import { useAuth } from '@/data/context/AuthContext';
+import TransactionCard from '@/components/transactions/TransactionCard';
+import Loading from '@/components/general/Loading';
 
 export default function MyTransactions({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const {userFound, loading} = useAuth()

@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import Navbar from '@/components/sections/navbar'
-import Footer from '@/components/sections/footer'
-import Link from 'next/link'
-import { FormProvider, useForm, Resolver } from 'react-hook-form'
-import { useRouter } from 'next/router'
-import { useAuth } from '@/components/context/AuthContext'
-import { checkUser } from '@/components/firebase/firestore'
-import { auth } from '@/components/firebase/firebase.config'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import LoadingCircle from '@/components/features/loading-circle'
+import React, { useState } from 'react';
+import Navbar from '@/components/general/Navbar';
+import Footer from '@/components/general/Footer';
+import Link from 'next/link';
+import { FormProvider, useForm, Resolver } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { useAuth } from '@/data/context/AuthContext';
+import { checkUser } from '@/data/firebase/firestore';
+import { auth } from '@/data/firebase/firebase.config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import LoadingCircle from '@/components/general/LoadingCircle';
 
 type FormValues = {
   email: string;

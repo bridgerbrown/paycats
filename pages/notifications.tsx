@@ -1,12 +1,12 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
-import React, { useEffect } from 'react'
-import Notification from '@/components/sections/notifications/notification'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import Footer from '@/components/general/Footer';
+import Navbar from '@/components/general/Navbar';
+import React, { useEffect } from 'react';
+import Notification from '@/components/notifications/Notification';
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
-import { useAuth } from '@/components/context/AuthContext'
-import { updateNotifications, updateUnread } from '@/components/firebase/firestore'
+import { db } from '@/data/firebase/firebase.config';
+import { useAuth } from '@/data/context/AuthContext';
+import { updateNotifications, updateUnread } from '@/data/firebase/firestore';
 
 export default function Notifications({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, setUnreadBell } = useAuth();

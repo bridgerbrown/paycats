@@ -1,12 +1,10 @@
-import React, {useState, MouseEvent, useEffect } from 'react'
-import Image from 'next/image'
-import { useAuth } from '@/components/context/AuthContext'
-import Link from 'next/link'
-import Loading from '@/components/features/loading'
-import { useRouter } from 'next/router'
-import { transactions } from '@/components/data/defaultTransactions'
-
-// Leaving userFound for username display for now
+import React, {useState, MouseEvent, useEffect } from 'react';
+import Image from 'next/image';
+import { useAuth } from '../../data/context/AuthContext';
+import Link from 'next/link';
+import Loading from '../general/Loading';
+import { useRouter } from 'next/router';
+import { transactions } from '../../data/defaultTransactions';
 
 export default function ProfilePageCard({findUser}: any) {
     const { userFound, loading, logOut, updateUserImage, setUserImage } = useAuth();

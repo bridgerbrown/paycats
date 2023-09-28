@@ -1,10 +1,10 @@
-import React, { useEffect, useState, MouseEvent } from 'react'
-import Image from 'next/image'
-import { catUsers } from '../../data/catUsers'
-import { useAuth } from '@/components/context/AuthContext'
-import { getUserData } from '@/components/firebase/firestore'
-import Comment from './comment'
-import { useRouter } from 'next/router'
+import React, { useEffect, useState, MouseEvent } from 'react';
+import Image from 'next/image';
+import { catUsers } from '../../data/catUsers';
+import { useAuth } from '@/data/context/AuthContext';
+import { getUserData } from '@/data/firebase/firestore';
+import Comment from '@/components/transactions/Comment';
+import { useRouter } from 'next/router';
 
 export default function TransactionCard(props: any) {
     const {userFound, userImage, updateTransactionSocials} = useAuth()

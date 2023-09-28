@@ -1,14 +1,14 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
-import TransactionsSection from '@/components/sections/transactions/transactions-section'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import Footer from '@/components/general/Footer';
+import Navbar from '@/components/general/Navbar';
+import TransactionsSection from '@/components/transactions/TransactionsSection';
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
-import { useAuth } from '@/components/context/AuthContext'
-import Loading from '@/components/features/loading'
-import { useEffect, MouseEvent } from 'react'
-import { transactions } from '@/components/data/defaultTransactions'
-import Welcome from '@/components/sections/welcome'
+import { db } from '@/data/firebase/firebase.config';
+import { useAuth } from '@/data/context/AuthContext';
+import Loading from '@/components/general/Loading';
+import { useEffect, MouseEvent } from 'react';
+import { transactions } from '@/data/defaultTransactions';
+import Welcome from '@/components/general/Welcome';
 
 export default function Home({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {userFound, loading, welcome, setWelcome} = useAuth();

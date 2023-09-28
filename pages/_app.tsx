@@ -1,7 +1,7 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
-import { Noto_Sans_Display } from '@next/font/google'
-import { AuthContextProvider } from '@/components/context/AuthContext'
+import '@/styles/globals.css';
+import type { AppProps } from 'next/app';
+import { Noto_Sans_Display } from '@next/font/google';
+import { AuthContextProvider } from '@/data/context/AuthContext';
 
 const notoSansDisplay = Noto_Sans_Display({
   subsets: ['cyrillic'],

@@ -1,13 +1,12 @@
-import React from 'react'
-import TransactionCard from '@/components/sections/transactions/transaction-card'
-import { transactions } from '@/components/data/defaultTransactions'
-
+import React from 'react';
+import TransactionCard from '@/components/transactions/TransactionCard';
+import { transactions } from '@/data/defaultTransactions';
 
 export default function TransactionsSection(props: any) {
-    const transactionsData = props.transactions ? props.transactions : transactions
+    const transactionsData = props.transactions ? props.transactions : transactions;
     const sortedTransactions = transactionsData.sort(
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
-    )
+    );
 
     console.log("sorted: " + sortedTransactions)
     return (

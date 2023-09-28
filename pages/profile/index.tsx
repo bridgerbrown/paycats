@@ -1,12 +1,12 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
-import React from 'react'
-import ProfilePageCard from '@/components/sections/profile/profile-page-card'
-import { useAuth } from '@/components/context/AuthContext'
-import Loading from '@/components/features/loading'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
+import React from 'react';
+import Footer from '@/components/general/Footer';
+import Navbar from '@/components/general/Navbar';
+import ProfilePageCard from '@/components/profile/ProfilePageCard';
+import { useAuth } from '@/data/context/AuthContext';
+import Loading from '@/components/general/Loading';
+import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
+import { db } from '@/data/firebase/firebase.config';
 
 export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, loading } = useAuth()

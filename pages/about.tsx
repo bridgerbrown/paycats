@@ -1,5 +1,5 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
+import Footer from '@/components/general/Footer'
+import Navbar from '@/components/general/Navbar'
 import React from 'react'
 import Image from 'next/image'
 

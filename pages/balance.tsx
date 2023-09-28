@@ -1,14 +1,13 @@
-import Footer from '@/components/sections/footer'
-import Navbar from '@/components/sections/navbar'
-import React, {MouseEvent, useEffect, useState} from 'react'
-import Image from 'next/image'
-import { useAuth } from '@/components/context/AuthContext'
-import Loading from '@/components/features/loading'
-import { GetServerSideProps, InferGetServerSidePropsType, } from 'next'
-import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/components/firebase/firebase.config'
-import { updateNotifications } from '@/components/firebase/firestore'
-import { updateUnread } from '@/components/firebase/firestore'
+import Footer from '@/components/general/Footer';
+import Navbar from '@/components/general/Navbar';
+import React, {MouseEvent, useEffect, useState} from 'react';
+import Image from 'next/image';
+import { useAuth } from '@/data/context/AuthContext';
+import Loading from '@/components/general/Loading';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { collection, getDocs} from "firebase/firestore";;
+import { db } from '@/data/firebase/firebase.config';
+import { updateNotifications, updateUnread  } from '@/data/firebase/firestore';
 
 export default function Balance({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, transferMoneyBtn, loading, setUnreadBell } = useAuth();

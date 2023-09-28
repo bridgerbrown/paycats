@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import { useAuth } from "@/components/context/AuthContext";
-import { catUsers } from "@/components/data/catUsers";
+import { useAuth } from "@/data/context/AuthContext";
+import { catUsers } from "@/data/catUsers";
 
 export default function Comment(props: any){
     const { userFound, userImage } = useAuth()
