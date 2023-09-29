@@ -1,6 +1,6 @@
 import React from 'react';
-import TransactionCard from '@/components/transactions/TransactionCard';
-import { transactions } from '@/data/defaultTransactions';
+import TransactionCard from '../transactions/TransactionCard';
+import { transactions } from '../../data/defaultTransactions';
 
 export default function TransactionsSection(props: any) {
     const transactionsData = props.transactions ? props.transactions : transactions;
