@@ -28,8 +28,11 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "__tests__/pay-request.spec.js"  ],
+    "**/*.tsx",
+    "**/*.js",
+    "jest.config.js",
+    "babel.config.js"
+  ],
   "exclude": [
     "node_modules"
   ]
