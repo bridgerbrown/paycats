@@ -1,0 +1,137 @@
+[debug] [2023-09-30T00:57:27.196Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T00:57:27.197Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/firebase emulators:start
+[debug] [2023-09-30T00:57:27.197Z] CLI Version:   12.6.1
+[debug] [2023-09-30T00:57:27.197Z] Platform:      darwin
+[debug] [2023-09-30T00:57:27.198Z] Node Version:  v18.17.0
+[debug] [2023-09-30T00:57:27.198Z] Time:          Fri Sep 29 2023 17:57:27 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T00:57:27.199Z] Env Overrides: FIRESTORE_EMULATOR_HOST
+[debug] [2023-09-30T00:57:27.199Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T00:57:27.260Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T00:57:27.260Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T00:57:27.299Z] java version "21" 2023-09-19 LTS
+
+[debug] [2023-09-30T00:57:27.299Z] Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T00:57:27.302Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T00:57:27.508Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T00:57:27.560Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-09-30T00:59:19.077Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T00:59:19.078Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/firebase emulators:start --only firestore,auth
+[debug] [2023-09-30T00:59:19.078Z] CLI Version:   12.4.4
+[debug] [2023-09-30T00:59:19.078Z] Platform:      darwin
+[debug] [2023-09-30T00:59:19.078Z] Node Version:  v18.17.0
+[debug] [2023-09-30T00:59:19.079Z] Time:          Fri Sep 29 2023 17:59:19 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T00:59:19.079Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T00:59:19.143Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T00:59:19.144Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T00:59:19.270Z] java version "21" 2023-09-19 LTS
+Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T00:59:19.280Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T00:59:19.482Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T00:59:19.531Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-09-30T00:59:29.690Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T00:59:29.690Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2023-09-30T00:59:29.691Z] CLI Version:   12.4.4
+[debug] [2023-09-30T00:59:29.691Z] Platform:      darwin
+[debug] [2023-09-30T00:59:29.691Z] Node Version:  v18.17.0
+[debug] [2023-09-30T00:59:29.692Z] Time:          Fri Sep 29 2023 17:59:29 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T00:59:29.692Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T00:59:29.751Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T00:59:29.751Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T00:59:29.782Z] java version "21" 2023-09-19 LTS
+Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T00:59:29.784Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T00:59:29.986Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T00:59:30.038Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-09-30T00:59:45.345Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T00:59:45.346Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2023-09-30T00:59:45.346Z] CLI Version:   12.4.4
+[debug] [2023-09-30T00:59:45.346Z] Platform:      darwin
+[debug] [2023-09-30T00:59:45.346Z] Node Version:  v18.17.0
+[debug] [2023-09-30T00:59:45.347Z] Time:          Fri Sep 29 2023 17:59:45 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T00:59:45.347Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T00:59:45.405Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T00:59:45.406Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T00:59:45.440Z] java version "21" 2023-09-19 LTS
+Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+
+[debug] [2023-09-30T00:59:45.441Z] Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T00:59:45.444Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T00:59:45.644Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T00:59:45.690Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-09-30T01:02:16.025Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T01:02:16.026Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2023-09-30T01:02:16.027Z] CLI Version:   12.4.4
+[debug] [2023-09-30T01:02:16.027Z] Platform:      darwin
+[debug] [2023-09-30T01:02:16.027Z] Node Version:  v18.17.0
+[debug] [2023-09-30T01:02:16.028Z] Time:          Fri Sep 29 2023 18:02:16 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T01:02:16.028Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T01:02:16.097Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T01:02:16.097Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T01:02:16.205Z] java version "21" 2023-09-19 LTS
+
+[debug] [2023-09-30T01:02:16.205Z] Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T01:02:16.211Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T01:02:16.418Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T01:02:16.469Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2023-09-30T01:04:07.223Z] ----------------------------------------------------------------------
+[debug] [2023-09-30T01:04:07.224Z] Command:       /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/node /Users/bridgerbrown/.nvm/versions/node/v18.17.0/bin/firebase emulators:start
+[debug] [2023-09-30T01:04:07.224Z] CLI Version:   12.6.1
+[debug] [2023-09-30T01:04:07.224Z] Platform:      darwin
+[debug] [2023-09-30T01:04:07.225Z] Node Version:  v18.17.0
+[debug] [2023-09-30T01:04:07.225Z] Time:          Fri Sep 29 2023 18:04:07 GMT-0700 (Pacific Daylight Time)
+[debug] [2023-09-30T01:04:07.225Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-30T01:04:07.284Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-30T01:04:07.284Z] > authorizing via signed-in user (bridgerwrenbrown@gmail.com)
+[debug] [2023-09-30T01:04:07.366Z] java version "21" 2023-09-19 LTS
+
+[debug] [2023-09-30T01:04:07.367Z] Java(TM) SE Runtime Environment (build 21+35-LTS-2513)
+Java HotSpot(TM) 64-Bit Server VM (build 21+35-LTS-2513, mixed mode, sharing)
+
+[debug] [2023-09-30T01:04:07.371Z] Parsed Java major version: 21
+[info] i  emulators: Starting emulators: auth, firestore {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, firestore"}}
+[debug] [2023-09-30T01:04:07.571Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[info] i  emulators: Shutting down emulators. {"metadata":{"emulator":{"name":"hub"},"message":"Shutting down emulators."}}
+[debug] [2023-09-30T01:04:07.621Z] Error: getaddrinfo ENOTFOUND http://127.0.0.1
+    at GetAddrInfoReqWrap.onlookupall [as oncomplete] (node:internal/dns/promises:96:17)
+[error] 
+[error] Error: An unexpected error has occurred.
