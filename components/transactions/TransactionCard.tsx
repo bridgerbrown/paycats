@@ -1,9 +1,9 @@
 import React, { useEffect, useState, MouseEvent } from 'react';
 import Image from 'next/image';
 import { catUsers } from '../../data/catUsers';
-import { useAuth } from '@/data/context/AuthContext';
-import { getUserData } from '@/data/firebase/firestore';
-import Comment from '@/components/transactions/Comment';
+import { useAuth } from '../../data/context/AuthContext';
+import { getUserData } from '../../data/firebase/firestore';
+import Comment from '../../components/transactions/Comment';
 import { useRouter } from 'next/router';
 
 export default function TransactionCard(props: any) {
@@ -95,7 +95,10 @@ export default function TransactionCard(props: any) {
     const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
     
     return (
-        <div className='shadow-md font-Hind xs:w-11/12  sm:w-144 lg:w-192 flex xs:justify-center sm:justify-left pt-5 xs:px-2 sm:px-10 bg-white border-x border-slate-300 pb-3 pt-3'>
+        <div 
+          className='shadow-md font-Hind xs:w-11/12  sm:w-144 lg:w-192 flex xs:justify-center sm:justify-left pt-5 xs:px-2 sm:px-10 bg-white border-x border-slate-300 pb-3'
+          data-testid={props.testid}
+        >
             <div className='xs:w-11/12 sm:w-144 lg:w-192 border-b border-slate-300 flex-column'>
                 <div className='ml-2 flex'>
                     <Image 

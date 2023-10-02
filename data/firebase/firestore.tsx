@@ -1,7 +1,7 @@
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from './firebase.config';
-import { transactions } from '@/data/defaultTransactions';
-import { notifications } from '@/data/defaultNotifications';
+import { transactions } from '../defaultTransactions';
+import { notifications } from '../defaultNotifications';
 
 interface UserData {
   username: string;
