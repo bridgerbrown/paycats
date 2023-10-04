@@ -247,6 +247,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                                 type="number" placeholder='0.00' min="0.00" max="10000.00" step="0.01" 
                                 required 
                                 id='amount'
+                                data-testid="payrequest-amountinput"
                             />
                         </div>
                     </div>
@@ -281,6 +282,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                         <button
                             onClick={submitForm}
                             className='xs:w-full sm:w-144 lg:w-192 h-16 bg-blue-800 text-white rounded-none hover:bg-blue-700'
+                            data-testid="payrequest-submit-button"
                         >
                             Submit
                         </button>

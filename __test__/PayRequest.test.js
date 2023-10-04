@@ -5,12 +5,13 @@ import { useRouter } from 'next/router';
 import UserSelectDropdown from '../components/user-dropdown/UserSelectDropdown';
 import UserSelectCard from '../components/user-dropdown/UserSelectCard';
 import PayRequest from '../pages/pay-request';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
 jest.mock('../data/context/AuthContext', () => ({
   useAuth: () => ({
-    userFound: 'testUser',
+    userFound: 'example@example.com',
   })
 }));
 
@@ -46,19 +47,39 @@ describe('PayRequest component', () => {
     const { getByTestId } = renderedComponent;
     
     const dropdownButton = getByTestId("payrequest-dropdown-button");
-    
-    fireEvent.click(dropdownButton);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    act(() => {
+      fireEvent.click(dropdownButton);
+    });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const firstUserCard = getByTestId("payrequest-usercard-0")
 
-    fireEvent.click(firstUserCard);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-
-    expect(dropdownButton).toBeNaN();
+    act(() => {
+      fireEvent.click(firstUserCard);
+    });
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const textArea = getByTestId("payrequest-textarea");
-    fireEvent.change(textArea, { target: { value: "Test text area" }});
+    act(() => {
+      fireEvent.change(textArea, { target: { value: "Test text area" }});
+    });
+
     expect(textArea.value).toBe("Test text area");
+
+    const amountInput = getByTestId("payrequest-amountinput");
+    act(() => {
+      fireEvent.input(amountInput, { target: { value: "3" }});
+    });
+
+    expect(amountInput.value).toBe("3");
+
+    const submitButton = getByTestId("payrequest-submit-button");
+    act(() => {
+      fireEvent.click(submitButton);
+    });
+
+    await mockRouter.waitForChange(() => {
+      expect(mockRouter.push).toHaveBeenCalledWith('/my-transactions');
+    });
   })
 });
