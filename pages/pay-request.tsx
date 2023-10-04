@@ -1,17 +1,17 @@
-import Footer from '@/components/general/Footer';
-import Navbar from '@/components/general/Navbar';
-import UserSelectDropdown from '@/components/user-dropdown/UserSelectDropdown';
+import Footer from '../components/general/Footer';
+import Navbar from '../components/general/Navbar';
+import UserSelectDropdown from '../components/user-dropdown/UserSelectDropdown';
 import React, { useState, MouseEvent, useEffect } from 'react';
 import Image from 'next/image';
-import { useAuth } from '@/data/context/AuthContext';
-import { updateTransactions, updateBalance, updateNotifications } from '@/data/firebase/firestore';
+import { useAuth } from '../data/context/AuthContext';
+import { updateTransactions, updateBalance, updateNotifications } from '../data/firebase/firestore';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/data/firebase/firebase.config';
-import { catUsers } from '@/data/catUsers';
-import { updateUnread } from '@/data/firebase/firestore';
-import LoadingCircle from '@/components/general/LoadingCircle';
+import { db } from '../data/firebase/firebase.config';
+import { catUsers } from '../data/catUsers';
+import { updateUnread } from '../data/firebase/firestore';
+import LoadingCircle from '../components/general/LoadingCircle';
 
 interface FormType {
     id: number | null,
@@ -35,7 +35,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const [loadingTransition, setLoadingTransition] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
     const [formContents, setFormContents] = useState<FormType>({    
-        id: findUser.transactions.length,   
+        id: findUser?.transactions.length,   
         from: userFound.substring(0, userFound.lastIndexOf("@")),
         to: "",
         payRequest: radioState,
@@ -197,7 +197,10 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
     const payRequestButtonStyling = `flex h-16 justify-center items-center bg-blue-400 text-white cursor-pointer focus:outline-none border-none hover:bg-blue-500 peer-checked:bg-blue-600 peer-checked:border-transparent`;
 
     return (
-        <div className='w-screen min-h-screen relative font-Hind bg-stone-100'>
+        <div 
+          className='w-screen min-h-screen relative font-Hind bg-stone-100'
+          data-testid="payrequest-component"
+        >
             <Navbar />
             <div className='flex justify-center'>
                 <div className='xs:w-11/12 sm:w-144 lg:w-192 mt-8 mb-4'>
@@ -213,7 +216,8 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                             <button 
                                 className='hover:bg-slate-100 hover:text-blue-700 hover:border-blue-700 flex justify-center items-center border-2 rounded-full px-2.5 py-0.5 mx-4 mt-0.5 text-blue-900 font-semibold border-blue-900'
                                 onClick={() => setToDropdown(!toDropdown)}
-                                >
+                                data-testid="payrequest-dropdown-button"      
+                            >
                                 +
                             </button>
                             : 
@@ -257,6 +261,7 @@ export default function PayRequest({users}: InferGetServerSidePropsType<typeof g
                     <textarea placeholder="What's it for?" 
                         className='w-full px-4 py-4 resize-none h-60 text-black border-none focus:border-none active:border-none'
                         id='description'
+                        data-testid="payrequest-textarea"
                     />
                     <div className='xs:w-full sm:w-144 lg:w-192'>
                         <form action="">

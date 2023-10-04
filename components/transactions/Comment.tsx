@@ -6,6 +6,7 @@ import { catUsers } from "../../data/catUsers";
 export default function Comment(props: any){
     const { userFound, userImage } = useAuth()
     const comment = props.transactionComment
+    const transactionId = props.transactionId;
 
     const getCommentImage = (fromUser: string) => {
         if(fromUser === userFound) {
@@ -21,7 +22,7 @@ export default function Comment(props: any){
     return (
         <div 
           className='flex items-center w-full xs:ml-20 sm:ml-26 mb-6 text-black border-t pt-4'
-          data-testid="transaction-comment"
+          data-testid={`transaction-${transactionId}-comment-${comment.id}`}
         >
             <Image 
                 src={`/${getCommentImage(comment.from)}`}

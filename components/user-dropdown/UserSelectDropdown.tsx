@@ -1,6 +1,6 @@
-import { catUsers } from "@/data/catUsers";
+import { catUsers } from "../../data/catUsers";
 import React, {useState} from "react";
-import UserSelectCard from "@/components/user-dropdown/UserSelectCard";
+import UserSelectCard from "../../components/user-dropdown/UserSelectCard";
 
 export default function UserSelectDropdown({recipientImagePreview}: any) {
     const [userSelect, setUserSelect] = useState<number | null>(null);

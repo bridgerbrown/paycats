@@ -34,7 +34,7 @@ describe('TransactionsSection component', () => {
     const { getAllByTestId } = render(<TransactionsSection transactions={transactions} />);
     await act(async () => {});
 
-    const transactionCards = getAllByTestId('transaction-card');
+    const transactionCards = getAllByTestId(/^transaction-card-\d+$/);
     expect(transactionCards.length).toBe(transactions.length);
   });
 
@@ -64,7 +64,7 @@ describe('TransactionsSection component', () => {
 
     it('renders the transaction users image', () => {
       const { getByTestId } = renderedComponent;
-      const imageElement = getByTestId('transaction-image');
+      const imageElement = getByTestId('transaction-0-image');
 
       const alt = `transaction sender, ${testTransaction.from}`;
       expect(imageElement.alt).toContain(alt);
@@ -72,36 +72,34 @@ describe('TransactionsSection component', () => {
 
     it('renders the correct transaction type', () => {
       const { getByTestId } = renderedComponent;
-      const transactionText = getByTestId("transaction-type-pay");
+      const transactionText = getByTestId("transaction-0-type-pay");
       expect(transactionText.textContent).toBe(`${testTransaction.from} paid ${testTransaction.to}`)
     });
 
     it('renders the correct number of likes and comments', () => {
       const { getByTestId } = renderedComponent;
 
-      const likesCount = getByTestId("likes-count");
+      const likesCount = getByTestId("transaction-0-likes-count");
       expect(likesCount.textContent).toBe("3");
-      const commentsCount = getByTestId("comments-count");
+      const commentsCount = getByTestId("transaction-0-comments-count");
       expect(commentsCount.textContent).toBe("1");
     });
 
     it('adds/removes a like and changes heart image when like button is clicked', async () => {
       const { getByTestId } = renderedComponent;
-      const likeButton = getByTestId("like-button");
-      const likesCount = getByTestId("likes-count");
+      const likeButton = getByTestId("transaction-0-like-button");
+      const likesCount = getByTestId("transaction-0-likes-count");
 
       expect(likesCount.textContent).toBe("3");
       expect(likeButton.alt).toContain("Like button, transaction not liked");
 
       fireEvent.click(likeButton);
-      
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(likesCount.textContent).toBe("4");
       expect(likeButton.alt).toContain("Like button, transaction liked");
 
       fireEvent.click(likeButton);
-
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(likesCount.textContent).toBe("3");
@@ -110,17 +108,17 @@ describe('TransactionsSection component', () => {
   
     it('adds a new comment properly', async () => {
       const { getByTestId } = renderedComponent;
-      const commentsDropdown = getByTestId("transaction-comments-dropdown");
-      const commentsCount = getByTestId("comments-count");
+      const commentsDropdown = getByTestId("transaction-0-comments-dropdown");
+      const commentsCount = getByTestId("transaction-0-comments-count");
 
       fireEvent.click(commentsDropdown);
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const commentTextArea = getByTestId("transaction-comment-textarea");
+      const commentTextArea = getByTestId("transaction-0-comment-textarea");
       fireEvent.change(commentTextArea, { target: { value: "Test comment" } });
       expect(commentTextArea.value).toBe("Test comment");
 
-      const commentSubmitButton = getByTestId("transaction-comment-submit");
+      const commentSubmitButton = getByTestId("transaction-0-comment-submit");
       fireEvent.click(commentSubmitButton);
       await new Promise((resolve) => setTimeout(resolve, 1000));
 

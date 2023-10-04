@@ -7,7 +7,7 @@ export default function UserSelectCard({user, userSelect, selectUser, recipientI
     
     return(
         <div className={userSelect === user.id ? selectedStyle : unselectedStyle}
-            data-testid="user-select-card"
+            data-testid={`payrequest-usercard-${user.id}`}
             onClick={() => {
                 selectUser(user.id)
                 recipientImagePreview(user.img, user.name)

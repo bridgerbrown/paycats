@@ -93,7 +93,7 @@ export default function TransactionCard(props: any) {
     return (
         <div 
           className='shadow-md font-Hind xs:w-11/12  sm:w-144 lg:w-192 flex xs:justify-center sm:justify-left pt-5 xs:px-2 sm:px-10 bg-white border-x border-slate-300 pb-3'
-          data-testid="transaction-card"
+          data-testid={`transaction-card-${transaction.id}`}
         >
             <div className='xs:w-11/12 sm:w-144 lg:w-192 border-b border-slate-300 flex-column'>
                 <div className='ml-2 flex'>
@@ -103,16 +103,16 @@ export default function TransactionCard(props: any) {
                         height={200}
                         alt={`transaction sender, ${transaction.from}`}
                         className='xs:w-16 xs:h-16 shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
-                        data-testid="transaction-image"
+                        data-testid={`transaction-${transaction.id}-image`}
                     />
                     <div className='flex-column font-Hind pb-7'>
                         {
                             transaction.payRequest == "pay" ?
-                            <p className='' data-testid="transaction-type-pay">
+                            <p className='' data-testid={`transaction-${transaction.id}-type-pay`}>
                                 <span className='font-semibold'>{transaction.from}</span> paid <span className='font-semibold'>{transaction.to}</span>
                             </p>
                             :
-                            <p className='' data-testid="transaction-type-request">
+                            <p className='' data-testid={`transaction-${transaction.id}-type-request`}>
                                 <span className='font-semibold'>{transaction.from}</span> charged <span className='font-semibold'>{transaction.to}</span>
                             </p>
                         }
@@ -138,11 +138,11 @@ export default function TransactionCard(props: any) {
                                     src={liked ? "/icons/heart-icon-red.png" : "/icons/heart-icon-gray.png"}
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => updateLikes()}
-                                    data-testid="like-button"
+                                    data-testid={`transaction-${transaction.id}-like-button`}
                                 />
                                 <p 
                                   className='ml-1 text-sm'
-                                  data-testid="likes-count"
+                                  data-testid={`transaction-${transaction.id}-likes-count`}
                                 >
                                     {likes}
                                 </p>
@@ -155,11 +155,11 @@ export default function TransactionCard(props: any) {
                                     src="/icons/comment-icon.png"
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => dropdown()}
-                                    data-testid="transaction-comments-dropdown"
+                                    data-testid={`transaction-${transaction.id}-comments-dropdown`}
                                 />
                                 <p 
                                   className='ml-1 text-sm'
-                                  data-testid="comments-count"
+                                  data-testid={`transaction-${transaction.id}-comments-count`}
                                 >
                                     {commentsLength}
                                 </p>
@@ -172,7 +172,7 @@ export default function TransactionCard(props: any) {
                     ?
                     <div className='w-3/4 my-2'>
                         { comments ?
-                            comments.map((transactionComment: any) => <Comment key={transactionComment} transactionComment={transactionComment} />)
+                            comments.map((transactionComment: any) => <Comment key={transactionComment} transactionComment={transactionComment} transactionId={transaction.id} />)
                             :
                             <div></div>
                         }
@@ -180,7 +180,7 @@ export default function TransactionCard(props: any) {
                             <textarea placeholder="Write something..." 
                                 className='border-slate-400 w-full xs:ml-20 sm:ml-26 rounded resize-none mb-2 text-black'
                                 id='comment'
-                                data-testid="transaction-comment-textarea"
+                                data-testid={`transaction-${transaction.id}-comment-textarea`}
                             />
                             <div className='flex justify-between xs:ml-20 sm:ml-28 w-full'>
                                 <div className=''>
@@ -190,7 +190,7 @@ export default function TransactionCard(props: any) {
                                     <button
                                         className='cursor-pointer bg-blue-800 text-sm text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
                                         onClick={commentSubmit}
-                                        data-testid="transaction-comment-submit"
+                                        data-testid={`transaction-${transaction.id}-comment-submit`}
                                     >Submit</button>
                                 </div>
                             </div>
