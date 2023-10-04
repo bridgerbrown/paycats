@@ -7,19 +7,17 @@ import Comment from '../../components/transactions/Comment';
 import { useRouter } from 'next/router';
 
 export default function TransactionCard(props: any) {
-    const {userFound, userImage, updateTransactionSocials} = useAuth()
-    const transaction = props.transaction
-    const [likes, setLikes] = useState<number>(transaction.likes)
-    const [liked, setLiked] = useState<boolean>(transaction.likedByUser)
-    const [commentsLength, setCommentsLength] = useState<number>(transaction.comments.length)
-    const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false)
-    const [comments, setComments] = useState<any>(transaction.comments)
-    const [errorMessage, setErrorMessage] = useState<string>("")
+    const {userFound, userImage, updateTransactionSocials} = useAuth();
+    const transaction = props.transaction;
+    const [likes, setLikes] = useState<number>(transaction.likes);
+    const [liked, setLiked] = useState<boolean>(transaction.likedByUser);
+    const [commentsLength, setCommentsLength] = useState<number>(transaction.comments.length);
+    const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false);
+    const [comments, setComments] = useState<any>(transaction.comments);
+    const [errorMessage, setErrorMessage] = useState<string>("");
     const router = useRouter()
 
-    useEffect(() => {
-
-    }, [likes, commentsLength, comments, errorMessage])
+    useEffect(() => {}, [likes, commentsLength, comments, errorMessage])
 
     const updateLikes = () => {
         if(userFound){
@@ -107,25 +105,25 @@ export default function TransactionCard(props: any) {
                         height={200}
                         alt={`transaction sender, ${transaction.from}`}
                         className='xs:w-16 xs:h-16 shadow-sm mr-4 mt-1 object-cover w-20 h-20 rounded-full border border-slate-300'
+                        data-testid="transaction-image"
                     />
                     <div className='flex-column font-Hind pb-7'>
-                        
-                                {
-                                    transaction.payRequest == "pay" ?
-                                    <p className=''>
-                                        <span className='font-semibold'>{transaction.from}</span> paid <span className='font-semibold'>{transaction.to} </span>
-                                    </p>
-                                    :
-                                    <p className=''>
-                                        <span className='font-semibold'>{transaction.from}</span> charged <span className='font-semibold'>{transaction.to} </span>
-                                    </p>
-                                }
+                        {
+                            transaction.payRequest == "pay" ?
+                            <p className='' data-testid="transaction-type-pay">
+                                <span className='font-semibold'>{transaction.from}</span> paid <span className='font-semibold'>{transaction.to}</span>
+                            </p>
+                            :
+                            <p className='' data-testid="transaction-type-request">
+                                <span className='font-semibold'>{transaction.from}</span> charged <span className='font-semibold'>{transaction.to}</span>
+                            </p>
+                        }
                         <div className='flex items-center'>
                             <p className='text-sm text-slate-600 mr-1'>3h</p>
                             <Image
                                 width={100}
                                 height={100}
-                                alt="heart icon"
+                                alt="globe icon, transaction is public"
                                 src="/icons/globe-icon.png"
                                 className='w-4 h-4 mx-0.5'
                             />
@@ -138,12 +136,18 @@ export default function TransactionCard(props: any) {
                                 <Image
                                     width={100}
                                     height={88}
-                                    alt="like heart icon"
+                                    alt={liked ? "Like button, transaction liked" : "Like button, transaction not liked"}
                                     src={liked ? "/icons/heart-icon-red.png" : "/icons/heart-icon-gray.png"}
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => updateLikes()}
+                                    data-testid="like-button"
                                 />
-                                <p className='ml-1 text-sm'>{likes}</p>
+                                <p 
+                                  className='ml-1 text-sm'
+                                  data-testid="likes-count"
+                                >
+                                    {likes}
+                                </p>
                             </div>
                             <div className='mr-7 flex justify-center items-center'>
                                 <Image
@@ -154,7 +158,12 @@ export default function TransactionCard(props: any) {
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => dropdown()}
                                 />
-                                <p className='ml-1 text-sm'>{commentsLength}</p>
+                                <p 
+                                  className='ml-1 text-sm'
+                                  data-testid="comments-count"
+                                >
+                                    {commentsLength}
+                                </p>
                             </div>
                         </div>
                     </div>
