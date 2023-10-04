@@ -19,7 +19,10 @@ export default function Comment(props: any){
     const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
 
     return (
-        <div className='flex items-center w-full xs:ml-20 sm:ml-26 mb-6 text-black border-t pt-4'>
+        <div 
+          className='flex items-center w-full xs:ml-20 sm:ml-26 mb-6 text-black border-t pt-4'
+          data-testid="transaction-comment"
+        >
             <Image 
                 src={`/${getCommentImage(comment.from)}`}
                 width={200}

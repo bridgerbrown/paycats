@@ -8,7 +8,6 @@ export default function TransactionsSection(props: any) {
         (p1: any, p2: any) => (p1.id < p2.id) ? 1 : (p1.id > p2.id) ? -1 : 0
     );
 
-    console.log("sorted: " + sortedTransactions)
     return (
         <div 
           className='w-screen relative font-Hind bg-stone-100'
@@ -20,7 +19,6 @@ export default function TransactionsSection(props: any) {
                             <TransactionCard 
                               key={transaction.id} 
                               transaction={transaction} 
-                              testid={"transaction-card"}
                             />
                         ))}
                     <div className='shadow-md rounded-b-lg border-slate-300 border-x border-b h-16 bg-white xs:w-11/12 sm:w-144 lg:w-192'></div>

@@ -9,6 +9,12 @@ import { useRouter } from 'next/router';
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
+jest.mock('../data/context/AuthContext', () => ({
+  useAuth: () => ({
+    userFound: 'testUser',
+  })
+}));
+
 const mockRouterSetup = () => {
   mockRouter.push('/');
 };
@@ -73,34 +79,52 @@ describe('TransactionsSection component', () => {
     it('renders the correct number of likes and comments', () => {
       const { getByTestId } = renderedComponent;
 
-      const likesAmount = getByTestId("likes-count");
-      expect(likesAmount.textContent).toBe("3");
-      const commentAmount = getByTestId("comments-count");
-      expect(commentAmount.textContent).toBe("1");
+      const likesCount = getByTestId("likes-count");
+      expect(likesCount.textContent).toBe("3");
+      const commentsCount = getByTestId("comments-count");
+      expect(commentsCount.textContent).toBe("1");
     });
 
     it('adds/removes a like and changes heart image when like button is clicked', async () => {
       const { getByTestId } = renderedComponent;
       const likeButton = getByTestId("like-button");
-      const likesAmount = getByTestId("likes-count");
+      const likesCount = getByTestId("likes-count");
 
-      expect(likesAmount.textContent).toBe("3");
+      expect(likesCount.textContent).toBe("3");
       expect(likeButton.alt).toContain("Like button, transaction not liked");
 
       fireEvent.click(likeButton);
       
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      expect(likesAmount.textContent).toBe("4");
+      expect(likesCount.textContent).toBe("4");
       expect(likeButton.alt).toContain("Like button, transaction liked");
 
       fireEvent.click(likeButton);
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      expect(likesAmount.textContent).toBe("3");
+      expect(likesCount.textContent).toBe("3");
       expect(likeButton.alt).toContain("Like button, transaction not liked");
     });
+  
+    it('adds a new comment properly', async () => {
+      const { getByTestId } = renderedComponent;
+      const commentsDropdown = getByTestId("transaction-comments-dropdown");
+      const commentsCount = getByTestId("comments-count");
 
+      fireEvent.click(commentsDropdown);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const commentTextArea = getByTestId("transaction-comment-textarea");
+      fireEvent.change(commentTextArea, { target: { value: "Test comment" } });
+      expect(commentTextArea.value).toBe("Test comment");
+
+      const commentSubmitButton = getByTestId("transaction-comment-submit");
+      fireEvent.click(commentSubmitButton);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      expect(commentsCount.textContent).toBe("2");
+    }) 
   });
 });

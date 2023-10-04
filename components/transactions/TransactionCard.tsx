@@ -15,15 +15,14 @@ export default function TransactionCard(props: any) {
     const [commentsDropdown, setCommentsDropdown] = useState<boolean>(false);
     const [comments, setComments] = useState<any>(transaction.comments);
     const [errorMessage, setErrorMessage] = useState<string>("");
-    const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {}, [likes, commentsLength, comments, errorMessage])
 
     const updateLikes = () => {
-        if(userFound){
+        if (userFound) {
             const addedLike = likes + 1
             const removedLike = likes <= 0 ? 0 : likes - 1
-            console.log(likes)
             if(liked) {
                 getUserData(userFound)
                     .then((data) => {
@@ -31,7 +30,6 @@ export default function TransactionCard(props: any) {
                     })
                 setLikes(prev => prev <= 0 ? 0 : prev - 1)
                 setLiked(!liked)
-                console.log("disliked " + (likes -1))
             } else if(!liked) {
                 getUserData(userFound)
                     .then((data) => {
@@ -39,7 +37,6 @@ export default function TransactionCard(props: any) {
                     })
                 setLikes(prev => prev + 1)
                 setLiked(!liked)
-                console.log("liked " + (likes + 1))
             }
         } else {
             router.push('/profile/signup')
@@ -89,13 +86,14 @@ export default function TransactionCard(props: any) {
             }
         }
     }
-    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
-    const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from)
+
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
+    const fromImg: string | undefined = transaction.from == username ? `cat-profile-${userImage}.jpg` : findUserImg(transaction.from);
     
     return (
         <div 
           className='shadow-md font-Hind xs:w-11/12  sm:w-144 lg:w-192 flex xs:justify-center sm:justify-left pt-5 xs:px-2 sm:px-10 bg-white border-x border-slate-300 pb-3'
-          data-testid={props.testid}
+          data-testid="transaction-card"
         >
             <div className='xs:w-11/12 sm:w-144 lg:w-192 border-b border-slate-300 flex-column'>
                 <div className='ml-2 flex'>
@@ -157,6 +155,7 @@ export default function TransactionCard(props: any) {
                                     src="/icons/comment-icon.png"
                                     className='w-4.5 h-4.5 mr-1 cursor-pointer'
                                     onClick={() => dropdown()}
+                                    data-testid="transaction-comments-dropdown"
                                 />
                                 <p 
                                   className='ml-1 text-sm'
@@ -181,6 +180,7 @@ export default function TransactionCard(props: any) {
                             <textarea placeholder="Write something..." 
                                 className='border-slate-400 w-full xs:ml-20 sm:ml-26 rounded resize-none mb-2 text-black'
                                 id='comment'
+                                data-testid="transaction-comment-textarea"
                             />
                             <div className='flex justify-between xs:ml-20 sm:ml-28 w-full'>
                                 <div className=''>
@@ -190,6 +190,7 @@ export default function TransactionCard(props: any) {
                                     <button
                                         className='cursor-pointer bg-blue-800 text-sm text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
                                         onClick={commentSubmit}
+                                        data-testid="transaction-comment-submit"
                                     >Submit</button>
                                 </div>
                             </div>
