@@ -38,7 +38,7 @@ export default function Navbar() {
     }
 
     return (
-        <div>
+        <div data-testid="navbar">
             <nav className="relative flex justify-between sm:py-5 lg:py-7 xs:h-24 sm:h-fit bg-blue-900 w-screen">
                 <div className='lg:flex sm:flex-column sm:justify-center md:justify-start'>
                     <div className='w-screen md:flex-column lg:flex items-center text-white font-Hind tracking-wide'>
@@ -50,6 +50,7 @@ export default function Navbar() {
                                     height={44.48}
                                     alt="PayCats logo"
                                     className='lg:ml-8 xs:ml-4 sm:mb-2 lg:mb-1 xs:mt-5 xs:pt-0.5 sm:mt-1 sm:w-60'
+                                    data-testid="navbar-logo"
                                 />
                             </Link>
                         </div>
@@ -65,7 +66,7 @@ export default function Navbar() {
                                 <Link href={redirectIfNoUser("/my-transactions")} className={`text-center ${navItemStyle}`}>
                                     My Transactions
                                 </Link>
-                                <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full px-4 py-2.5 mx-2">
+                                <Link href={redirectIfNoUser("/balance")} className="px-3 active:bg-white/10 transition border-transparent border hover:border hover:transition hover:border-white/20 hover:mx-2 rounded-full py-2.5 mx-2">
                                     <div className='flex items-center'>
                                         <h2 className='sm:text-sm md:text-base tracking-wide text-white'>Balance</h2>
                                     </div>
@@ -148,7 +149,7 @@ export default function Navbar() {
                 backdropMenu ?
                 <div id="backdrop-menu" className='xs:absolute sm:hidden z-10 opacity-95 bg-blue-900 w-screen h-screen'>
                     <div className='font-Hind pt-4 flex-col flex text-white items-center justify-center'>
-                        <Link href={redirectIfNoUser("/pay-request")} onClick={backdropToggle} className='my-4 text-xl font-normal bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
+                        <Link href={redirectIfNoUser("/pay-request")} onClick={backdropToggle} className='my-4 text-xl bg-white text-blue-900 px-5 font-semibold border-2 border-white rounded-full py-2'>
                             Pay/Request
                         </Link>
                         <Link href="/" onClick={backdropToggle} className={burgerItemStyle}>

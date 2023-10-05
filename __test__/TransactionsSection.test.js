@@ -1,17 +1,19 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import TransactionsSection from '../components/transactions/TransactionsSection';
 import TransactionCard from '../components/transactions/TransactionCard';
 import { transactions } from '../data/defaultTransactions';
 import { act } from 'react-dom/test-utils';
 import mockRouter from 'next-router-mock';
-import { useRouter } from 'next/router';
+import Navbar from '../components/general/Navbar';
 
 jest.mock('next/router', () => jest.requireActual('next-router-mock'));
 
 jest.mock('../data/context/AuthContext', () => ({
   useAuth: () => ({
-    userFound: 'testUser',
+    userFound: 'example@example.com',
+    unreadBell: false,
+    setUnreadBell: jest.fn()
   })
 }));
 
@@ -25,6 +27,14 @@ describe('next-router-mock', () => {
   });
 });
 
+describe('Navbar component', () => {
+  it('should render without errors', () => {
+    const { getByTestId } = render(<Navbar />);
+    const navbarLogo = getByTestId("navbar-logo");
+    expect(navbarLogo.alt).toBe("PayCats logo")
+  });
+});
+
 describe('TransactionsSection component', () => {
   beforeEach(() => {
     mockRouterSetup();
@@ -32,7 +42,6 @@ describe('TransactionsSection component', () => {
 
   it('renders TransactionCard components for each transaction', async () => {
     const { getAllByTestId } = render(<TransactionsSection transactions={transactions} />);
-    await act(async () => {});
 
     const transactionCards = getAllByTestId(/^transaction-card-\d+$/);
     expect(transactionCards.length).toBe(transactions.length);
@@ -93,13 +102,17 @@ describe('TransactionsSection component', () => {
       expect(likesCount.textContent).toBe("3");
       expect(likeButton.alt).toContain("Like button, transaction not liked");
 
-      fireEvent.click(likeButton);
+      await act( async () => {
+        fireEvent.click(likeButton);
+      });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(likesCount.textContent).toBe("4");
       expect(likeButton.alt).toContain("Like button, transaction liked");
 
-      fireEvent.click(likeButton);
+      await act( async () => {
+        fireEvent.click(likeButton);
+      });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(likesCount.textContent).toBe("3");
@@ -111,15 +124,21 @@ describe('TransactionsSection component', () => {
       const commentsDropdown = getByTestId("transaction-0-comments-dropdown");
       const commentsCount = getByTestId("transaction-0-comments-count");
 
-      fireEvent.click(commentsDropdown);
+      await act( async () => {
+        fireEvent.click(commentsDropdown);
+      });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const commentTextArea = getByTestId("transaction-0-comment-textarea");
-      fireEvent.change(commentTextArea, { target: { value: "Test comment" } });
+      await act( async () => {
+        fireEvent.change(commentTextArea, { target: { value: "Test comment" } });
+      });
       expect(commentTextArea.value).toBe("Test comment");
 
       const commentSubmitButton = getByTestId("transaction-0-comment-submit");
-      fireEvent.click(commentSubmitButton);
+      await act( async () => {
+        fireEvent.click(commentSubmitButton);
+      });
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       expect(commentsCount.textContent).toBe("2");
