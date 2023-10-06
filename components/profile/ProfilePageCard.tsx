@@ -7,7 +7,8 @@ import { useRouter } from 'next/router';
 import { transactions } from '../../data/defaultTransactions';
 
 export default function ProfilePageCard({findUser}: any) {
-    const { userFound, loading, logOut, updateUserImage, setUserImage } = useAuth();
+    const { userFound, loading, logOut, updateUserImage, userImage, setUserImage } = useAuth();
+    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : "";
     const inputCss = `xs:h-20 xs:w-20 sm:h-24 sm:w-24 lg:h-36 lg:w-36 cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover z-10 bg-transparent`;
     const [imageChange, setImageChange] = useState<boolean>(false);
@@ -15,10 +16,6 @@ export default function ProfilePageCard({findUser}: any) {
     const router = useRouter();
 
     useEffect(() => {}, [userFound, findUser, radioState]);
-
-    const username = () => {
-      return userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
-    }
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
@@ -59,8 +56,8 @@ export default function ProfilePageCard({findUser}: any) {
             function (item: any) {
                 return item.from == username || item.to == username
             }
-        ) : transactions
-        return onlyMyTransactions.length
+        ) : transactions;
+        return onlyMyTransactions.length;
     }
 
     if(loading) return (
@@ -74,7 +71,7 @@ export default function ProfilePageCard({findUser}: any) {
             <div className='xs:w-11/12 shadow-md rounded-lg border border-slate-300 flex items-center justify-center pt-20 pb-28 mt-0 mb-6 font-Hind bg-white sm:w-144 lg:w-192'>
                     {
                         imageChange ?
-                        <div>
+                        <div data-testid="profile-imageChange-opened">
                             <h2 className='text-center xs:text-lg sm:text-xl mb-8'>Choose a new profile picture:</h2>
                             <div className='flex my-2'>
                                 <form action="">
@@ -85,6 +82,7 @@ export default function ProfilePageCard({findUser}: any) {
                                     <input type="radio" name="img" id="img1" value="2"
                                         onChange={(e) => onRadioChange(e)}
                                         className={`bg-profile2 checked:bg-profile2 ${inputCss}`} 
+                                        data-testid="profile-imageChange-newImg"
                                     />
                                     <input type="radio" name="img" id="img1" value="3"
                                         onChange={(e) => onRadioChange(e)}
@@ -98,8 +96,9 @@ export default function ProfilePageCard({findUser}: any) {
                                         <button 
                                             onClick={handleImgSubmit}
                                             className='mr-2 cursor-pointer ml-2 bg-blue-900 text-white px-4 py-1.5 rounded-full hover:bg-blue-700'
-                                            >
-                                                Confirm
+                                            data-testid="profile-imageChange-submit"
+                                        >
+                                          Confirm
                                         </button>
                                     </div>
                                 </form>
@@ -107,19 +106,23 @@ export default function ProfilePageCard({findUser}: any) {
 
                         </div>
                         :
-                    <div className='flex flex-col justify-center items-center'>
+                    <div 
+                      className='flex flex-col justify-center items-center'
+                      data-testid="profile-imageChange-closed"
+                    >
                         <Image 
                             src={dynamicUserImg()}
                             width={200}
                             height={200}
-                            alt="User profile picture of cat headshot"
+                            alt={`User profile picture number #${radioState} of cat headshot`}
                             className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mt-2 mb-4'
+                            data-testid="profile-image"
                         />
                         <h1 
                           className='text-3xl flex justify-center mb-2'
                           data-testid="profile-username"
                         >
-                          {username()}
+                          {username}
                         </h1>
                         <h2 
                           className='text-md flex justify-center mb-2'
@@ -143,7 +146,7 @@ export default function ProfilePageCard({findUser}: any) {
                               data-testid="profile-transactions"
                             >{
                                 findUser ?
-                            numberOfUsersTransactions(username())
+                            numberOfUsersTransactions(username)
                             : ""
                             } transactions</p>
                         </div>

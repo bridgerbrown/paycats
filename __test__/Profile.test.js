@@ -12,8 +12,9 @@ jest.mock('../data/context/AuthContext', () => ({
     userFound: 'example@example.com',
     unreadBell: false,
     setUnreadBell: jest.fn(),
-    userImage: "1",
-    setUserImage: jest.fn()
+    userImage: 1,
+    setUserImage: jest.fn(),
+    updateUserImage: jest.fn()
   })
 }));
 
@@ -42,7 +43,7 @@ describe('Profile component', () => {
     {
       id: 0,
       username: 'example',
-      img: "1",
+      img: 1,
       email: 'example@example.com',
       transactions: [
         {
@@ -86,6 +87,50 @@ describe('Profile component', () => {
       expect(userEmail.textContent).toBe("example@example.com");
       expect(atUsername.textContent).toBe("@example");
       expect(numberOfTransactions.textContent).toBe("1 transactions");
+    });
+  });
+
+  it('should edit the users profile image', async () => {
+    const { getByTestId } = renderedComponent;
+
+    const imageChangeClosed = getByTestId("profile-imageChange-closed");
+    expect(imageChangeClosed).toBeInTheDocument();
+
+    await waitFor(() => {
+      const originalImage = getByTestId("profile-image");
+      expect(originalImage.alt).toBe("User profile picture number #1 of cat headshot")
+    });
+
+    const imageChangeEditButton = getByTestId("profile-editimgbutton");
+    expect(imageChangeEditButton).toBeInTheDocument();
+    
+    await act( async () => {
+      fireEvent.click(imageChangeEditButton);
+    });
+
+    await waitFor(() => {
+      const imageChangeOpen = getByTestId("profile-imageChange-opened");
+      expect(imageChangeOpen).toBeInTheDocument();
+    });
+
+    const newImageSelection = getByTestId("profile-imageChange-newImg");
+    await act( async () => {
+      fireEvent.click(newImageSelection);
+    });
+    
+    const submitButton = getByTestId("profile-imageChange-submit");
+    await act( async () => {
+      fireEvent.click(submitButton);
+    });
+
+    await waitFor(() => {
+      const imageChangeClosed = getByTestId("profile-imageChange-closed");
+      expect(imageChangeClosed).toBeInTheDocument();
+    });
+
+    await waitFor(() => {
+      const newImage = getByTestId("profile-image");
+      expect(newImage.alt).toBe("User profile picture number #2 of cat headshot")
     });
   });
 });
