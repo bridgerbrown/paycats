@@ -8,7 +8,6 @@ import { transactions } from '../../data/defaultTransactions';
 
 export default function ProfilePageCard({findUser}: any) {
     const { userFound, loading, logOut, updateUserImage, setUserImage } = useAuth();
-    const username = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
     const asperandUsername = userFound ? (userFound.substring(0, userFound.lastIndexOf("@"))).replace(" ", "-") : "";
     const inputCss = `xs:h-20 xs:w-20 sm:h-24 sm:w-24 lg:h-36 lg:w-36 cursor-pointer checked:ring-4 active:ring-blue-600 active:ring-offset-4 active:ring-4 checked:ring-offset-4 checked:ring-blue-600 ring- ring-slate-300 rounded-none border-none mx-2 bg-cover z-10 bg-transparent`;
     const [imageChange, setImageChange] = useState<boolean>(false);
@@ -16,6 +15,10 @@ export default function ProfilePageCard({findUser}: any) {
     const router = useRouter();
 
     useEffect(() => {}, [userFound, findUser, radioState]);
+
+    const username = () => {
+      return userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : "";
+    }
 
     const onRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setRadioState(e.currentTarget.value)
@@ -57,7 +60,6 @@ export default function ProfilePageCard({findUser}: any) {
                 return item.from == username || item.to == username
             }
         ) : transactions
-        console.log(onlyMyTransactions.length)
         return onlyMyTransactions.length
     }
 
@@ -113,24 +115,44 @@ export default function ProfilePageCard({findUser}: any) {
                             alt="User profile picture of cat headshot"
                             className='object-cover w-36 h-36 shadow-md rounded-full border border-slate-400 mt-2 mb-4'
                         />
-                        <h1 className='text-3xl flex justify-center mb-2'>{username}</h1>
-                        <h2 className='text-md flex justify-center mb-2'>{userFound}</h2>
+                        <h1 
+                          className='text-3xl flex justify-center mb-2'
+                          data-testid="profile-username"
+                        >
+                          {username()}
+                        </h1>
+                        <h2 
+                          className='text-md flex justify-center mb-2'
+                          data-testid="profile-email"
+                        >
+                          {userFound}
+                        </h2>
                         <div className='flex'>
-                            <p className='font-thin text-slate-500 tracking-wide'>@{asperandUsername}</p>
+                            <p 
+                              className='font-thin text-slate-500 tracking-wide'
+                              data-testid="profile-atusername"
+                            >
+                              @{asperandUsername}
+                            </p>
                             <ul className='ml-6 text-slate-500'><li className='list-disc'></li></ul>
                             <p className='font-semibold tracking-wider'>4 friends</p>
                         </div>
                         <div className='my-2'>
-                            <p className='font-normal text-sm tracking-wider'>{
+                            <p 
+                              className='font-normal text-sm tracking-wider'
+                              data-testid="profile-transactions"
+                            >{
                                 findUser ?
-                            numberOfUsersTransactions(username)
+                            numberOfUsersTransactions(username())
                             : ""
                             } transactions</p>
                         </div>
                         <div className='mt-6 flex justify-center items-center'>
                             <button
                                 onClick={handleMouseEvent}
-                                className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'>
+                                className='mr-2 font-semibold font-Hind rounded-full border border-sky-700 text-sky-700 py-1.5 px-4'
+                                data-testid="profile-editimgbutton"
+                            >
                                     Edit
                             </button>
                             <Link href="/profile/login">

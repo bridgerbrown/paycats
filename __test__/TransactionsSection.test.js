@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
 import TransactionsSection from '../components/transactions/TransactionsSection';
 import TransactionCard from '../components/transactions/TransactionCard';
 import { transactions } from '../data/defaultTransactions';
@@ -105,18 +105,20 @@ describe('TransactionsSection component', () => {
       await act( async () => {
         fireEvent.click(likeButton);
       });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      expect(likesCount.textContent).toBe("4");
-      expect(likeButton.alt).toContain("Like button, transaction liked");
+      await waitFor(() => {
+        expect(likesCount.textContent).toBe("4");
+        expect(likeButton.alt).toContain("Like button, transaction liked");
+      });
 
       await act( async () => {
         fireEvent.click(likeButton);
       });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      expect(likesCount.textContent).toBe("3");
-      expect(likeButton.alt).toContain("Like button, transaction not liked");
+      await waitFor(() => {
+        expect(likesCount.textContent).toBe("3");
+        expect(likeButton.alt).toContain("Like button, transaction not liked");
+      });
     });
   
     it('adds a new comment properly', async () => {
@@ -127,21 +129,28 @@ describe('TransactionsSection component', () => {
       await act( async () => {
         fireEvent.click(commentsDropdown);
       });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const commentTextArea = getByTestId("transaction-0-comment-textarea");
+      await waitFor(() => {
+        expect(commentTextArea).toBeInTheDocument();
+      });
+
       await act( async () => {
         fireEvent.change(commentTextArea, { target: { value: "Test comment" } });
       });
-      expect(commentTextArea.value).toBe("Test comment");
+
+      await waitFor(() => {
+        expect(commentTextArea.value).toBe("Test comment");
+      });
 
       const commentSubmitButton = getByTestId("transaction-0-comment-submit");
       await act( async () => {
         fireEvent.click(commentSubmitButton);
       });
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      expect(commentsCount.textContent).toBe("2");
+      await waitFor(() => {
+        expect(commentsCount.textContent).toBe("2");
+      });
     }) 
   });
 });

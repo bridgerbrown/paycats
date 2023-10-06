@@ -1,18 +1,16 @@
 import React from 'react';
-import Footer from '@/components/general/Footer';
-import Navbar from '@/components/general/Navbar';
-import ProfilePageCard from '@/components/profile/ProfilePageCard';
-import { useAuth } from '@/data/context/AuthContext';
-import Loading from '@/components/general/Loading';
+import Footer from '../../components/general/Footer';
+import Navbar from '../../components/general/Navbar';
+import ProfilePageCard from '../../components/profile/ProfilePageCard';
+import { useAuth } from '../../data/context/AuthContext';
+import Loading from '../../components/general/Loading';
 import { GetServerSideProps, InferGetServerSidePropsType, } from 'next';
 import { collection, getDocs} from "firebase/firestore";
-import { db } from '@/data/firebase/firebase.config';
+import { db } from '../../data/firebase/firebase.config';
 
 export default function Profile({users}: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const { userFound, loading } = useAuth()
     const findUser = users.find((item: any) => item.email === userFound)
-    const usersUsername = userFound ? userFound.substring(0, userFound.lastIndexOf("@")) : ""
-    console.log(findUser)
     
     if(loading) return (
         <div>
