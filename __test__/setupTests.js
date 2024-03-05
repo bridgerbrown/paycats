@@ -1,4 +1,4 @@
-// __tests__/setupTests.js
+// __test__/setupTests.js
 import { spawn } from "child_process";
 import dotenv from "dotenv";
 dotenv.config({ path: '.env.local' });
